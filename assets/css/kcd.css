@@ -42,14 +42,17 @@ body {
 
 @media (max-width: 767px) {
   .downloader-body {
-    padding: 1.5rem 1.5rem;
+    padding: 1.0rem 1.0rem;
   }
   .download-txt {
     display: none!important;
   }
-
   .iconify {
-    font-size: 28px!important;
+    font-size: 24px!important;
+  }
+
+  .input-body input, .input-body button {
+    font-size: 14px; 
   }
 }
 
