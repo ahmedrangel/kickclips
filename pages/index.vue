@@ -26,7 +26,7 @@
         <div class="row downloader-body justify-content-center mx-1">
           <form @submit.prevent="getClip()">
             <h2 class="col-12 fw-normal title mb-4">Enter clip URL</h2>
-            <div class="col-12 row input-body p-2 mb-4">
+            <div class="col-12 row input-body p-2 mb-4 mx-0">
               <input v-model="url" class="col-9 col-lg-10 col-sm-8" id="input" type="url" placeholder="https://kick.com/user?clip=123456" required>
               <button id="download" type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center">
                 <Icon class="iconify" name="ph:download-simple-bold" />
