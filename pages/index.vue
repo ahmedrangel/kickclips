@@ -36,36 +36,32 @@
           </form>
           <Transition name="tab" mode="out-in">
             <LoadingSpinner v-if="loading" />
-            <template v-else-if="error" >
-              <h5 class="error">The URL you entered is invalid</h5>
-            </template>
-            <template v-else>
-              <div v-if="clip.channel" id="clip" class="p-0">
-                <div class="row">
-                  <div class="col-12 col-sm-4 info text-start mb-4">
-                    <div class="channel_profile">
-                      <img class="mb-1 img-fluid" :src="clip.channelPicture">
-                      <a :href="`https://kick.com/${clip.slug}`" class="text-decoration-none" target="_blank"><h3 class="mb-3 user">
-                        {{ clip.channel }}</h3></a>
-                      <h5 class="mb-3">{{ clip.title }}</h5>
-                      <p>Views: {{ clip.views }}</p>
-                      <p>Likes: {{ clip.likes }}</p>
-                      <div class="d-flex">
-                        <p>Clipped by:</p>&nbsp;<a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-none" target="_blank"><p class="user">{{ clip.creator }}</p></a>
-                      </div>
+            <h5 v-else-if="error" class="error">The URL you entered is invalid</h5>
+            <div v-else-if="clip.channel" id="clip" class="p-0">
+              <div class="row">
+                <div class="col-12 col-sm-4 info text-start mb-4">
+                  <div class="channel_profile">
+                    <img class="mb-1 img-fluid" :src="clip.channelPicture">
+                    <a :href="`https://kick.com/${clip.slug}`" class="text-decoration-none" target="_blank"><h3 class="mb-3 user">
+                      {{ clip.channel }}</h3></a>
+                    <h5 class="mb-3">{{ clip.title }}</h5>
+                    <p>Views: {{ clip.views }}</p>
+                    <p>Likes: {{ clip.likes }}</p>
+                    <div class="d-flex">
+                      <p>Clipped by:</p>&nbsp;<a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-none" target="_blank"><p class="user">{{ clip.creator }}</p></a>
                     </div>
                   </div>
-                  <div class="col-12 col-sm-8 video mb-4">
-                    <video class="img-fluid" width="1280" height="720" controls>
-                      <source :src="clip.videoUrl" type="video/mp4">
-                    </video>
-                  </div>
-                  <div class="save">
-                    <a class="col-12 btn fw-bold mb-0" :href="clip.videoUrl" target="_blank" download>Save file</a>
-                  </div>
+                </div>
+                <div class="col-12 col-sm-8 video mb-4">
+                  <video class="img-fluid" width="1280" height="720" controls>
+                    <source :src="clip.videoUrl" type="video/mp4">
+                  </video>
+                </div>
+                <div class="save">
+                  <a class="col-12 btn fw-bold mb-0" :href="clip.videoUrl" target="_blank" download>Save file</a>
                 </div>
               </div>
-            </template>
+            </div>
           </Transition>
         </div>
       </div>
