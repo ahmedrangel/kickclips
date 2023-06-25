@@ -21,7 +21,7 @@
   <main class="text-white">
     <div class="text-center container">
       <div class="my-5">
-        <h1 class="mb-4">Free Downloader</h1>
+        <h1 class="mb-4">Kick Clips Downloader</h1>
         <h5 class="mb-4 fw-light mb-4">This is a free online tool for downloading MP4 clips from kick.com.</h5>
         <div class="row downloader-body justify-content-center mx-1">
           <form @submit.prevent="getClip()">
