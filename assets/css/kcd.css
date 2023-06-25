@@ -32,7 +32,7 @@ body {
   background-color: #f8f8f8;
   border-radius: 16px 0 0 16px;
   color: var(--main-bg-color);
-  padding: 12px 20px;
+  padding: 12px 14px;
 }
 
 .input-body input, .input-body button {
