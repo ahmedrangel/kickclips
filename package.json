@@ -12,6 +12,7 @@
     "@nuxt/devtools": "latest",
     "@types/node": "^18",
     "nuxt": "^3.6.0",
+    "nuxt-icon": "^0.4.1",
     "typescript": "latest"
   },
   "dependencies": {
