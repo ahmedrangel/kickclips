@@ -54,6 +54,10 @@ body {
   .input-body input, .input-body button {
     font-size: 14px; 
   }
+
+  .container {
+    padding: 0 6px;
+  }
 }
 
 .channel_profile img {
