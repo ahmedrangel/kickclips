@@ -1,6 +1,6 @@
 <script setup>
   useSeoMeta({
-    title: " KickClips | Kick Clip Downloader | Kick Clip to MP4"
+    title: "KickClips | Kick Clip Downloader | Kick Clip to MP4"
   })
 </script>
 <template>
