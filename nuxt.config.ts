@@ -2,6 +2,7 @@ export default ({
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
     "~/assets/css/kcd.css",
+    "~/assets/css/transitions.css"	
   ],
   
   app: {
