@@ -7,7 +7,14 @@ export default ({
   
   app: {
     head: {
-      script: [{src: "https://cdnjs.cloudflare.com/ajax/libs/iconify/3.1.0/iconify.min.js"}]
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+      htmlAttrs: {
+        lang: "en"
+      },
+      meta: [
+        { name: "robots", content: "index, follow" }
+      ]
     }
   },
 

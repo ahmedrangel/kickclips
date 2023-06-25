@@ -1,13 +1,27 @@
 <script setup>
+  const seoDescription = "KickClips is a free online tool for downloading MP4 clips from kick.com.";
+  const seoTitle = "KickClips | Downloader | to MP4";
+  const seoUrl = "https://kickclips.ahmedrangel.com/";
   useSeoMeta({
-    title: "KickClips | Kick Clip Downloader | Kick Clip to MP4"
+    title: seoTitle,
+    description: seoDescription,
+    keywords: "kick, kick.com, kick clip, downloader, to mp4, mp4, download, clips, clipper",
+    // Open Graph
+    ogType: "website",
+    ogTitle: seoTitle,
+    ogDescription: seoDescription,
+    ogUrl: seoUrl,
+    // Twitter
+    twitterCard: "summary",
+    twitterTitle: seoTitle,
+    twitterDescription: seoDescription
   })
 </script>
 <template>
   <main class="text-white">
     <div class="text-center container">
       <div class="my-5">
-        <h1 class="mb-4">Free Kick Clip Downloader</h1>
+        <h1 class="mb-4">Free Downloader</h1>
         <h5 class="mb-4 fw-light mb-4">This is a free online tool for downloading MP4 clips from kick.com.</h5>
         <div class="row downloader-body justify-content-center mx-1">
           <form @submit.prevent="getClip()">
