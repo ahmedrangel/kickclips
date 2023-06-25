@@ -46,11 +46,6 @@
           const videoUrl = data.clip.video_url;
           const creator = data.clip.creator.username;
           const creatorSlug = data.clip.creator.slug;
-          const mp4Fetch = await fetch(videoUrl);
-          const mp4Blob = await mp4Fetch.blob();
-          console.log(mp4Blob);
-          const blobUrl = URL.createObjectURL(mp4Blob);
-          const filename = id + ".mp4";
           const html = `
           <div class="row">
               <div class="col-12 col-sm-4 info text-start mb-4">
@@ -71,7 +66,7 @@
                 </video>
               </div>
               <div class="save">
-                <a class="col-12 btn fw-bold mb-0" href="${blobUrl}" download="${filename}">Save file</a>
+                <a class="col-12 btn fw-bold mb-0" href="${videoUrl}" download>Save file</a>
               </div>
             </div>
           `;
