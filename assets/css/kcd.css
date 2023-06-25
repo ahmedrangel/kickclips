@@ -1,0 +1,89 @@
+:root {
+  --main-bg-color: #0b0e0f;
+  --secondary-bg-color: #24272c;
+  --terciary-bg-color: #191b1f;
+  --app-bg-color: #53fc18;
+}
+
+body {
+  background-color: var(--main-bg-color);
+}
+
+.downloader-body {
+  background-color: var(--secondary-bg-color);
+  border-radius: 16px;
+  margin: 10px 60px;
+  padding: 2rem 3rem;
+}
+
+.input-body {
+  background-color: var(--main-bg-color);
+  border-radius: 20px;
+}
+
+.input-body button {
+  background-color: var(--app-bg-color);
+  color: var(--main-bg-color);
+  text-decoration: none;
+  border-radius: 0 16px 16px 0;
+}
+
+.input-body input {
+  background-color: #f8f8f8;
+  border-radius: 16px 0 0 16px;
+  color: var(--main-bg-color);
+  padding: 12px 20px;
+}
+
+.input-body input, .input-body button {
+  font-size: 18px;
+  border: 1px solid var(--main-bg-color);
+}
+
+@media (max-width: 767px) {
+  .downloader-body {
+    padding: 1.5rem 1.5rem;
+  }
+  .download-txt {
+    display: none!important;
+  }
+
+  .iconify {
+    font-size: 28px!important;
+  }
+}
+
+.channel_profile img {
+  border-radius: 10%;
+  border: 4px solid var(--main-bg-color);
+}
+
+p {
+  margin: 0;
+}
+
+.user {
+  color: var(--app-bg-color);
+}
+
+.video video {
+  position: relative;
+  border: 4px solid var(--main-bg-color);
+  border-radius: 20px;
+}
+
+#clip .btn {
+  background-color: var(--app-bg-color);
+  color: var(--main-bg-color);
+  border-radius: 8px;
+  font-size: 1.3rem;
+  padding: 8px 0;
+}
+
+.error {
+  color: rgb(255, 74, 74);
+}
+
+#download .iconify {
+  font-size: 30px;
+}
