@@ -45,9 +45,9 @@
                     <a :href="`https://kick.com/${clip.slug}`" class="text-decoration-underline" target="_blank"><h3 class="mb-3 user">
                       {{ clip.channel }}</h3></a>
                     <h5 class="mb-3">{{ clip.title }}</h5>
-                    <p>Duration:&nbsp;&nbsp;<span class="fw-light">{{ clip.duration }}</span></p>
                     <p>Likes:&nbsp;&nbsp;<span class="fw-light">{{ clip.likes }}</span></p>
                     <p>Views:&nbsp;&nbsp;<span class="fw-light">{{ clip.views }}</span></p>
+                    <p>Duration:&nbsp;&nbsp;<span class="fw-light">{{ clip.duration }}</span></p>
                     <p>Clipped by: <a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline user" target="_blank">{{ clip.creator }}</a></p>
                     <p>Date:&nbsp;&nbsp;<span class="fw-light">{{ clip.date }}</span></p>
                   </div>
