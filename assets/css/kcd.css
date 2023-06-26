@@ -1,8 +1,34 @@
 :root {
   --main-bg-color: #0b0e0f;
   --secondary-bg-color: #24272c;
-  --terciary-bg-color: #191b1f;
+  --tertiary-bg-color: #191b1f;
   --app-bg-color: #53fc18;
+  scrollbar-color: var(--app-bg-color) var(--tertiary-bg-color);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: var(--tertiary-bg-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 0 solid transparent;
+  background-clip: content-box;
+  background-color: var(--app-bg-color);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--app-bg-color);
+}
+
+::selection {
+  background: var(--app-bg-color);
+  color: var(--main-bg-color)
 }
 
 body {
