@@ -148,7 +148,13 @@
           creator: data.clip.creator.username,
           creatorSlug: data.clip.creator.slug,
           date: this.getDateFromTimeStamp(data.clip.created_at),
-          duration: `0:${data.clip.duration}`
+          duration: (() => {
+            const durationSeconds = data.clip.duration;
+            let minutes = (Math.floor(durationSeconds / 60)).toString().padStart(2, "0");;
+            let seconds = (durationSeconds % 60).toString().padStart(2, "0");;
+            const formattedTime = minutes + ":" + seconds;
+            return formattedTime;
+          })()
         };
       }
     }
