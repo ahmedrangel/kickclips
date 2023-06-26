@@ -94,3 +94,12 @@ p {
 #download .iconify {
   font-size: 30px;
 }
+
+.guide {
+  background-color: var(--secondary-bg-color);
+  border-radius: 16px;
+}
+
+.guide img {
+  border-radius: 16px;
+}

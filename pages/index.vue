@@ -23,7 +23,7 @@
       <div class="my-5">
         <h1 class="mb-4">Kick Clips Downloader</h1>
         <h5 class="mb-4 fw-light mb-4">This is a free online tool for downloading MP4 clips from kick.com.</h5>
-        <div class="row downloader-body justify-content-center mx-1">
+        <div class="row downloader-body justify-content-center mx-1 mb-5">
           <form @submit.prevent="getClip()">
             <h2 class="col-12 fw-normal title mb-4">Enter clip URL</h2>
             <div class="col-12 row input-body p-2 mb-4 mx-0">
@@ -63,6 +63,33 @@
               </div>
             </div>
           </Transition>
+        </div>
+        <div class="guide-body mx-1">
+          <h3 class="mb-4">How to download a Kick clip?</h3>
+          <div class="row g-4">
+            <div class="col-12 col-lg-4">
+              <div class="guide p-4">
+                <h1><Icon class="iconify" name="ph:film-slate-duotone" /></h1>
+                <h5>Step 1: Get clip URL</h5>
+                <h5 class="fw-light mb-3">On the Kick.com website, search for the clip you wish to download, press the share button, and then copy the clip's URL.</h5>
+                <img class="img-fluid" src="/images/example.png">
+              </div>
+            </div>
+            <div class="col-12 col-lg-4">
+              <div class="guide p-4">
+                <h1><Icon class="iconify" name="uiw:copy" /></h1>
+                <h5>Step 2: Paste clip URL</h5>
+                <h5 class="fw-light">Simply paste the URL into the designated text box on Kickclips, and proceed by clicking the <b>"Download"</b> button.</h5>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4">
+              <div class="guide p-4">
+                <h1><Icon class="iconify" name="ph:download-simple-duotone" /></h1>
+                <h5>Step 3: Download MP4 clip</h5>
+                <h5 class="fw-light">After obtaining the video, you can easily download it by simply <b>right-clicking</b> on the displayed video and selecting <b>"Save video as"</b> or, click on the <b>"Save File"</b> button to access the MP4 URL.</h5>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
