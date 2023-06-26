@@ -134,3 +134,7 @@ p {
 .guide img {
   border-radius: 16px;
 }
+
+.text-decoration-underline {
+  color: var(--app-bg-color);
+}

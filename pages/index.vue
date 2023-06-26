@@ -42,12 +42,14 @@
                 <div class="col-12 col-sm-4 info text-start mb-4">
                   <div class="channel_profile">
                     <img class="mb-1 img-fluid" :src="clip.channelPicture">
-                    <a :href="`https://kick.com/${clip.slug}`" class="text-decoration-none" target="_blank"><h3 class="mb-3 user">
+                    <a :href="`https://kick.com/${clip.slug}`" class="text-decoration-underline" target="_blank"><h3 class="mb-3 user">
                       {{ clip.channel }}</h3></a>
                     <h5 class="mb-3">{{ clip.title }}</h5>
-                    <p>Likes: {{ clip.likes }}</p>
-                    <p>Views: {{ clip.views }}</p>
-                    <p>Clipped by: <a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-none user" target="_blank">{{ clip.creator }}</a></p>
+                    <p>Duration:&nbsp;&nbsp;<span class="fw-light">{{ clip.duration }}</span></p>
+                    <p>Likes:&nbsp;&nbsp;<span class="fw-light">{{ clip.likes }}</span></p>
+                    <p>Views:&nbsp;&nbsp;<span class="fw-light">{{ clip.views }}</span></p>
+                    <p>Clipped by: <a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline user" target="_blank">{{ clip.creator }}</a></p>
+                    <p>Date:&nbsp;&nbsp;<span class="fw-light">{{ clip.date }}</span></p>
                   </div>
                 </div>
                 <div class="col-12 col-sm-8 video mb-4">
@@ -100,10 +102,28 @@
         url: "",
         clip: {},
         loading: false,
-        error: false
+        error: false,
       }
     },
     methods: {
+      getDateFromTimeStamp (date) {
+        const fecha = new Date(date);
+        let dia = fecha.getDate();
+        let mes = fecha.getMonth() + 1;
+        const anio = fecha.getFullYear();
+        let horas = fecha.getHours();
+        let minutos = fecha.getMinutes();
+        let segundos = fecha.getSeconds();
+        const amPm = horas >= 12 ? "PM" : "AM";
+        horas = horas > 12 ? horas - 12 : horas;
+        dia = dia.toString().padStart(2, "0");
+        mes = mes.toString().padStart(2, "0");
+        horas = horas.toString().padStart(2, "0");
+        minutos = minutos.toString().padStart(2, "0");
+        segundos = segundos.toString().padStart(2, "0");
+        const fechaFormateada = `${anio}-${mes}-${dia}, ${horas}:${minutos}:${segundos} ${amPm}`;
+        return fechaFormateada;
+      },
       async getClip () {
         this.error = false;
         if (!(this.url.includes("kick.com/") && this.url.includes("?clip="))) {
@@ -115,6 +135,7 @@
         this.loading = true;
         const response = await $fetch(`https://kick.com/api/v2/clips/${id}`).catch(() => ({}));
         const data = JSON.parse(response);
+        console.log(data);
         this.loading = false;
         this.clip = {
           channel: data.clip.channel.username,
@@ -125,7 +146,9 @@
           likes: data.clip.likes_count,
           videoUrl: data.clip.video_url,
           creator: data.clip.creator.username,
-          creatorSlug: data.clip.creator.slug
+          creatorSlug: data.clip.creator.slug,
+          date: this.getDateFromTimeStamp(data.clip.created_at),
+          duration: `0:${data.clip.duration}`
         };
       }
     }
