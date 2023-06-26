@@ -45,11 +45,9 @@
                     <a :href="`https://kick.com/${clip.slug}`" class="text-decoration-none" target="_blank"><h3 class="mb-3 user">
                       {{ clip.channel }}</h3></a>
                     <h5 class="mb-3">{{ clip.title }}</h5>
-                    <p>Views: {{ clip.views }}</p>
                     <p>Likes: {{ clip.likes }}</p>
-                    <div class="d-flex">
-                      <p>Clipped by:</p>&nbsp;<a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-none" target="_blank"><p class="user">{{ clip.creator }}</p></a>
-                    </div>
+                    <p>Views: {{ clip.views }}</p>
+                    <p>Clipped by: <a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-none user" target="_blank">{{ clip.creator }}</a></p>
                   </div>
                 </div>
                 <div class="col-12 col-sm-8 video mb-4">
