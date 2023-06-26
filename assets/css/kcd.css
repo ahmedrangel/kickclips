@@ -58,6 +58,11 @@ body {
   .container {
     padding: 0 6px;
   }
+
+  h5 {
+    font-size: 1rem;
+  }
+
 }
 
 .channel_profile img {
