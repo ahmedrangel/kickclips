@@ -106,23 +106,23 @@
       }
     },
     methods: {
-      getDateFromTimeStamp (date) {
-        const fecha = new Date(date);
-        let dia = fecha.getDate();
-        let mes = fecha.getMonth() + 1;
-        const anio = fecha.getFullYear();
-        let horas = fecha.getHours();
-        let minutos = fecha.getMinutes();
-        let segundos = fecha.getSeconds();
-        const amPm = horas >= 12 ? "PM" : "AM";
-        horas = horas > 12 ? horas - 12 : horas;
-        dia = dia.toString().padStart(2, "0");
-        mes = mes.toString().padStart(2, "0");
-        horas = horas.toString().padStart(2, "0");
-        minutos = minutos.toString().padStart(2, "0");
-        segundos = segundos.toString().padStart(2, "0");
-        const fechaFormateada = `${anio}-${mes}-${dia}, ${horas}:${minutos}:${segundos} ${amPm}`;
-        return fechaFormateada;
+      getDate (datetime) {
+        const date = new Date(datetime);
+        let d = date.getDate();
+        let m = date.getMonth() + 1;
+        const y = date.getFullYear();
+        let hr = date.getHours();
+        let min = date.getMinutes();
+        let sec = date.getSeconds();
+        const amPm = hr >= 12 ? "PM" : "AM";
+        hr = hr > 12 ? hr - 12 : hr;
+        d = d.toString().padStart(2, "0");
+        m = m.toString().padStart(2, "0");
+        hr = hr.toString().padStart(2, "0");
+        min = min.toString().padStart(2, "0");
+        sec = sec.toString().padStart(2, "0");
+        const formattedDate = `${y}-${m}-${d}, ${hr}:${min}:${sec} ${amPm}`;
+        return formattedDate;
       },
       async getClip () {
         this.error = false;
@@ -147,7 +147,7 @@
           videoUrl: data.clip.video_url,
           creator: data.clip.creator.username,
           creatorSlug: data.clip.creator.slug,
-          date: this.getDateFromTimeStamp(data.clip.created_at),
+          date: this.getDate(data.clip.created_at),
           duration: (() => {
             const durationSeconds = data.clip.duration;
             let minutes = (Math.floor(durationSeconds / 60)).toString().padStart(2, "0");;
