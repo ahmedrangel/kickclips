@@ -87,7 +87,7 @@
               <div class="guide p-4">
                 <h1><Icon class="iconify" name="ph:download-simple-duotone" /></h1>
                 <h5>Step 3: Download MP4 clip</h5>
-                <h5 class="fw-light">After obtaining the video, you can easily download it by simply <b>right-clicking</b> on the displayed video and selecting <b>"Save video as"</b> or, click on the <b>"Save File"</b> to initiate the direct download.</h5>
+                <h5 class="fw-light">After obtaining the video, you can easily download it by simply <b>right-clicking</b> on the displayed video and selecting <b>"Save video as"</b> or, click on the <b>"Save File"</b> button to initiate the direct download.</h5>
               </div>
             </div>
           </div>
