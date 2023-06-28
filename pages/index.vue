@@ -137,6 +137,7 @@
         const urlQ = new URL(this.url);
         const id = urlQ.searchParams.get("clip");
         this.loading = true;
+        const blobber = "https://blobber.ahmedrangel.com";
         const response = await $fetch(`https://kick.com/api/v2/clips/${id}`).catch(() => ({}));
         const data = JSON.parse(response);
         console.log(data);
@@ -149,7 +150,7 @@
           views: data.clip.view_count,
           likes: data.clip.likes_count,
           videoUrl: await (async() => {
-            const blob = await $fetch(`https://dev.ahmedrangel.com/kick-blobber?url=${encodeURIComponent(data.clip.video_url)}`).catch(() => ({}));;
+            const blob = await $fetch(`${blobber}/mp4?url=${encodeURIComponent(data.clip.video_url)}`).catch(() => ({}));;
             const url = URL.createObjectURL(blob);
             console.log(url);
             this.loading = false;
