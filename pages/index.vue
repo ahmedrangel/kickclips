@@ -59,7 +59,7 @@
                   </video>
                 </div>
                 <div class="save">
-                  <a class="col-12 btn fw-bold mb-0" :href="clip.videoUrl" target="_blank" download>Save file</a>
+                  <a class="col-12 btn fw-bold mb-0" :href="clip.videoUrl" target="_blank" :download="clip.filename">Save file</a>
                 </div>
               </div>
             </div>
@@ -87,7 +87,7 @@
               <div class="guide p-4">
                 <h1><Icon class="iconify" name="ph:download-simple-duotone" /></h1>
                 <h5>Step 3: Download MP4 clip</h5>
-                <h5 class="fw-light">After obtaining the video, you can easily download it by simply <b>right-clicking</b> on the displayed video and selecting <b>"Save video as"</b> or, click on the <b>"Save File"</b> button to access the MP4 URL.</h5>
+                <h5 class="fw-light">After obtaining the video, you can easily download it by simply <b>right-clicking</b> on the displayed video and selecting <b>"Save video as"</b> or, click on the <b>"Save File"</b> to initiate the direct download.</h5>
               </div>
             </div>
           </div>
@@ -137,15 +137,21 @@
         const response = await $fetch(`https://kick.com/api/v2/clips/${id}`).catch(() => ({}));
         const data = JSON.parse(response);
         console.log(data);
-        this.loading = false;
         this.clip = {
+          filename: data.clip.id + ".mp4",
           channel: data.clip.channel.username,
           slug: data.clip.channel.slug,
           channelPicture: data.clip.channel.profile_picture,
           title: data.clip.title,
           views: data.clip.view_count,
           likes: data.clip.likes_count,
-          videoUrl: data.clip.video_url,
+          videoUrl: await (async() => {
+            const blob = await $fetch(`https://dev.ahmedrangel.com/kick-blobber?url=${encodeURIComponent(data.clip.video_url)}`).catch(() => ({}));;
+            const url = URL.createObjectURL(blob);
+            console.log(url);
+            this.loading = false;
+            return url;
+          })(),
           creator: data.clip.creator.username,
           creatorSlug: data.clip.creator.slug,
           date: this.getDate(data.clip.created_at),
