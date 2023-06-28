@@ -131,6 +131,9 @@
           this.error = true;
           return;
         }
+        if (this.clip.videoUrl) {
+          URL.revokeObjectURL(this.clip.videoUrl);
+        }
         const urlQ = new URL(this.url);
         const id = urlQ.searchParams.get("clip");
         this.loading = true;
