@@ -138,3 +138,7 @@ p {
 .text-decoration-underline {
   color: var(--app-bg-color);
 }
+
+.logo {
+  max-width: 40px;
+}
