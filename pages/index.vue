@@ -137,7 +137,6 @@
         const response = await $fetch(`https://kick.com/api/v2/clips/${id}`).catch(() => ({}));
         const data = JSON.parse(response);
         console.log(data);
-        this.loading = false;
         this.clip = {
           channel: data.clip.channel.username,
           slug: data.clip.channel.slug,
@@ -145,7 +144,13 @@
           title: data.clip.title,
           views: data.clip.view_count,
           likes: data.clip.likes_count,
-          videoUrl: data.clip.video_url,
+          videoUrl: (async() => {
+            const blobber = await fetch(`https://dev.ahmedrangel.com/kick-blobber?url=${encodeURIComponent(data.clip.video_url)}`);
+            const videoBlob = await blobber.blob();
+            console.log(videoBlob);
+            const url = URL.createObjectURL(videoBlob);
+            return url;
+          })(),
           creator: data.clip.creator.username,
           creatorSlug: data.clip.creator.slug,
           date: this.getDate(data.clip.created_at),
@@ -157,6 +162,7 @@
             return formattedTime;
           })()
         };
+        this.loading = false;
       }
     }
   }
