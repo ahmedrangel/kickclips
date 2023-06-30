@@ -8,7 +8,7 @@ export const formatTime = (durationSeconds) => {
 export const getDate = (datetime) => {
   const date = new Date(datetime);
   const isoDate = date.toISOString().split("T")[0];
-  const time = date.toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit" });
+  const time = date.toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit", hour12: true });
   const formattedDate = `${isoDate}, ${time}`;
   return formattedDate;
 };
