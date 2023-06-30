@@ -28,7 +28,7 @@ useSeoMeta({
           <form @submit.prevent="getClip()">
             <h2 class="col-12 fw-normal title mb-4">Enter clip URL</h2>
             <div class="col-12 row input-body p-2 mb-4 mx-0">
-              <input v-model="url" class="col-9 col-lg-10 col-sm-8" id="input" type="url" placeholder="https://kick.com/user?clip=123456" required>
+              <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/user?clip=123456" required>
               <button id="download" type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center">
                 <Icon class="iconify" name="ph:download-simple-bold" />
                 <span class="download-txt">Download</span>
@@ -48,7 +48,7 @@ useSeoMeta({
                     <h5 class="mb-3">{{ clip.title }}</h5>
                     <p>Likes:&nbsp;&nbsp;<span class="fw-light">{{ clip.likes }}</span></p>
                     <p>Views:&nbsp;&nbsp;<span class="fw-light">{{ clip.views }}</span></p>
-                    <p>Duration:&nbsp;&nbsp;<span class="fw-light">{{ clip.duration }}</span></p>
+                    <p>Duration:&nbsp;&nbsp;<span class="fw-light">{{ formatTime(clip.duration) }}</span></p>
                     <p>Clipped by: <a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline user" target="_blank">{{ clip.creator }}</a></p>
                     <p>Date:&nbsp;&nbsp;<span class="fw-light">{{ clip.date }}</span></p>
                   </div>
@@ -140,6 +140,12 @@ export default {
       const blobber = "https://blobber.ahmedrangel.com";
       const response = await $fetch(`https://kick.com/api/v2/clips/${id}`).catch(() => ({}));
       const data = JSON.parse(response);
+      
+      const blob = await $fetch(`${blobber}/mp4?url=${encodeURIComponent(data.clip.video_url)}`).catch(() => ({}));
+      const videoUrl = URL.createObjectURL(blob);
+      console.info(videoUrl);
+      this.loading = false;
+
       this.clip = {
         filename: data.clip.id + ".mp4",
         channel: data.clip.channel.username,
@@ -148,23 +154,11 @@ export default {
         title: data.clip.title,
         views: data.clip.view_count,
         likes: data.clip.likes_count,
-        videoUrl: await (async() => {
-          const blob = await $fetch(`${blobber}/mp4?url=${encodeURIComponent(data.clip.video_url)}`).catch(() => ({}));
-          const url = URL.createObjectURL(blob);
-          console.info(url);
-          this.loading = false;
-          return url;
-        })(),
+        videoUrl,
         creator: data.clip.creator.username,
         creatorSlug: data.clip.creator.slug,
         date: this.getDate(data.clip.created_at),
-        duration: (() => {
-          const durationSeconds = data.clip.duration;
-          const minutes = (Math.floor(durationSeconds / 60)).toString().padStart(2, "0");
-          const seconds = (durationSeconds % 60).toString().padStart(2, "0");
-          const formattedTime = minutes + ":" + seconds;
-          return formattedTime;
-        })()
+        duration: data.clip.duration
       };
     }
   }
