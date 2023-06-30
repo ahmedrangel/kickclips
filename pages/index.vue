@@ -1,21 +1,21 @@
 <script setup>
-  const seoDescription = "KickClips is a free online tool for downloading MP4 clips from kick.com.";
-  const seoTitle = "KickClips | Downloader | to MP4";
-  const seoUrl = "https://kickclips.ahmedrangel.com/";
-  useSeoMeta({
-    title: seoTitle,
-    description: seoDescription,
-    keywords: "kick, kick.com, kick clip, downloader, to mp4, mp4, download, clips, clipper",
-    // Open Graph
-    ogType: "website",
-    ogTitle: seoTitle,
-    ogDescription: seoDescription,
-    ogUrl: seoUrl,
-    // Twitter
-    twitterCard: "summary",
-    twitterTitle: seoTitle,
-    twitterDescription: seoDescription
-  })
+const seoDescription = "KickClips is a free online tool for downloading MP4 clips from kick.com.";
+const seoTitle = "KickClips | Downloader | to MP4";
+const seoUrl = "https://kickclips.ahmedrangel.com/";
+useSeoMeta({
+  title: seoTitle,
+  description: seoDescription,
+  keywords: "kick, kick.com, kick clip, downloader, to mp4, mp4, download, clips, clipper",
+  // Open Graph
+  ogType: "website",
+  ogTitle: seoTitle,
+  ogDescription: seoDescription,
+  ogUrl: seoUrl,
+  // Twitter
+  twitterCard: "summary",
+  twitterTitle: seoTitle,
+  twitterDescription: seoDescription
+});
 </script>
 <template>
   <main class="text-white">
@@ -97,77 +97,76 @@
   </main>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        url: "",
-        clip: {},
-        loading: false,
-        error: false,
-      }
+export default {
+  data() {
+    return {
+      url: "",
+      clip: {},
+      loading: false,
+      error: false,
+    };
+  },
+  methods: {
+    getDate (datetime) {
+      const date = new Date(datetime);
+      let d = date.getDate();
+      let m = date.getMonth() + 1;
+      const y = date.getFullYear();
+      let hr = date.getHours();
+      let min = date.getMinutes();
+      let sec = date.getSeconds();
+      const amPm = hr >= 12 ? "PM" : "AM";
+      hr = hr > 12 ? hr - 12 : hr;
+      d = d.toString().padStart(2, "0");
+      m = m.toString().padStart(2, "0");
+      hr = hr.toString().padStart(2, "0");
+      min = min.toString().padStart(2, "0");
+      sec = sec.toString().padStart(2, "0");
+      const formattedDate = `${y}-${m}-${d}, ${hr}:${min}:${sec} ${amPm}`;
+      return formattedDate;
     },
-    methods: {
-      getDate (datetime) {
-        const date = new Date(datetime);
-        let d = date.getDate();
-        let m = date.getMonth() + 1;
-        const y = date.getFullYear();
-        let hr = date.getHours();
-        let min = date.getMinutes();
-        let sec = date.getSeconds();
-        const amPm = hr >= 12 ? "PM" : "AM";
-        hr = hr > 12 ? hr - 12 : hr;
-        d = d.toString().padStart(2, "0");
-        m = m.toString().padStart(2, "0");
-        hr = hr.toString().padStart(2, "0");
-        min = min.toString().padStart(2, "0");
-        sec = sec.toString().padStart(2, "0");
-        const formattedDate = `${y}-${m}-${d}, ${hr}:${min}:${sec} ${amPm}`;
-        return formattedDate;
-      },
-      async getClip () {
-        this.error = false;
-        if (!(this.url.includes("kick.com/") && this.url.includes("?clip="))) {
-          this.error = true;
-          return;
-        }
-        if (this.clip.videoUrl) {
-          URL.revokeObjectURL(this.clip.videoUrl);
-        }
-        const urlQ = new URL(this.url);
-        const id = urlQ.searchParams.get("clip");
-        this.loading = true;
-        const blobber = "https://blobber.ahmedrangel.com";
-        const response = await $fetch(`https://kick.com/api/v2/clips/${id}`).catch(() => ({}));
-        const data = JSON.parse(response);
-        console.log(data);
-        this.clip = {
-          filename: data.clip.id + ".mp4",
-          channel: data.clip.channel.username,
-          slug: data.clip.channel.slug,
-          channelPicture: data.clip.channel.profile_picture,
-          title: data.clip.title,
-          views: data.clip.view_count,
-          likes: data.clip.likes_count,
-          videoUrl: await (async() => {
-            const blob = await $fetch(`${blobber}/mp4?url=${encodeURIComponent(data.clip.video_url)}`).catch(() => ({}));;
-            const url = URL.createObjectURL(blob);
-            console.log(url);
-            this.loading = false;
-            return url;
-          })(),
-          creator: data.clip.creator.username,
-          creatorSlug: data.clip.creator.slug,
-          date: this.getDate(data.clip.created_at),
-          duration: (() => {
-            const durationSeconds = data.clip.duration;
-            const minutes = (Math.floor(durationSeconds / 60)).toString().padStart(2, "0");;
-            const seconds = (durationSeconds % 60).toString().padStart(2, "0");;
-            const formattedTime = minutes + ":" + seconds;
-            return formattedTime;
-          })()
-        };
+    async getClip () {
+      this.error = false;
+      if (!(this.url.includes("kick.com/") && this.url.includes("?clip="))) {
+        this.error = true;
+        return;
       }
+      if (this.clip.videoUrl) {
+        URL.revokeObjectURL(this.clip.videoUrl);
+      }
+      const urlQ = new URL(this.url);
+      const id = urlQ.searchParams.get("clip");
+      this.loading = true;
+      const blobber = "https://blobber.ahmedrangel.com";
+      const response = await $fetch(`https://kick.com/api/v2/clips/${id}`).catch(() => ({}));
+      const data = JSON.parse(response);
+      this.clip = {
+        filename: data.clip.id + ".mp4",
+        channel: data.clip.channel.username,
+        slug: data.clip.channel.slug,
+        channelPicture: data.clip.channel.profile_picture,
+        title: data.clip.title,
+        views: data.clip.view_count,
+        likes: data.clip.likes_count,
+        videoUrl: await (async() => {
+          const blob = await $fetch(`${blobber}/mp4?url=${encodeURIComponent(data.clip.video_url)}`).catch(() => ({}));
+          const url = URL.createObjectURL(blob);
+          console.info(url);
+          this.loading = false;
+          return url;
+        })(),
+        creator: data.clip.creator.username,
+        creatorSlug: data.clip.creator.slug,
+        date: this.getDate(data.clip.created_at),
+        duration: (() => {
+          const durationSeconds = data.clip.duration;
+          const minutes = (Math.floor(durationSeconds / 60)).toString().padStart(2, "0");
+          const seconds = (durationSeconds % 60).toString().padStart(2, "0");
+          const formattedTime = minutes + ":" + seconds;
+          return formattedTime;
+        })()
+      };
     }
   }
+};
 </script>
