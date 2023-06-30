@@ -50,7 +50,7 @@ useSeoMeta({
                     <p>Views:&nbsp;&nbsp;<span class="fw-light">{{ clip.views }}</span></p>
                     <p>Duration:&nbsp;&nbsp;<span class="fw-light">{{ formatTime(clip.duration) }}</span></p>
                     <p>Clipped by: <a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline user" target="_blank">{{ clip.creator }}</a></p>
-                    <p>Date:&nbsp;&nbsp;<span class="fw-light">{{ clip.date }}</span></p>
+                    <p>Date:&nbsp;&nbsp;<span class="fw-light">{{ getDate(clip.date) }}</span></p>
                   </div>
                 </div>
                 <div class="col-12 col-sm-8 video mb-4">
@@ -107,24 +107,6 @@ export default {
     };
   },
   methods: {
-    getDate (datetime) {
-      const date = new Date(datetime);
-      let d = date.getDate();
-      let m = date.getMonth() + 1;
-      const y = date.getFullYear();
-      let hr = date.getHours();
-      let min = date.getMinutes();
-      let sec = date.getSeconds();
-      const amPm = hr >= 12 ? "PM" : "AM";
-      hr = hr > 12 ? hr - 12 : hr;
-      d = d.toString().padStart(2, "0");
-      m = m.toString().padStart(2, "0");
-      hr = hr.toString().padStart(2, "0");
-      min = min.toString().padStart(2, "0");
-      sec = sec.toString().padStart(2, "0");
-      const formattedDate = `${y}-${m}-${d}, ${hr}:${min}:${sec} ${amPm}`;
-      return formattedDate;
-    },
     async getClip () {
       this.error = false;
       if (!(this.url.includes("kick.com/") && this.url.includes("?clip="))) {
@@ -157,7 +139,7 @@ export default {
         videoUrl,
         creator: data.clip.creator.username,
         creatorSlug: data.clip.creator.slug,
-        date: this.getDate(data.clip.created_at),
+        date: data.clip.created_at,
         duration: data.clip.duration
       };
     }
