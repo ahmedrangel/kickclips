@@ -1,8 +1,9 @@
 :root {
   --main-bg-color: #0b0e0f;
   --secondary-bg-color: #24272c;
-  --tertiary-bg-color: #191b1f;
+  --tertiary-bg-color: #394761;
   --app-bg-color: #53fc18;
+  --white: #f8f8f8;
   scrollbar-color: var(--app-bg-color) var(--tertiary-bg-color);
   scrollbar-width: thin;
 }
@@ -42,9 +43,23 @@ body {
   padding: 2rem 3rem;
 }
 
-.input-body {
+.input-body, .input-vod {
   background-color: var(--main-bg-color);
   border-radius: 20px;
+}
+
+.input-vod .save {
+  border-radius: 10px;
+}
+
+.input-vod button, .input-vod .save {
+  background-color: var(--app-bg-color);
+  color: var(--main-bg-color);
+}
+
+.input-vod button:hover, .input-vod .save:hover {
+  background-color: var(--main-bg-color);
+  color: var(--white);
 }
 
 .input-body button {
@@ -55,7 +70,7 @@ body {
 }
 
 .input-body input {
-  background-color: #f8f8f8;
+  background-color: var(--white);
   border-radius: 16px 0 0 16px;
   color: var(--main-bg-color);
   padding: 12px 14px;
@@ -94,6 +109,7 @@ body {
 .channel_profile img {
   border-radius: 10%;
   border: 4px solid var(--main-bg-color);
+  max-width: 130px;
 }
 
 p {
@@ -143,3 +159,20 @@ p {
 .logo {
   max-width: 40px;
 }
+
+.bg-time {
+  background-color: var(--white);
+  color: var(--main-bg-color);
+  padding: 5px;
+  width:90px;
+  max-width: 90px;
+  border-radius: 2px 4px;
+}
+
+.select {
+  padding: 6px;
+  font-size: 1.2rem;
+  border: 4px solid var(--main-bg-color);
+  border-radius: 8px;
+  background-color: var(--white);
+};

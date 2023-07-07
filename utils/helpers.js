@@ -12,3 +12,14 @@ export const getDate = (datetime) => {
   const formattedDate = `${isoDate}, ${time}`;
   return formattedDate;
 };
+
+export const getTimeByMs = (seconds) => {
+  const time = new Date(Math.ceil(seconds / 12500) * 12500).toISOString().slice(11, -5);
+  return time;
+};
+
+export const getUrlId = (url) => {
+  const regex = /\/([a-zA-Z0-9_-]+)(?:\.[a-zA-Z0-9]+)?(?:\?|$|\/\?|\/$)/;
+  const result = regex.exec(url);
+  return (result && result.length > 1) ? result[1] : null;
+};

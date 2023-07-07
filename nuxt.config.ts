@@ -2,7 +2,8 @@ export default ({
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
     "~/assets/css/kcd.css",
-    "~/assets/css/transitions.css"	
+    "~/assets/css/transitions.css",
+    "~/assets/css/range-slider.css"
   ],
   
   app: {

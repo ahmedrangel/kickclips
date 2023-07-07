@@ -31,7 +31,7 @@ useSeoMeta({
               <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/user?clip=123456" required>
               <button id="download" type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center">
                 <Icon class="iconify" name="ph:download-simple-bold" />
-                <span class="download-txt">Download</span>
+                <span class="ms-1 download-txt">Download</span>
               </button>
             </div>
           </form>
