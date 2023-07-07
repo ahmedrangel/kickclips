@@ -34,8 +34,8 @@
           </div>
         </div>
         <form class="text-start" @submit.prevent="getDownload()">
-          <h5 class="mb-3">Available video formats:</h5>
-          <select v-model="quality" class="select mb-3 fw-bold">
+          <h4 class="mb-3">Available video formats:</h4>
+          <select v-model="quality" class="select mb-4 fw-bold">
             <option v-for="(formats, index) of allInfo.playlists" :key="index" class="formats">{{ formats.quality }}</option>
           </select>
           <div class="range-slider col-12">
@@ -146,6 +146,7 @@ export default {
       const getQ = await fetch(`${server}/qualities?master=${this.master}`);
       const qualities = await getQ.text();
       const jsonQ = JSON.parse(qualities);
+      this.quality = jsonQ[jsonQ.length-1].quality;
       const playlist = jsonQ[0].playlist;
       const getPlayInfo = await fetch(`${server}/playlist?url=${playlist}`);
       const infoR = await getPlayInfo.text();
