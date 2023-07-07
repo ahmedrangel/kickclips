@@ -148,7 +148,7 @@ export default {
       const jsonQ = JSON.parse(qualities);
       this.quality = jsonQ[jsonQ.length-1].quality;
       const playlist = jsonQ[0].playlist;
-      const getPlayInfo = await fetch(`${server}/playlist?url=${playlist}`);
+      const getPlayInfo = await fetch(`${server}/segments?playlist=${playlist}`);
       const infoR = await getPlayInfo.text();
       const jsonInfo = JSON.parse(infoR);
 
@@ -171,7 +171,7 @@ export default {
       this.loading = true;
       const msStart = encodeURIComponent(getTimeByMs(this.minAngle));
       const segmentEnd = Math.ceil(this.maxAngle / 12500) - Math.ceil(this.minAngle / 12500);
-      const blobF = await fetch(`${this.server}/vod?master=${this.master}&quality=${this.quality}&start=${msStart}&end=${segmentEnd}`);
+      const blobF = await fetch(`${this.server}/extract?master=${this.master}&quality=${this.quality}&start=${msStart}&end=${segmentEnd}`);
       const blob = await blobF.blob();
       this.loading = false;
       this.videoUrl = URL.createObjectURL(blob);
