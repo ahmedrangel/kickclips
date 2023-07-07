@@ -164,8 +164,6 @@ export default {
         duration: jsonInfo.duration,
         playlists: jsonQ.reverse()
       };
-
-      console.info(this.allInfo);
       this.duration = this.allInfo.duration;
       this.loading_vod = false;
     },
