@@ -11,7 +11,7 @@
             <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/video/1abc2345-6d7e-8901-fab2-345c6d789f01" required>
             <button id="download" type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center">
               <Icon class="iconify" name="bi:chevron-double-down" />
-              <span class="ms-1 download-txt">Submit</span>
+              <span class="ms-1 download-txt">Fetch</span>
             </button>
           </div>
         </form>
@@ -58,7 +58,7 @@
             <button id="download" class="btn d-flex align-items-center" type="submit">
               <LoadingSpinner v-if="loading" /><Icon v-else class="iconify" name="ph:download-simple-bold" />
               <span v-if="loading">&nbsp;</span>
-              <h5 class="download-txt mb-0">&nbsp;<b>Start Download</b></h5>
+              <h5 class="mb-0">&nbsp;<b>Start Download</b></h5>
             </button>
             <a v-if="videoUrl" v-bind="fakeClick()" id="attachment" :href="videoUrl" :download="`${title}.ts`" hidden>link</a>
           </div>
