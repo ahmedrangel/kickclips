@@ -26,7 +26,7 @@
               <a :href="`https://kick.com/${allInfo.slug}`" class="text-decoration-underline" target="_blank"><h3 class="mb-3 user">
                 {{ allInfo.channel }}</h3></a>
               <h5 class="mb-3">{{ allInfo.title }}</h5>
-              <p class="mb-3">Date:&nbsp;&nbsp;<span class="fw-light">{{ getDate(allInfo.date) }}</span></p>
+              <p class="mb-0">Date:&nbsp;&nbsp;<span class="fw-light">{{ getDate(allInfo.date) }}</span></p>
             </div>
           </div>
           <div class="col-12 col-sm-7 video mb-3">
