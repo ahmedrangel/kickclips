@@ -55,11 +55,19 @@
             </div>
           </div>
           <div class="input-vod d-inline-flex mt-5">
-            <button id="download" class="btn d-flex align-items-center" type="submit">
-              <LoadingSpinner v-if="loading" /><Icon v-else class="iconify" name="ph:download-simple-bold" />
-              <span v-if="loading">&nbsp;</span>
-              <h5 class="mb-0">&nbsp;<b>Start Download</b></h5>
-            </button>
+            <div v-if="loading">
+              <button id="download" class="btn d-flex align-items-center" disabled>
+                <LoadingSpinner />
+                <span>&nbsp;</span>
+                <h5 class="mb-0">&nbsp;<b>Downloading...</b></h5>
+              </button>
+            </div>
+            <div v-else>
+              <button id="download" class="btn d-flex align-items-center" type="submit">
+                <Icon class="iconify" name="ph:download-simple-bold" />
+                <h5 class="mb-0">&nbsp;<b>Start Download</b></h5>
+              </button>
+            </div>
             <a v-if="videoUrl" v-bind="fakeClick()" id="attachment" :href="videoUrl" :download="`${title}.ts`" hidden>link</a>
           </div>
         </form>
