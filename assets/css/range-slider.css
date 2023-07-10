@@ -42,7 +42,8 @@
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    
+    outline: none;
+    pointer-events: none;
   }
   
   input[type=range]:focus {
@@ -79,10 +80,11 @@
     box-shadow: 0px 0px 0px #000;
     border: 1px solid var(--main-bg-color);
     height: 40px;
-    width: 6px;
+    width: 10px;
     border-radius: 0px;
     background: var(--app-bg-color);
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -10px;
+    pointer-events: auto;
   }

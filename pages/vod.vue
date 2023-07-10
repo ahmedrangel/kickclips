@@ -19,7 +19,7 @@
       <LoadingSpinner v-if="loading_vod" />
       <h5 v-else-if="error" class="error">The URL you entered is invalid</h5>
       <div v-else-if="master" class="row downloader-body mx-1 mb-5">
-        <div class="row">
+        <div v-once class="row" v-bind="optionClick()">
           <div class="col-12 col-sm-5 info text-start mb-3">
             <div class="channel_profile">
               <img class="mb-1 img-fluid" :src="allInfo.channelPicture">
@@ -35,8 +35,8 @@
         </div>
         <form class="text-start" @submit.prevent="getDownload()">
           <h4 class="mb-3">Available video formats:</h4>
-          <select v-model="quality" class="select mb-4 fw-bold">
-            <option v-for="(formats, index) of allInfo.playlists" :key="index" class="formats">{{ formats.quality }}</option>
+          <select v-model="quality" class="select mb-4 fw-bold" @change="optionClick()"> 
+            <option v-for="(formats, index) of allInfo.playlists" :key="index" class="formats" :value="formats.quality">{{ formats.quality }} · Max length: {{ formats.maxLength }}</option>
           </select>
           <div class="range-slider col-12">
             <input v-model="sliderMin" type="range" min="0" :max="duration" step="0">
@@ -87,7 +87,7 @@ export default {
       minAngle: 0,
       maxAngle: 600000,
       duration: 600000,
-      server: "https://tn2.ahmedrangel.com",
+      server: "http://kick-vod-extractor-router.us-east-2.elasticbeanstalk.com",
       master: "",
       quality: "",
       videoUrl: null,
@@ -153,9 +153,19 @@ export default {
 
       const getQ = await fetch(`${server}/qualities?master=${this.master}`);
       const qualities = await getQ.text();
-      const jsonQ = JSON.parse(qualities);
+      const jsonQ = JSON.parse(qualities).filter((el) => { return !el.quality.includes("1080");});
+      jsonQ.forEach((el) => {
+        if (el.quality.includes("720")) {
+          el.maxLength = minutesOrHours(15);
+        } else if (el.quality.includes("480") || el.quality.includes("360")) {
+          el.maxLength = minutesOrHours(30);
+        } else if (el.quality.includes("160")) {
+          el.maxLength = minutesOrHours(60);
+        }
+      });
       this.quality = jsonQ[jsonQ.length-1].quality;
       const playlist = jsonQ[0].playlist;
+
       const getPlayInfo = await fetch(`${server}/segments?playlist=${playlist}`);
       const infoR = await getPlayInfo.text();
       const jsonInfo = JSON.parse(infoR);
@@ -174,6 +184,7 @@ export default {
       };
       this.duration = this.allInfo.duration;
       this.loading_vod = false;
+      console.log(this.allInfo);
     },
     async getDownload () {
       this.loading = true;
@@ -191,7 +202,23 @@ export default {
         URL.revokeObjectURL(this.videoUrl);
         this.videoUrl = null;
       }, 500);
+    },
+    optionClick () {
+      this.minAngle = 0;
+      if (this.quality.includes("720")) {
+        this.maxAngle = 900000;
+        this.maxRange = 900000;
+      } else if (this.quality.includes("480")) {
+        this.maxAngle = 1800000;
+        this.maxRange = 1800000;
+      } else if (this.quality.includes("360")) {
+        this.maxAngle = 1800000;
+        this.maxRange = 1800000;
+      } else if (this.quality.includes("160")) {
+        this.maxAngle = 3600000;
+        this.maxRange = 3600000;
+      }
     }
-  }
+  },
 };
 </script>

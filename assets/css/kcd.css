@@ -170,4 +170,5 @@ select {
   border: 4px solid var(--main-bg-color);
   border-radius: 8px;
   background-color: var(--white);
+  max-width: 100%;
 }

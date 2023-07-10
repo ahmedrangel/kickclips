@@ -23,3 +23,12 @@ export const getUrlId = (url) => {
   const result = regex.exec(url);
   return (result && result.length > 1) ? result[1] : null;
 };
+
+export const minutesOrHours = (minutes) => {
+  if (minutes < 60) {
+    return minutes === 1 ? minutes + " minute" : minutes + " minutes";
+  } else {
+    var hours = Math.floor(minutes / 60);
+    return hours === 1 ? hours + " hour" : hours + " hours";
+  }
+};
