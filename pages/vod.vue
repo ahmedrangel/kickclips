@@ -87,7 +87,7 @@ export default {
       minAngle: 0,
       maxAngle: 600000,
       duration: 600000,
-      server: "http://kick-vod-extractor-router.us-east-2.elasticbeanstalk.com",
+      server: "https://kick-vod-extractor-router.us-east-2.elasticbeanstalk.com",
       master: "",
       quality: "",
       videoUrl: null,
