@@ -9,7 +9,7 @@
           <h2 class="col-12 fw-normal title mb-4">Enter VOD/Video URL</h2>
           <div class="col-12 row input-body p-2 mb-4 mx-0">
             <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/video/1abc2345-6d7e-8901-fab2-345c6d789f01" required>
-            <button id="download" type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center" @click="optionClick()">
+            <button id="download" type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center">
               <Icon class="iconify" name="bi:chevron-double-down" />
               <span class="ms-1 download-txt">Fetch</span>
             </button>
@@ -18,7 +18,7 @@
       </div>
       <LoadingSpinner v-if="loading_vod" />
       <h5 v-else-if="error" class="error">The URL you entered is invalid</h5>
-      <div v-else-if="master" class="row downloader-body mx-1 mb-5">
+      <div v-else-if="master" class="row downloader-body mx-1 mb-5" wat>
         <div class="row">
           <div class="col-12 col-sm-5 info text-start mb-3">
             <div class="channel_profile">
@@ -128,6 +128,11 @@ export default {
       }
     }
   },
+  watch: {
+    allInfo() {
+      this.optionClick();
+    }
+  },
   methods: {
     async getVod () {
       const server = this.server;
@@ -184,7 +189,6 @@ export default {
       };
       this.duration = this.allInfo.duration;
       this.loading_vod = false;
-      console.log(this.allInfo);
     },
     async getDownload () {
       this.loading = true;
