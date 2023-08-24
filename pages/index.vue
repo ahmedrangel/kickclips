@@ -122,7 +122,7 @@ export default {
       const blobber = "https://blobber.ahmedrangel.com";
       const response = await $fetch(`https://kick.com/api/v2/clips/${id}`).catch(() => ({}));
       const data = JSON.parse(response);
-      
+
       const blob = await $fetch(`${blobber}/mp4?url=${encodeURIComponent(data.clip.video_url)}`).catch(() => ({}));
       const videoUrl = URL.createObjectURL(blob);
       console.info(videoUrl);

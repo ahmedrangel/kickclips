@@ -35,7 +35,7 @@
         </div>
         <form class="text-start" @submit.prevent="getDownload()">
           <h4 class="mb-3">Available video formats:</h4>
-          <select v-model="quality" class="select mb-4 fw-bold" @change="optionClick()"> 
+          <select v-model="quality" class="select mb-4 fw-bold" @change="optionClick()">
             <option v-for="(formats, index) of allInfo.playlists" :key="index" class="formats" :value="formats.quality">{{ formats.quality }} · Max length: {{ formats.maxLength }}</option>
           </select>
           <div class="range-slider col-12">
