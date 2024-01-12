@@ -37,7 +37,7 @@ useSeoMeta({
           </form>
           <Transition name="tab" mode="out-in">
             <LoadingSpinner v-if="loading" />
-            <h5 v-else-if="error" class="error">The URL you entered is invalid</h5>
+            <h5 v-else-if="error" class="error">{{ error.message }}</h5>
             <div v-else-if="clip.channel" id="clip" class="p-0">
               <div class="row">
                 <div class="col-12 col-sm-4 info text-start mb-4">
@@ -110,7 +110,7 @@ export default {
     async getClip () {
       this.error = false;
       if (!(this.url.includes("kick.com/") && this.url.includes("?clip="))) {
-        this.error = true;
+        this.error = { message: "Error: The URL you entered is invalid" };
         return;
       }
       if (this.clip.videoUrl) {
@@ -119,28 +119,33 @@ export default {
       const urlQ = new URL(this.url);
       const id = urlQ.searchParams.get("clip");
       this.loading = true;
-      const response = await $fetch(`${INFO.kickApiBase}/clips/${id}`).catch(() => ({}));
-      const data = JSON.parse(response);
-      const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`;
-      const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(() => ({}));
-      const blobUrl = URL.createObjectURL(blob);
-      console.info(blobUrl);
-      this.loading = false;
-
-      this.clip = {
-        filename: data.clip.id + ".mp4",
-        channel: data.clip.channel.username,
-        slug: data.clip.channel.slug,
-        channelPicture: data.clip.channel.profile_picture,
-        title: data.clip.title,
-        views: data.clip.view_count,
-        likes: data.clip.likes_count,
-        videoUrl,
-        creator: data.clip.creator.username,
-        creatorSlug: data.clip.creator.slug,
-        date: data.clip.created_at,
-        duration: data.clip.duration
-      };
+      try {
+        const response = await $fetch(`${INFO.kickApiBase}/clips/${id}`).catch(() => ({}));
+        const data = JSON.parse(response);
+        const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`;
+        const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(() => ({}));
+        const blobUrl = URL.createObjectURL(blob);
+        console.info(blobUrl);
+        this.loading = false;
+        this.clip = {
+          filename: data.clip.id + ".mp4",
+          channel: data.clip.channel.username,
+          slug: data.clip.channel.slug,
+          channelPicture: data.clip.channel.profile_picture,
+          title: data.clip.title,
+          views: data.clip.view_count,
+          likes: data.clip.likes_count,
+          videoUrl,
+          creator: data.clip.creator.username,
+          creatorSlug: data.clip.creator.slug,
+          date: data.clip.created_at,
+          duration: data.clip.duration
+        };
+      } catch (e) {
+        this.loading = false;
+        this.error = { message: "Error: Clip Not Found - Make sure you entered the correct URL" };
+        return
+      }
     }
   }
 };
