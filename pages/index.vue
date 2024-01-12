@@ -121,7 +121,7 @@ export default {
       this.loading = true;
       const response = await $fetch(`${INFO.kickApiBase}/clips/${id}`).catch(() => ({}));
       const data = JSON.parse(response);
-      const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`
+      const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`;
       const blob = await $fetch(`${INFO.blobber}/mp4?url=${encodeURIComponent(clipVideo)}`).catch(() => ({}));
       const videoUrl = URL.createObjectURL(blob);
       console.info(videoUrl);
