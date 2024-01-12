@@ -54,7 +54,7 @@ useSeoMeta({
                   </div>
                 </div>
                 <div class="col-12 col-sm-8 video mb-4">
-                  <video class="img-fluid" width="1280" height="720" controls>
+                  <video class="img-fluid" width="1280" height="720" controls autoplay muted>
                     <source :src="clip.blob" type="video/mp4">
                   </video>
                 </div>
