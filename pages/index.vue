@@ -119,11 +119,12 @@ export default {
       const urlQ = new URL(this.url);
       const id = urlQ.searchParams.get("clip");
       this.loading = true;
-      const blobber = "https://blobber.ahmedrangel.com";
-      const response = await $fetch(`https://kick.com/api/v2/clips/${id}`).catch(() => ({}));
+      const response = await $fetch(`${INFO.kickApiBase}/clips/${id}`).catch(() => ({}));
       const data = JSON.parse(response);
-
-      const blob = await $fetch(`${blobber}/mp4?url=${encodeURIComponent(data.clip.video_url)}`).catch(() => ({}));
+      console.log(data);
+      const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`
+      const blob = await $fetch(`${INFO.blobber}/mp4?url=${encodeURIComponent(clipVideo)}`).catch(() => ({}));
+      console.log(blob);
       const videoUrl = URL.createObjectURL(blob);
       console.info(videoUrl);
       this.loading = false;
