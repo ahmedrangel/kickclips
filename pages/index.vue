@@ -55,11 +55,11 @@ useSeoMeta({
                 </div>
                 <div class="col-12 col-sm-8 video mb-4">
                   <video class="img-fluid" width="1280" height="720" controls>
-                    <source :src="clip.videoUrl" type="video/mp4">
+                    <source :src="clip.blob" type="video/mp4">
                   </video>
                 </div>
                 <div class="save">
-                  <a class="col-12 btn fw-bold mb-0" :href="clip.videoUrl" target="_blank" :download="clip.filename">Save file</a>
+                  <a class="col-12 btn fw-bold mb-0" :href="clip.blob" target="_blank" :download="clip.filename">Save file</a>
                 </div>
               </div>
             </div>
@@ -113,8 +113,8 @@ export default {
         this.error = { message: "Error: The URL you entered is invalid" };
         return;
       }
-      if (this.clip.videoUrl) {
-        URL.revokeObjectURL(this.clip.videoUrl);
+      if (this.clip.blob) {
+        URL.revokeObjectURL(this.clip.blob);
       }
       const urlQ = new URL(this.url);
       const id = urlQ.searchParams.get("clip");
@@ -135,7 +135,7 @@ export default {
           title: data.clip.title,
           views: data.clip.view_count,
           likes: data.clip.likes_count,
-          videoUrl,
+          blob: blobUrl,
           creator: data.clip.creator.username,
           creatorSlug: data.clip.creator.slug,
           date: data.clip.created_at,
