@@ -135,7 +135,7 @@ export default {
           filename: data.clip.id + ".mp4",
           channel: data.clip.channel.username,
           slug: data.clip.channel.slug,
-          channelPicture: data.clip.channel.profile_picture ?? "public/user-default-pic.png",
+          channelPicture: data.clip.channel.profile_picture ?? "public/images/user-default-pic.png",
           title: data.clip.title,
           views: data.clip.view_count,
           likes: data.clip.likes_count,
