@@ -123,7 +123,11 @@ export default {
         const response = await $fetch(`${INFO.kickApiBase}/clips/${id}`).catch(() => ({}));
         const data = JSON.parse(response);
         const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`;
-        const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(() => ({}));
+        const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async() => {
+          const { url } = await $fetch(`${INFO.worker}/kick/clip/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
+          const crossclip = await $fetch(url, { responseType: "blob" }).catch(() => ({}));
+          return crossclip;
+        });
         const blobUrl = URL.createObjectURL(blob);
         console.info(blobUrl);
         this.loading = false;
@@ -144,7 +148,7 @@ export default {
       } catch (e) {
         this.loading = false;
         this.error = { message: "Error: Clip Not Found - Make sure you entered the correct URL" };
-        return
+        return;
       }
     }
   }
