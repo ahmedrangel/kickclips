@@ -12,9 +12,9 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/eslint-config": "^0.2.0",
-    "@types/node": "^20.11.0",
+    "@types/node": "^20.11.5",
     "eslint": "^8.56.0",
-    "nuxt": "^3.9.1",
+    "nuxt": "^3.9.2",
     "nuxt-icon": "^0.6.8",
     "typescript": "latest"
   },
