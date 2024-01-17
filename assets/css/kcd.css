@@ -78,7 +78,7 @@ body {
 
 @media (max-width: 767px) {
   .downloader-body {
-    padding: 2rem 1rem;
+    padding: 2rem 0.5rem;
   }
   .download-txt {
     display: none!important;
