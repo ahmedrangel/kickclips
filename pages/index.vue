@@ -5,7 +5,7 @@ const seoUrl = "https://kickclips.ahmedrangel.com/";
 useSeoMeta({
   title: seoTitle,
   description: seoDescription,
-  keywords: "kick, kick.com, kick clip, downloader, to mp4, mp4, download, clips, clipper",
+  keywords: "kick, kick.com, kick clip, downloader, to mp4, mp4, download, clips, clipper, videos, video",
   // Open Graph
   ogType: "website",
   ogTitle: seoTitle,
