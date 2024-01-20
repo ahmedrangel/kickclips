@@ -119,37 +119,41 @@ export default {
       const urlQ = new URL(this.url);
       const id = urlQ.searchParams.get("clip");
       this.loading = true;
-      try {
-        const response = await $fetch(`${INFO.kickApiBase}/clips/${id}`).catch(() => ({}));
-        const data = JSON.parse(response);
-        const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`;
-        const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async() => {
-          const { url } = await $fetch(`${INFO.worker}/kick/clip/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
-          const crossclip = await $fetch(url, { responseType: "blob" }).catch(() => ({}));
-          return crossclip;
-        });
-        const blobUrl = URL.createObjectURL(blob);
-        console.info(blobUrl);
+      const response = await $fetch(`${INFO.kickApiBase}/clips/${id}`).catch(() => {
         this.loading = false;
-        this.clip = {
-          filename: data.clip.id + ".mp4",
-          channel: data.clip.channel.username,
-          slug: data.clip.channel.slug,
-          channelPicture: data.clip.channel.profile_picture ?? "/images/user-default-pic.png",
-          title: data.clip.title,
-          views: data.clip.view_count,
-          likes: data.clip.likes_count,
-          blob: blobUrl,
-          creator: data.clip.creator.username,
-          creatorSlug: data.clip.creator.slug,
-          date: data.clip.created_at,
-          duration: data.clip.duration
-        };
-      } catch (e) {
+        this.error = { message: "Error: Clip not found - Make sure you entered the correct URL" };
+        return;
+      });
+      const data = JSON.parse(response);
+      const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`;
+      const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async() => {
+        const { url } = await $fetch(`${INFO.worker}/kick/clip-test/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
+        if (!url) return;
+        const crossclip = await $fetch(url, { responseType: "blob" }).catch(() => ({}));
+        return crossclip;
+      });
+      if (!blob) {
         this.loading = false;
-        this.error = { message: "Error: Could not get video - Make sure you entered the correct URL or try again" };
+        this.error = { message: "Error: The clip processing time was extended - Please try again" };
         return;
       }
+      const blobUrl = URL.createObjectURL(blob);
+      console.info(blobUrl);
+      this.loading = false;
+      this.clip = {
+        filename: data.clip.id + ".mp4",
+        channel: data.clip.channel.username,
+        slug: data.clip.channel.slug,
+        channelPicture: data.clip.channel.profile_picture ?? "/images/user-default-pic.png",
+        title: data.clip.title,
+        views: data.clip.view_count,
+        likes: data.clip.likes_count,
+        blob: blobUrl,
+        creator: data.clip.creator.username,
+        creatorSlug: data.clip.creator.slug,
+        date: data.clip.created_at,
+        duration: data.clip.duration
+      };
     }
   }
 };
