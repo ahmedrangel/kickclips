@@ -127,7 +127,7 @@ export default {
       const data = JSON.parse(response);
       const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`;
       const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async() => {
-        const { url } = await $fetch(`${INFO.worker}/kick/clip-test/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
+        const { url } = await $fetch(`${INFO.worker}/kick/clip/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
         if (!url) return;
         const crossclip = await $fetch(url, { responseType: "blob" }).catch(() => ({}));
         return crossclip;
