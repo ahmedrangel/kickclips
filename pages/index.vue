@@ -119,15 +119,13 @@ export default {
       const urlQ = new URL(this.url);
       const id = urlQ.searchParams.get("clip");
       this.loading = true;
-      try {
-        const response = await $fetch(`${INFO.kickApiBase}/clips/${id}`).catch(() => ({}));
-        const data = JSON.parse(response);
-        const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`;
-        const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async() => {
-          const { url } = await $fetch(`${INFO.worker}/kick/clip/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
-          const crossclip = await $fetch(url, { responseType: "blob" }).catch(() => ({}));
-          return crossclip;
-        });
+      const data = await $fetch(`/api/clip/${id}`, { method: "POST" }).catch((e) => {
+        this.loading = false;
+        this.error = { message: e.data.message };
+        return;
+      });
+      if (data) {
+        const blob = await $fetch(data.clip.clip_url, { responseType: "blob" }).catch(() => {});
         const blobUrl = URL.createObjectURL(blob);
         console.info(blobUrl);
         this.loading = false;
@@ -145,10 +143,6 @@ export default {
           date: data.clip.created_at,
           duration: data.clip.duration
         };
-      } catch (e) {
-        this.loading = false;
-        this.error = { message: "Error: Could not get video - Make sure you entered the correct URL or try again" };
-        return;
       }
     }
   }
