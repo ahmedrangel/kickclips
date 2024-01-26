@@ -141,7 +141,7 @@ export default {
       console.info(blobUrl);
       this.loading = false;
       this.clip = {
-        filename: data.clip.id + ".mp4",
+        filename: data.clip.title + ".mp4",
         channel: data.clip.channel.username,
         slug: data.clip.channel.slug,
         channelPicture: data.clip.channel.profile_picture ?? "/images/user-default-pic.png",
