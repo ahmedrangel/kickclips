@@ -1,8 +1,9 @@
-import { SITE } from "./info";
+import { SITE } from "./INFO";
 
 export const SEO = {
   og: {
     type: "website",
+    site_name: SITE.name,
     title: SITE.title,
     description: SITE.description,
     url: SITE.host,

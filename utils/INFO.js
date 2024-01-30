@@ -5,6 +5,7 @@ export const RESOURCES = {
 };
 
 export const SITE = {
+  name: "KickClips",
   host: "https://kickclips.ahmedrangel.com",
   description: "KickClips is a free online tool for downloading MP4 clips from kick.com.",
   title: "KickClips | Downloader | to MP4",

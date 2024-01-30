@@ -6,6 +6,7 @@ useSeoMeta({
   // Open Graph
   ogType: SEO.og.type,
   ogTitle: SEO.og.title,
+  ogSiteName: SEO.og.site_name,
   ogDescription: SEO.og.description,
   ogUrl: SEO.og.url,
   ogImage: SEO.og.image,
