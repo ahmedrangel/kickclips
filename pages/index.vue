@@ -1,8 +1,8 @@
 <script setup>
 useSeoMeta({
-  title: SEO.title,
-  description: SEO.description,
-  keywords: SEO.keywords,
+  title: SITE.title,
+  description: SITE.description,
+  keywords: SITE.keywords,
   // Open Graph
   ogType: SEO.og.type,
   ogTitle: SEO.og.title,
@@ -13,6 +13,12 @@ useSeoMeta({
   twitterCard: SEO.twitter.card,
   twitterTitle: SEO.twitter.title,
   twitterDescription: SEO.twitter.description
+});
+
+useHead({
+  link: [
+    { rel: "canonical", href: SITE.host }
+  ]
 });
 </script>
 <template>
@@ -117,15 +123,15 @@ export default {
       const urlQ = new URL(this.url);
       const id = urlQ.searchParams.get("clip");
       this.loading = true;
-      const response = await $fetch(`${INFO.kickApiBase}/clips/${id}`).catch(() => {
+      const response = await $fetch(`${RESOURCES.kickApiBase}/clips/${id}`).catch(() => {
         this.loading = false;
         this.error = { message: "Error: Clip not found - Make sure you entered the correct URL" };
         return;
       });
       const data = JSON.parse(response);
-      const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${INFO.kickClipsTmp}/${id}.mp4`;
+      const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${RESOURCES.kickClipsTmp}/${id}.mp4`;
       const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async() => {
-        const { url } = await $fetch(`${INFO.worker}/kick/clip/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
+        const { url } = await $fetch(`${RESOURCES.worker}/kick/clip/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
         if (!url) return;
         const crossclip = await $fetch(url, { responseType: "blob" }).catch(() => ({}));
         return crossclip;
