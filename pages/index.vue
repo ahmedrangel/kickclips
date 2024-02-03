@@ -1,6 +1,6 @@
 <script setup>
 useSeoMeta({
-  title: SITE.title,
+  title: SITE.name,
   description: SITE.description,
   keywords: SITE.keywords,
   // Open Graph

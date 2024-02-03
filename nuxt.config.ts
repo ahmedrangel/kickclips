@@ -1,4 +1,4 @@
-export default ({
+export default defineNuxtConfig({
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
     "~/assets/css/kcd.css",
@@ -27,7 +27,9 @@ export default ({
       ]
     }
   },
-
+  features: {
+    inlineStyles: false
+  },
   modules: [
     "nuxt-icon"
   ]
