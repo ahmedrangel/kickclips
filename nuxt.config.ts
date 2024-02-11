@@ -31,24 +31,6 @@ export default defineNuxtConfig({
     inlineStyles: false
   },
   modules: [
-    "nuxt-icon",
-    "@nuxtjs/sitemap"
-  ],
-  nitro: {
-    prerender: {
-      routes: ["/sitemap.xml"],
-    }
-  },
-  sitemap: {
-    dynamicUrlsApiEndpoint: "/__sitemap",
-    xslColumns: [
-      { label: "URL", width: "65%" },
-      { label: "Priority", select: "sitemap:priority", width: "12.5%" },
-      { label: "Last Modified", select: "sitemap:lastmod", width: "35%" }
-    ]
-  },
-  routeRules: {
-    "/": { sitemap: { priority: 1 } },
-    "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } }
-  }
+    "nuxt-icon"
+  ]
 });
