@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   },
   modules: [
     "nuxt-icon",
-    "@nuxtjs/sitemap"
+    "nuxt-simple-sitemap"
   ],
   site: {
     url: SITE.host
