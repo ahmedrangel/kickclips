@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "nuxt-simple-sitemap"
   ],
+  runtimeConfig: {},
   site: {
     url: SITE.host
   },
