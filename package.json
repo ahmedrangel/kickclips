@@ -11,11 +11,11 @@
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.2.0",
+    "@nuxtjs/sitemap": "^5.1.0",
     "@types/node": "^20.11.17",
     "eslint": "^8.56.0",
     "nuxt": "^3.10.1",
     "nuxt-icon": "^0.6.8",
-    "nuxt-simple-sitemap": "^4.4.1",
     "typescript": "latest"
   },
   "dependencies": {

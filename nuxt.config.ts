@@ -34,7 +34,7 @@ export default defineNuxtConfig({
   },
   modules: [
     "nuxt-icon",
-    "nuxt-simple-sitemap"
+    "@nuxtjs/sitemap"
   ],
   runtimeConfig: {},
   site: {

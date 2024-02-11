@@ -13,6 +13,9 @@ devDependencies:
   '@nuxt/eslint-config':
     specifier: ^0.2.0
     version: 0.2.0(eslint@8.56.0)
+  '@nuxtjs/sitemap':
+    specifier: ^5.1.0
+    version: 5.1.0(@nuxt/devtools@1.0.8)(@vue/compiler-core@3.4.18)(h3@1.10.1)(nuxt@3.10.1)(postcss@8.4.33)(vite@5.0.12)(vue@3.4.18)(webpack@5.90.1)
   '@types/node':
     specifier: ^20.11.17
     version: 20.11.17
@@ -25,9 +28,6 @@ devDependencies:
   nuxt-icon:
     specifier: ^0.6.8
     version: 0.6.8(nuxt@3.10.1)(vite@5.0.12)(vue@3.4.18)
-  nuxt-simple-sitemap:
-    specifier: ^4.4.1
-    version: 4.4.1(@nuxt/devtools@1.0.8)(@vue/compiler-core@3.4.18)(h3@1.10.1)(nuxt@3.10.1)(postcss@8.4.33)(vite@5.0.12)(vue@3.4.18)(webpack@5.90.1)
   typescript:
     specifier: latest
     version: 5.1.6
@@ -1920,6 +1920,54 @@ packages:
       - supports-color
     dev: true
 
+  /@nuxtjs/sitemap@5.1.0(@nuxt/devtools@1.0.8)(@vue/compiler-core@3.4.18)(h3@1.10.1)(nuxt@3.10.1)(postcss@8.4.33)(vite@5.0.12)(vue@3.4.18)(webpack@5.90.1):
+    resolution: {integrity: sha512-F7fAAdzHLJsca0CBJEvZD6Jbl5mZ/egMFJqDjdUByTsaPAygP+FcXhV/lycAtwDMNWThwyZaV3zKyRl2yxX3BQ==, tarball: https://registry.npmjs.org/@nuxtjs/sitemap/-/sitemap-5.1.0.tgz}
+    dependencies:
+      '@nuxt/devtools-kit': 1.0.8(nuxt@3.10.1)(vite@5.0.12)
+      '@nuxt/devtools-ui-kit': 1.0.8(@nuxt/devtools@1.0.8)(@vue/compiler-core@3.4.18)(nuxt@3.10.1)(postcss@8.4.33)(vite@5.0.12)(vue@3.4.18)(webpack@5.90.1)
+      '@nuxt/kit': 3.10.1
+      '@vueuse/core': 10.7.2(vue@3.4.18)
+      chalk: 5.3.0
+      defu: 6.1.4
+      floating-vue: 5.2.2(@nuxt/kit@3.10.1)(vue@3.4.18)
+      h3-compression: 0.3.2(h3@1.10.1)
+      nuxt-site-config: 2.2.9(@nuxt/devtools@1.0.8)(@vue/compiler-core@3.4.18)(nuxt@3.10.1)(postcss@8.4.33)(vite@5.0.12)(vue@3.4.18)(webpack@5.90.1)
+      nuxt-site-config-kit: 2.2.9(vue@3.4.18)
+      ofetch: 1.3.3
+      pathe: 1.1.2
+      pkg-types: 1.0.3
+      radix3: 1.1.0
+      semver: 7.5.4
+      shiki: 1.0.0-beta.2
+      sirv: 2.0.4
+      site-config-stack: 2.2.9(vue@3.4.18)
+      ufo: 1.3.2
+    transitivePeerDependencies:
+      - '@nuxt/devtools'
+      - '@unocss/webpack'
+      - '@vue/compiler-core'
+      - '@vue/composition-api'
+      - async-validator
+      - axios
+      - change-case
+      - drauu
+      - fuse.js
+      - h3
+      - idb-keyval
+      - jwt-decode
+      - nprogress
+      - nuxt
+      - postcss
+      - qrcode
+      - rollup
+      - sortablejs
+      - supports-color
+      - universal-cookie
+      - vite
+      - vue
+      - webpack
+    dev: true
+
   /@parcel/watcher-android-arm64@2.3.0:
     resolution: {integrity: sha512-f4o9eA3dgk0XRT3XhB0UWpWpLnKgrh1IwNJKJ7UJek7eTYccQ8LR7XUWFKqw6aEq5KUNlCcGvSzKqSX/vtWVVA==, tarball: https://registry.npmjs.org/@parcel/watcher-android-arm64/-/watcher-android-arm64-2.3.0.tgz}
     engines: {node: '>= 10.0.0'}
@@ -2324,6 +2372,10 @@ packages:
 
   /@rushstack/eslint-patch@1.5.1:
     resolution: {integrity: sha512-6i/8UoL0P5y4leBIGzvkZdS85RDMG9y1ihZzmTZQ5LdHUYmZ7pKFoj8X0236s3lusPs1Fa5HTQUpwI+UfTcmeA==}
+    dev: true
+
+  /@shikijs/core@1.0.0-beta.2:
+    resolution: {integrity: sha512-H0r+V4/47hXZzFW2qXRqjLwNtiUE5bQankMw2m2RE1hLgHSjp/skyBZYDXjhG9y7ei3sIZAj8s4vx31EzxxrhQ==, tarball: https://registry.npmjs.org/@shikijs/core/-/core-1.0.0-beta.2.tgz}
     dev: true
 
   /@shikijs/core@1.1.1:
@@ -3853,7 +3905,7 @@ packages:
     dev: true
 
   /colorette@2.0.20:
-    resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
+    resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==, tarball: https://registry.npmjs.org/colorette/-/colorette-2.0.20.tgz}
     dev: true
 
   /commander@2.20.3:
@@ -6128,51 +6180,6 @@ packages:
       - vue
     dev: true
 
-  /nuxt-simple-sitemap@4.4.1(@nuxt/devtools@1.0.8)(@vue/compiler-core@3.4.18)(h3@1.10.1)(nuxt@3.10.1)(postcss@8.4.33)(vite@5.0.12)(vue@3.4.18)(webpack@5.90.1):
-    resolution: {integrity: sha512-Srj0tNW2+qpOHpJJ2C2YXo9SYHux38vPTiAylFNHLmsw3dcVThiUm4w1acs8Vh116EegxQxzBIVtXMaFTKHZpw==, tarball: https://registry.npmjs.org/nuxt-simple-sitemap/-/nuxt-simple-sitemap-4.4.1.tgz}
-    deprecated: Package has been migrated to @nuxtjs/sitemap.
-    dependencies:
-      '@nuxt/devtools-kit': 1.0.8(nuxt@3.10.1)(vite@5.0.12)
-      '@nuxt/devtools-ui-kit': 1.0.8(@nuxt/devtools@1.0.8)(@vue/compiler-core@3.4.18)(nuxt@3.10.1)(postcss@8.4.33)(vite@5.0.12)(vue@3.4.18)(webpack@5.90.1)
-      '@nuxt/kit': 3.10.1
-      chalk: 5.3.0
-      defu: 6.1.4
-      h3-compression: 0.3.2(h3@1.10.1)
-      nuxt-site-config: 2.2.9(@nuxt/devtools@1.0.8)(@vue/compiler-core@3.4.18)(nuxt@3.10.1)(postcss@8.4.33)(vite@5.0.12)(vue@3.4.18)(webpack@5.90.1)
-      nuxt-site-config-kit: 2.2.9(vue@3.4.18)
-      ofetch: 1.3.3
-      pathe: 1.1.2
-      radix3: 1.1.0
-      semver: 7.5.4
-      sirv: 2.0.4
-      site-config-stack: 2.2.9(vue@3.4.18)
-      ufo: 1.3.2
-    transitivePeerDependencies:
-      - '@nuxt/devtools'
-      - '@unocss/webpack'
-      - '@vue/compiler-core'
-      - '@vue/composition-api'
-      - async-validator
-      - axios
-      - change-case
-      - drauu
-      - fuse.js
-      - h3
-      - idb-keyval
-      - jwt-decode
-      - nprogress
-      - nuxt
-      - postcss
-      - qrcode
-      - rollup
-      - sortablejs
-      - supports-color
-      - universal-cookie
-      - vite
-      - vue
-      - webpack
-    dev: true
-
   /nuxt-site-config-kit@2.2.9(vue@3.4.18):
     resolution: {integrity: sha512-K3Pi7OBeztfjTxEpk0kEpbRwyhKQf15MIJQUAeqep9K2RbAdzhSygfpHZUcWc0KL2l0E5qKrvdcM14Gc/9dZdg==, tarball: https://registry.npmjs.org/nuxt-site-config-kit/-/nuxt-site-config-kit-2.2.9.tgz}
     dependencies:
@@ -7263,6 +7270,12 @@ packages:
 
   /shell-quote@1.8.1:
     resolution: {integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==}
+    dev: true
+
+  /shiki@1.0.0-beta.2:
+    resolution: {integrity: sha512-hPJcD6F5BRp2yfeBcERqQIVeEPjE2g+r5MVq/tonz2SxT6o79e84Y9iW+a5TyGXWtXAKiW5jd4lGevJ4yIUixA==, tarball: https://registry.npmjs.org/shiki/-/shiki-1.0.0-beta.2.tgz}
+    dependencies:
+      '@shikijs/core': 1.0.0-beta.2
     dev: true
 
   /shiki@1.1.1:
