@@ -12,13 +12,13 @@
   "devDependencies": {
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxtjs/sitemap": "^5.1.0",
-    "@types/node": "^20.11.17",
-    "eslint": "^8.56.0",
-    "nuxt": "^3.10.1",
+    "@types/node": "^20.11.22",
+    "eslint": "^8.57.0",
+    "nuxt": "^3.10.3",
     "nuxt-icon": "^0.6.8",
     "typescript": "latest"
   },
   "dependencies": {
-    "bootstrap": "^5.3.2"
+    "bootstrap": "^5.3.3"
   }
 }
