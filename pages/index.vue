@@ -130,6 +130,7 @@ export default {
         return;
       });
       const data = JSON.parse(response);
+      await $fetch(`${RESOURCES.trigger}/api/kick/clip/${id}`).catch(() => null);
       const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${RESOURCES.kickClipsTmp}/${id}.mp4`;
       const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async() => {
         const { url } = await $fetch(`${RESOURCES.worker}/kick/clip/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
