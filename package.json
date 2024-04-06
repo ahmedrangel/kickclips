@@ -10,12 +10,12 @@
     "lint": "eslint --ext .ts,.js,.vue --fix --ignore-path .gitignore ."
   },
   "devDependencies": {
-    "@nuxt/eslint-config": "^0.2.0",
+    "@nuxt/eslint-config": "^0.3.1",
     "@nuxtjs/sitemap": "^5.1.2",
-    "@types/node": "^20.11.25",
-    "eslint": "^8.57.0",
-    "nuxt": "^3.10.3",
-    "nuxt-icon": "^0.6.9",
+    "@types/node": "^20.12.5",
+    "eslint": "^9.0.0",
+    "nuxt": "^3.11.2",
+    "nuxt-icon": "^0.6.10",
     "typescript": "latest"
   },
   "dependencies": {
