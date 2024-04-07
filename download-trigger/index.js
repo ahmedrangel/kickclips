@@ -29,9 +29,9 @@ await client.api.authentication.login({
 
 console.info("Logged in");
 
-async function getClip(id) {
+const getClip = async (id) => {
   return await client.api.clip.download(id);
-}
+};
 
 router.get("/api/kick/clip/:id", async (req) => {
   const id = req.params.id;
