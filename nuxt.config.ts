@@ -33,6 +33,7 @@ export default defineNuxtConfig({
     inlineStyles: false
   },
   modules: [
+    "@nuxt/eslint",
     "nuxt-icon",
     "@nuxtjs/sitemap"
   ],
