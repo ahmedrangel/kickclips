@@ -30,7 +30,7 @@ await client.api.authentication.login({
 console.info("Logged in");
 
 const getClip = async (id) => {
-  return await client.api.clip.download(id);
+  return await client.api.clip.downloadClip(id);
 };
 
 router.get("/api/kick/clip/:id", async (req) => {
@@ -38,10 +38,12 @@ router.get("/api/kick/clip/:id", async (req) => {
   const now = new Date();
   const date = format(now, "yyyy-MM-dd hh:mm:ss");
   console.info(`${date}: ${id}`);
-  const clip = await getClip(id);
-  if (Array.isArray(clip.url) && clip.url.length === 0)
-    return new JsResponse(({ error: "Clip Not Found", status: 404 }));
-  return new JsResponse((clip));
+  try {
+    const clip = await getClip(id);
+    return new JsResponse(clip);
+  } catch (e) {
+    return new JsResponse({ error: e.message, status: 404 });
+  }
 });
 
 router.all("*", () => new JsResponse("Not Found", { status: 404 }));
