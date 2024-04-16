@@ -20,7 +20,7 @@ const token = new OTP({
 
 console.info(token);
 
-// Get a channel and listen to its chatroom
+// Authentication
 await client.api.authentication.login({
   email: process.env.EMAIL, // mail@example.com
   password: process.env.PASSWORD, // qwerty123
