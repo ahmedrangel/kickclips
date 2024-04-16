@@ -1,7 +1,7 @@
 import { createServer } from "node:http";
 import { createServerAdapter } from "@whatwg-node/server";
 import { IttyRouter, error } from "itty-router";
-import { Kient } from "@ahmedrangel/kient";
+import { Kient } from "kient";
 import * as dotenv from "dotenv";
 import JsResponse from "./JsResponse.js";
 import { format } from "date-fns";
