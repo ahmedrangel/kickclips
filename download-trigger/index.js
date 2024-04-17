@@ -2,12 +2,10 @@ import { createServer } from "node:http";
 import { createServerAdapter } from "@whatwg-node/server";
 import { IttyRouter, error } from "itty-router";
 import { Kient } from "kient";
-import * as dotenv from "dotenv";
+import "dotenv/config";
 import JsResponse from "./JsResponse.js";
 import { format } from "date-fns";
 import OTP from "otp";
-
-dotenv.config();
 
 const router = IttyRouter();
 
