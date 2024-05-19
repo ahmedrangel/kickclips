@@ -70,7 +70,7 @@ useHead({
             </div>
           </Transition>
         </div>
-        <Adsbygoogle class="mb-5" ad-format="horizontal" :ad-full-width-responsive="true" ad-slot="7749997818" />
+        <Adsbygoogle class="mb-5" ad-format="horizontal" :ad-full-width-responsive="true" ad-slot="7749997818" :hide-unfilled="true" />
         <div class="guide-body mx-1">
           <h3 class="mb-4">How to download a Kick clip?</h3>
           <div class="row g-4">
