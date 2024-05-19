@@ -59,10 +59,8 @@ export default defineNuxtConfig({
     "/": { sitemap: { priority: 1 } },
     "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } }
   },
-  publicRuntimeConfig: {
-    googleAdsense: {
-      id: process.env.GOOGLE_ADSENSE_ID,
-      test: process.env.GOOGLE_ADSENSE_TEST_MODE === "true"
-    },
+  googleAdsense: {
+    id: process.env.GOOGLE_ADSENSE_ID,
+    test: process.env.GOOGLE_ADSENSE_TEST_MODE === "true"
   },
 });
