@@ -34,7 +34,7 @@ useHead({
             <h2 class="col-12 fw-normal title mb-4">Enter clip URL</h2>
             <div class="col-12 row input-body p-2 mb-4 mx-0">
               <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/user?clip=clip_01A2BCD3EF4GHI5JKMNLOP67QR" required>
-              <button id="download" type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center">
+              <button id="download" type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center" :disabled="loading ? true : false">
                 <Icon class="iconify" name="ph:download-simple-bold" />
                 <span class="ms-1 download-txt">Download</span>
               </button>
@@ -130,6 +130,7 @@ export default {
         return;
       });
       const data = JSON.parse(response);
+      !data.clip.clip_url.includes(".mp4") ? await $fetch(`${RESOURCES.trigger}/api/kick/clip/${id}`).catch(() => null) : null;
       const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${RESOURCES.kickClipsTmp}/${id}.mp4`;
       const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async() => {
         const { url } = await $fetch(`${RESOURCES.worker}/kick/clip/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));

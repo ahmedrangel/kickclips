@@ -1,7 +1,8 @@
 export const RESOURCES = {
   kickApiBase: "https://kick.com/api/v2",
   kickClipsTmp: "https://clips.kick.com/tmp",
-  worker: "https://dev.ahmedrangel.com"
+  worker: "https://dev.ahmedrangel.com",
+  trigger: "https://kick-trigger.ahmedrangel.com"
 };
 
 export const SITE = {
