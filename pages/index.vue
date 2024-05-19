@@ -44,7 +44,6 @@ useHead({
             <LoadingSpinner v-if="loading" />
             <h5 v-else-if="error" class="error">{{ error.message }}</h5>
             <div v-else-if="clip.channel" id="clip" class="p-0">
-              <Adsbygoogle class="mb-3" :ad-full-width-responsive="true" ad-format="horizontal" />
               <div class="row">
                 <div class="col-12 col-sm-4 info text-start mb-4">
                   <div class="channel_profile">
@@ -70,6 +69,7 @@ useHead({
               </div>
             </div>
           </Transition>
+          <Adsbygoogle class="mb-3" :ad-full-width-responsive="true" ad-format="horizontal" />
         </div>
         <div class="guide-body mx-1">
           <h3 class="mb-4">How to download a Kick clip?</h3>
