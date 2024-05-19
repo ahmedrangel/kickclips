@@ -22,5 +22,6 @@ logs
 .env.*
 !.env.example
 
-.vscode*
+.vscode
+
 *.bat

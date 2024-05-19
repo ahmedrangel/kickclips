@@ -69,6 +69,7 @@ useHead({
               </div>
             </div>
           </Transition>
+          <Adsbygoogle class="mb-3" :ad-full-width-responsive="true" ad-format="horizontal" />
         </div>
         <div class="guide-body mx-1">
           <h3 class="mb-4">How to download a Kick clip?</h3>
