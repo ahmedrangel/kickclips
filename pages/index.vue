@@ -69,7 +69,6 @@ useHead({
               </div>
             </div>
           </Transition>
-          <Adsbygoogle :ad-full-width-responsive="true" ad-format="horizontal" />
         </div>
         <Adsbygoogle :ad-full-width-responsive="true" ad-format="horizontal" />
         <div class="guide-body mx-1">
