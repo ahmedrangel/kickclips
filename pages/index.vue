@@ -69,6 +69,7 @@ useHead({
               </div>
             </div>
           </Transition>
+          <Adsbygoogle :ad-full-width-responsive="true" ad-format="horizontal" />
         </div>
         <div class="mb-5 w-100">
           <Adsbygoogle :ad-full-width-responsive="true" ad-format="horizontal" />
