@@ -61,6 +61,7 @@ export default defineNuxtConfig({
   },
   googleAdsense: {
     id: process.env.GOOGLE_ADSENSE_ID,
-    test: process.env.GOOGLE_ADSENSE_TEST_MODE === "true"
+    test: process.env.GOOGLE_ADSENSE_TEST_MODE === "true",
+    pageLevelAds: true
   },
 });
