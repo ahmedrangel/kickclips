@@ -24,7 +24,7 @@ useHead({
 </script>
 <template>
   <main class="text-white">
-    <div class="text-center container">
+    <div class="text-center container overflow-hidden">
       <div class="my-5">
         <img class="logo mb-4" src="/images/kickclips-logo.svg">
         <h3 class="mb-4">Kick Clips Downloader</h3>
