@@ -36,7 +36,6 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "nuxt-icon",
     "@nuxtjs/sitemap",
-    "@nuxtjs/google-adsense"
   ],
   runtimeConfig: {},
   site: {
@@ -58,9 +57,5 @@ export default defineNuxtConfig({
   routeRules: {
     "/": { sitemap: { priority: 1 } },
     "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } }
-  },
-  googleAdsense: {
-    id: process.env.GOOGLE_ADSENSE_ID,
-    test: process.env.GOOGLE_ADSENSE_TEST_MODE === "true",
-  },
+  }
 });
