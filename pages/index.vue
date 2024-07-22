@@ -1,17 +1,17 @@
-<script setup>
+<script setup lang="ts">
 useSeoMeta({
   title: SITE.name,
   description: SITE.description,
   keywords: SITE.keywords,
   // Open Graph
-  ogType: SEO.og.type,
+  ogType: SEO.og.type as MaybeRef,
   ogTitle: SEO.og.title,
   ogSiteName: SEO.og.site_name,
   ogDescription: SEO.og.description,
   ogUrl: SEO.og.url,
   ogImage: SEO.og.image,
   // Twitter
-  twitterCard: SEO.twitter.card,
+  twitterCard: SEO.twitter.card as MaybeRef,
   twitterTitle: SEO.twitter.title,
   twitterDescription: SEO.twitter.description
 });
@@ -21,6 +21,74 @@ useHead({
     { rel: "canonical", href: SITE.host }
   ]
 });
+
+const url = ref<string>("");
+const clip = ref<Record<string, string>>({});
+const loading = ref<boolean>(false);
+const error = ref<{ message: string } | null>(null);
+const blob = ref<Blob | null>(null);
+const blobUrl = ref<string | null>(null);
+
+const getClip = async () => {
+  error.value = null;
+  if (!(url.value.includes("kick.com/") && url.value.includes("?clip="))) {
+    error.value = { message: "Error: The URL you entered is invalid" };
+    return;
+  }
+
+  if (blobUrl.value) {
+    URL.revokeObjectURL(blobUrl.value);
+  }
+
+  const urlQ = new URL(url.value);
+  const id = urlQ.searchParams.get("clip");
+  loading.value = true;
+  const data = await $fetch(`${RESOURCES.kickApiBase}/clips/${id}`, { parseResponse: JSON.parse }).catch(() => {
+    loading.value = false;
+    error.value = { message: "Error: Clip not found - Make sure you entered the correct URL" };
+    return;
+  }) as Record<string, any>;
+
+  const possibleTmp = `${RESOURCES.kickClipsTmp}/${id}.mp4`;
+  const tmpVideo = await $fetch(possibleTmp).catch(() => null) as Blob;
+
+  if (!tmpVideo) {
+    if (data.clip.clip_url.includes(".mp4")) {
+      blob.value = await $fetch(data.clip.clip_url).catch(() => null) as Blob;
+    }
+    else {
+      const fromApi = await $fetch(`/api/clip/${id}`).catch(() => null) as { url: string };
+      blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
+    }
+  }
+  else {
+    blob.value = tmpVideo;
+  }
+
+  if (!blob.value) {
+    loading.value = false;
+    error.value = { message: "Error: The clip processing time was extended - Please try again" };
+    return;
+  }
+
+  blobUrl.value = URL.createObjectURL(blob.value);
+
+  loading.value = false;
+  clip.value = {
+    filename: data.clip.title + ".mp4",
+    channel: data.clip.channel.username,
+    slug: data.clip.channel.slug,
+    channelPicture: data.clip.channel.profile_picture ?? "/images/user-default-pic.png",
+    title: data.clip.title,
+    views: data.clip.view_count,
+    likes: data.clip.likes_count,
+    blob: blobUrl.value,
+    creator: data.clip.creator.username,
+    creatorSlug: data.clip.creator.slug,
+    date: data.clip.created_at,
+    duration: data.clip.duration
+  };
+};
 </script>
 
 <template>
@@ -105,67 +173,3 @@ useHead({
     </div>
   </main>
 </template>
-
-<script>
-export default {
-  data () {
-    return {
-      url: "",
-      clip: {},
-      loading: false,
-      error: false
-    };
-  },
-  methods: {
-    async getClip () {
-      this.error = false;
-      if (!(this.url.includes("kick.com/") && this.url.includes("?clip="))) {
-        this.error = { message: "Error: The URL you entered is invalid" };
-        return;
-      }
-      if (this.clip.blob) {
-        URL.revokeObjectURL(this.clip.blob);
-      }
-      const urlQ = new URL(this.url);
-      const id = urlQ.searchParams.get("clip");
-      this.loading = true;
-      const response = await $fetch(`${RESOURCES.kickApiBase}/clips/${id}`).catch(() => {
-        this.loading = false;
-        this.error = { message: "Error: Clip not found - Make sure you entered the correct URL" };
-        return;
-      });
-      const data = JSON.parse(response);
-      !data.clip.clip_url.includes(".mp4") ? await $fetch(`${RESOURCES.trigger}/api/kick/clip/${id}`).catch(() => null) : null;
-      const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${RESOURCES.kickClipsTmp}/${id}.mp4`;
-      const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async () => {
-        const { url } = await $fetch(`${RESOURCES.worker}/kick/clip/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
-        if (!url) return;
-        const crossclip = await $fetch(url, { responseType: "blob" }).catch(() => ({}));
-        return crossclip;
-      });
-      if (!blob) {
-        this.loading = false;
-        this.error = { message: "Error: The clip processing time was extended - Please try again" };
-        return;
-      }
-      const blobUrl = URL.createObjectURL(blob);
-      console.info(blobUrl);
-      this.loading = false;
-      this.clip = {
-        filename: data.clip.title + ".mp4",
-        channel: data.clip.channel.username,
-        slug: data.clip.channel.slug,
-        channelPicture: data.clip.channel.profile_picture ?? "/images/user-default-pic.png",
-        title: data.clip.title,
-        views: data.clip.view_count,
-        likes: data.clip.likes_count,
-        blob: blobUrl,
-        creator: data.clip.creator.username,
-        creatorSlug: data.clip.creator.slug,
-        date: data.clip.created_at,
-        duration: data.clip.duration
-      };
-    }
-  }
-};
-</script>
