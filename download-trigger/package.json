@@ -3,11 +3,11 @@
   "type": "module",
   "private": "true",
   "devDependencies": {
-    "@whatwg-node/server": "^0.9.33",
+    "@whatwg-node/server": "^0.9.36",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "form-data": "^4.0.0",
-    "itty-router": "^5.0.15",
+    "itty-router": "^5.0.17",
     "kient": "1.0.1-13",
     "otp": "^1.1.2"
   }

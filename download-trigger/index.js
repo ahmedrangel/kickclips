@@ -1,13 +1,17 @@
 import { createServer } from "node:http";
 import { createServerAdapter } from "@whatwg-node/server";
-import { IttyRouter, error } from "itty-router";
+import { AutoRouter, error, cors } from "itty-router";
 import { Kient } from "kient";
 import "dotenv/config";
 import { format } from "date-fns";
 import OTP from "otp";
-import JsResponse from "./JsResponse.js";
 
-const router = IttyRouter();
+const { preflight, corsify } = cors();
+const router = AutoRouter({
+  before: [preflight],
+  catch: error,
+  finally: [corsify]
+});
 
 // Create a new client instance
 const client = await Kient.create();
@@ -38,20 +42,17 @@ router.get("/api/kick/clip/:id", async (req) => {
   console.info(`${date}: ${id}`);
   try {
     const clip = await getClip(id);
-    return new JsResponse(clip);
+    return clip;
   }
   catch (e) {
-    return new JsResponse({ error: e.message, status: 404 });
+    return { error: e.message, status: 404 };
   }
 });
 
-router.all("*", () => new JsResponse("Not Found", { status: 404 }));
-
-const ittyServer = createServerAdapter(
-  (request, env, ctx) => router
-    .fetch(request, env, ctx)
-    .catch(error)
+router.all("*", () =>
+  Response.json({ success: false, error: "Route not found" }, { status: 404 })
 );
 
+const ittyServer = createServerAdapter((request, env, ctx) => router.fetch(request, env, ctx));
 const httpServer = createServer(ittyServer);
 httpServer.listen(process.env.PORT);
