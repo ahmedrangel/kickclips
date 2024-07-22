@@ -1,5 +1,5 @@
 class JsResponse extends Response {
-  constructor(body) {
+  constructor (body) {
     const jsonBody = JSON.stringify(body);
     const options = {
       headers: {

@@ -22,6 +22,7 @@ useHead({
   ]
 });
 </script>
+
 <template>
   <main class="text-white">
     <div class="text-center container overflow-hidden">
@@ -48,8 +49,11 @@ useHead({
                 <div class="col-12 col-sm-4 info text-start mb-4">
                   <div class="channel_profile">
                     <img class="mb-1 img-fluid" :src="clip.channelPicture">
-                    <a :href="`https://kick.com/${clip.slug}`" class="text-decoration-underline" target="_blank"><h3 class="mb-3 user">
-                      {{ clip.channel }}</h3></a>
+                    <a :href="`https://kick.com/${clip.slug}`" class="text-decoration-underline" target="_blank">
+                      <h3 class="mb-3 user">
+                        {{ clip.channel }}
+                      </h3>
+                    </a>
                     <h5 class="mb-3">{{ clip.title }}</h5>
                     <p>Likes:&nbsp;&nbsp;<span class="fw-light">{{ clip.likes }}</span></p>
                     <p>Views:&nbsp;&nbsp;<span class="fw-light">{{ clip.views }}</span></p>
@@ -101,14 +105,15 @@ useHead({
     </div>
   </main>
 </template>
+
 <script>
 export default {
-  data() {
+  data () {
     return {
       url: "",
       clip: {},
       loading: false,
-      error: false,
+      error: false
     };
   },
   methods: {
@@ -132,7 +137,7 @@ export default {
       const data = JSON.parse(response);
       !data.clip.clip_url.includes(".mp4") ? await $fetch(`${RESOURCES.trigger}/api/kick/clip/${id}`).catch(() => null) : null;
       const clipVideo = data.clip.clip_url.includes(".mp4") ? data.clip.clip_url : `${RESOURCES.kickClipsTmp}/${id}.mp4`;
-      const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async() => {
+      const blob = await $fetch(clipVideo, { responseType: "blob" }).catch(async () => {
         const { url } = await $fetch(`${RESOURCES.worker}/kick/clip/${id}`, { parseResponse: JSON.parse }).catch(() => ({}));
         if (!url) return;
         const crossclip = await $fetch(url, { responseType: "blob" }).catch(() => ({}));

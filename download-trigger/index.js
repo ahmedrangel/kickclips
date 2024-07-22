@@ -3,9 +3,9 @@ import { createServerAdapter } from "@whatwg-node/server";
 import { IttyRouter, error } from "itty-router";
 import { Kient } from "kient";
 import "dotenv/config";
-import JsResponse from "./JsResponse.js";
 import { format } from "date-fns";
 import OTP from "otp";
+import JsResponse from "./JsResponse.js";
 
 const router = IttyRouter();
 
@@ -13,7 +13,7 @@ const router = IttyRouter();
 const client = await Kient.create();
 
 const token = new OTP({
-  secret: process.env["2FA"],
+  secret: process.env["2FA"]
 }).totp(Date.now());
 
 console.info(token);
@@ -22,7 +22,7 @@ console.info(token);
 await client.api.authentication.login({
   email: process.env.EMAIL, // mail@example.com
   password: process.env.PASSWORD, // qwerty123
-  otc: token, // one-time code provided via TOTP or Email
+  otc: token // one-time code provided via TOTP or Email
 });
 
 console.info("Logged in");
@@ -39,7 +39,8 @@ router.get("/api/kick/clip/:id", async (req) => {
   try {
     const clip = await getClip(id);
     return new JsResponse(clip);
-  } catch (e) {
+  }
+  catch (e) {
     return new JsResponse({ error: e.message, status: 404 });
   }
 });
@@ -49,7 +50,7 @@ router.all("*", () => new JsResponse("Not Found", { status: 404 }));
 const ittyServer = createServerAdapter(
   (request, env, ctx) => router
     .fetch(request, env, ctx)
-    .catch(error),
+    .catch(error)
 );
 
 const httpServer = createServer(ittyServer);
