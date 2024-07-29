@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@whatwg-node/server':
-        specifier: ^0.9.36
-        version: 0.9.36
+        specifier: ^0.9.45
+        version: 0.9.45
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -24,8 +24,8 @@ importers:
         specifier: ^5.0.17
         version: 5.0.17
       kient:
-        specifier: 1.0.1-13
-        version: 1.0.1-13(@deepkit/core@1.0.1-alpha.145)
+        specifier: 1.0.1-15
+        version: 1.0.1-15(@deepkit/core@1.0.1-alpha.145)
       otp:
         specifier: ^1.1.2
         version: 1.1.2
@@ -52,20 +52,16 @@ packages:
   '@types/uuid@8.3.4':
     resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
 
-  '@whatwg-node/events@0.1.1':
-    resolution: {integrity: sha512-AyQEn5hIPV7Ze+xFoXVU3QTHXVbWPrzaOkxtENMPMuNL6VVHrp4hHfDt9nrQpjO7BgvuM95dMtkycX5M/DZR3w==}
+  '@whatwg-node/fetch@0.9.19':
+    resolution: {integrity: sha512-J+zopRcUVOhkiQYlHpxOEZuOgZtqW9xMaNQFDjESm9vRcyATms+E2/p2mZiVQGllPqWflkA3SzoJC1MxV4Pf9g==}
     engines: {node: '>=16.0.0'}
 
-  '@whatwg-node/fetch@0.9.17':
-    resolution: {integrity: sha512-TDYP3CpCrxwxpiNY0UMNf096H5Ihf67BK1iKGegQl5u9SlpEDYrvnV71gWBGJm+Xm31qOy8ATgma9rm8Pe7/5Q==}
-    engines: {node: '>=16.0.0'}
+  '@whatwg-node/node-fetch@0.5.19':
+    resolution: {integrity: sha512-HSR/d2jGFuI2pcoQr7M92AjB9V7C8k8bFQ4NjJK9fwHyl1DyDnQYe+t1ygD84rCGNV8CIl1+OO5OamnvFzbqDw==}
+    engines: {node: '>=18.0.0'}
 
-  '@whatwg-node/node-fetch@0.5.10':
-    resolution: {integrity: sha512-KIAHepie/T1PRkUfze4t+bPlyvpxlWiXTPtcGlbIZ0vWkBJMdRmCg4ZrJ2y4XaO1eTPo1HlWYUuj1WvoIpumqg==}
-    engines: {node: '>=16.0.0'}
-
-  '@whatwg-node/server@0.9.36':
-    resolution: {integrity: sha512-KT9qKLmbuWSuFv0Vg4JyK2vN2+vSuQPeEa25xpndYFROAIZntYe7e2BlWAk9l7IrgnV+M4bCVhjrAwwRsaCeiA==}
+  '@whatwg-node/server@0.9.45':
+    resolution: {integrity: sha512-FBDf8aeKZSwFyASKTFIAcNfZPV7jczVItfwimcGFai9pXUMLJC3efjkNMh1HqKzM4sUUkocX8p0kaFzlkqrt1Q==}
     engines: {node: '>=16.0.0'}
 
   asynckit@0.4.0:
@@ -136,8 +132,8 @@ packages:
   itty-router@5.0.17:
     resolution: {integrity: sha512-ZHnPI0OOyTTLuNp2FdciejYaK4Wl3ZV3O0yEm8njOGggh/k/ek3BL7X2I5YsCOfc5vLhIJgj3Z4pUtLs6k9Ucg==}
 
-  kient@1.0.1-13:
-    resolution: {integrity: sha512-w7WAjsO97Z/eXe/DnGKpnoUbIdjpToLzkXt9vQj6voC6O2XH65Sctc3DdJukkEw/FLSu/8pddIz/AYIgD38L4g==}
+  kient@1.0.1-15:
+    resolution: {integrity: sha512-9998E+QYy0uMxJistY8Yj+IFSV06/nYOf0hzBMkXJGslep5R19pbpZDQGoV8yhCleOhWj52EXfJNOEKsdM0pmg==}
 
   mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
@@ -193,8 +189,8 @@ packages:
   tseep@1.2.1:
     resolution: {integrity: sha512-VFnsNcPGC4qFJ1nxbIPSjTmtRZOhlqLmtwRqtLVos8mbRHki8HO9cy9Z1e89EiWyxFmq6LBviI9TQjijxw/mEw==}
 
-  tslib@2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+  tslib@2.6.3:
+    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
   tweetnacl@1.0.3:
     resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
@@ -251,25 +247,22 @@ snapshots:
 
   '@types/uuid@8.3.4': {}
 
-  '@whatwg-node/events@0.1.1': {}
-
-  '@whatwg-node/fetch@0.9.17':
+  '@whatwg-node/fetch@0.9.19':
     dependencies:
-      '@whatwg-node/node-fetch': 0.5.10
+      '@whatwg-node/node-fetch': 0.5.19
       urlpattern-polyfill: 10.0.0
 
-  '@whatwg-node/node-fetch@0.5.10':
+  '@whatwg-node/node-fetch@0.5.19':
     dependencies:
       '@kamilkisiela/fast-url-parser': 1.1.4
-      '@whatwg-node/events': 0.1.1
       busboy: 1.6.0
       fast-querystring: 1.1.2
-      tslib: 2.6.2
+      tslib: 2.6.3
 
-  '@whatwg-node/server@0.9.36':
+  '@whatwg-node/server@0.9.45':
     dependencies:
-      '@whatwg-node/fetch': 0.9.17
-      tslib: 2.6.2
+      '@whatwg-node/fetch': 0.9.19
+      tslib: 2.6.3
 
   asynckit@0.4.0: {}
 
@@ -332,7 +325,7 @@ snapshots:
 
   itty-router@5.0.17: {}
 
-  kient@1.0.1-13(@deepkit/core@1.0.1-alpha.145):
+  kient@1.0.1-15(@deepkit/core@1.0.1-alpha.145):
     dependencies:
       '@deepkit/type': 1.0.1-alpha.105(@deepkit/core@1.0.1-alpha.145)
       cycletls: 1.0.26
@@ -397,7 +390,7 @@ snapshots:
 
   tseep@1.2.1: {}
 
-  tslib@2.6.2: {}
+  tslib@2.6.3: {}
 
   tweetnacl@1.0.3: {}
 
