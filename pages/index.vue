@@ -57,7 +57,7 @@ const getClip = async () => {
       blob.value = await $fetch(data.clip.clip_url).catch(() => null) as Blob;
     }
     else {
-      const fromApi = await $fetch(`/api/clip/${id}`).catch(() => null) as { url: string };
+      const fromApi = await $fetch(`/api/clip/${id}`, { method: "POST" }).catch(() => null) as { url: string };
       blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
     }
   }
