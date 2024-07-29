@@ -31,17 +31,24 @@ await client.api.authentication.login({
 
 console.info("Logged in");
 
-const getClip = async (id) => {
-  return await client.api.clip.downloadClip(id);
-};
-
-router.get("/api/kick/clip/:id", async (req) => {
+router.get("/api/kick/clip/:id/download", async (req) => {
   const id = req.params.id;
   const now = new Date();
   const date = format(now, "yyyy-MM-dd hh:mm:ss");
-  console.info(`${date}: ${id}`);
+  console.info(`[download] ${date}: ${id}`);
   try {
-    const clip = await getClip(id);
+    const clip = await client.api.clip.downloadClip(id);
+    return clip;
+  }
+  catch (e) {
+    return { error: e.message, status: 404 };
+  }
+});
+
+router.get("/api/kick/clip/:id", async (req) => {
+  const id = req.params.id;
+  try {
+    const clip = await client.api.clip.getClip(id);
     return clip;
   }
   catch (e) {
