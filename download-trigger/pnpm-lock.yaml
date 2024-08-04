@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@whatwg-node/server':
-        specifier: ^0.9.45
-        version: 0.9.45
+        specifier: ^0.9.46
+        version: 0.9.46
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -24,8 +24,8 @@ importers:
         specifier: ^5.0.17
         version: 5.0.17
       kient:
-        specifier: 1.0.1-15
-        version: 1.0.1-15(@deepkit/core@1.0.1-alpha.145)
+        specifier: 1.0.1-16
+        version: 1.0.1-16(@deepkit/core@1.0.1-alpha.145)
       otp:
         specifier: ^1.1.2
         version: 1.1.2
@@ -60,9 +60,9 @@ packages:
     resolution: {integrity: sha512-HSR/d2jGFuI2pcoQr7M92AjB9V7C8k8bFQ4NjJK9fwHyl1DyDnQYe+t1ygD84rCGNV8CIl1+OO5OamnvFzbqDw==}
     engines: {node: '>=18.0.0'}
 
-  '@whatwg-node/server@0.9.45':
-    resolution: {integrity: sha512-FBDf8aeKZSwFyASKTFIAcNfZPV7jczVItfwimcGFai9pXUMLJC3efjkNMh1HqKzM4sUUkocX8p0kaFzlkqrt1Q==}
-    engines: {node: '>=16.0.0'}
+  '@whatwg-node/server@0.9.46':
+    resolution: {integrity: sha512-vUKCMPP6f2BLtOxnK2c98QmK0rb24RlmXb2enbEg8nXttQLvlKfMOfaY7uNAtaMXejjR2ku/ww9EEeiWXV3Q9A==}
+    engines: {node: '>=18.0.0'}
 
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
@@ -132,8 +132,8 @@ packages:
   itty-router@5.0.17:
     resolution: {integrity: sha512-ZHnPI0OOyTTLuNp2FdciejYaK4Wl3ZV3O0yEm8njOGggh/k/ek3BL7X2I5YsCOfc5vLhIJgj3Z4pUtLs6k9Ucg==}
 
-  kient@1.0.1-15:
-    resolution: {integrity: sha512-9998E+QYy0uMxJistY8Yj+IFSV06/nYOf0hzBMkXJGslep5R19pbpZDQGoV8yhCleOhWj52EXfJNOEKsdM0pmg==}
+  kient@1.0.1-16:
+    resolution: {integrity: sha512-4MKoErJ1exNZYqVyPqgy41OKx+QTh0ORgek3JZAYR0N0JFm/ICN6ajUjeNn5O7SAipHEkPW9yIQow4Ti2/u1FA==}
 
   mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
@@ -259,7 +259,7 @@ snapshots:
       fast-querystring: 1.1.2
       tslib: 2.6.3
 
-  '@whatwg-node/server@0.9.45':
+  '@whatwg-node/server@0.9.46':
     dependencies:
       '@whatwg-node/fetch': 0.9.19
       tslib: 2.6.3
@@ -325,7 +325,7 @@ snapshots:
 
   itty-router@5.0.17: {}
 
-  kient@1.0.1-15(@deepkit/core@1.0.1-alpha.145):
+  kient@1.0.1-16(@deepkit/core@1.0.1-alpha.145):
     dependencies:
       '@deepkit/type': 1.0.1-alpha.105(@deepkit/core@1.0.1-alpha.145)
       cycletls: 1.0.26
