@@ -24,7 +24,7 @@ useHead({
 
 const url = ref<string>("");
 const clip = ref<Record<string, string>>({});
-const loading = ref<boolean>(false);
+const loading = ref<boolean>(true);
 const error = ref<{ message: string } | null>(null);
 const blob = ref<Blob | null>(null);
 const blobUrl = ref<string | null>(null);
@@ -61,20 +61,18 @@ const processClip = async (playlist: string, id: string) => {
   }));
 
   const combinedStream = new ReadableStream({
-    start (controller) {
-      (async function push () {
-        for (const stream of streams) {
-          if (stream) {
-            const reader = stream.getReader();
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) break;
-              controller.enqueue(value);
-            }
+    async start (controller) {
+      for (const stream of streams) {
+        if (stream) {
+          const reader = stream.getReader();
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            controller.enqueue(value);
           }
         }
-        controller.close();
-      })();
+      }
+      controller.close();
     }
   });
 
@@ -82,9 +80,9 @@ const processClip = async (playlist: string, id: string) => {
   const { $ffmpeg } = useNuxtApp();
   const unpkg = "https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm";
   try {
-    $ffmpeg.on("log", ({ type, message }) => {
-      console.log(message);
-    })
+    $ffmpeg.on("log", ({ message }) => {
+      console.info(message);
+    });
     await $ffmpeg.load({
       coreURL: await $ffmpeg.toBlobURL(`${unpkg}/ffmpeg-core.js`, "text/javascript"),
       wasmURL: await $ffmpeg.toBlobURL(`${unpkg}/ffmpeg-core.wasm`, "application/wasm"),
@@ -100,7 +98,7 @@ const processClip = async (playlist: string, id: string) => {
     console.info("data readed");
     return new Blob([(data).buffer], { type: "video/mp4" });
   }
-  catch (e) {
+  catch {
     return null;
   }
 };
@@ -140,7 +138,7 @@ const getClip = async () => {
       else {
         const fromApi = await $fetch(`/api/clip/${id}`, { method: "POST" }).catch(() => null) as { url: string };
         blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
-      }*/
+      } */
     }
   }
   else blob.value = tmpVideo;
@@ -182,8 +180,8 @@ const getClip = async () => {
         <h5 class="mb-4 fw-light mb-4">This is a free online tool for downloading MP4 clips from kick.com.</h5>
         <div class="downloader-body justify-content-center mb-5 p-3 p-sm-4">
           <form @submit.prevent="getClip()">
-            <h2 class="col-12 fw-normal title mb-4">Enter clip URL</h2>
-            <div class="col-12 row input-body p-2 mb-4 mx-0">
+            <h2 class="col-12 fw-normal title mb-3 mb-sm-4">Enter clip URL</h2>
+            <div class="col-12 row input-body p-2 mb-3 mb-sm-4 mx-0">
               <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/user?clip=clip_01A2BCD3EF4GHI5JKMNLOP67QR" required>
               <button id="download" type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center" :disabled="loading ? true : false">
                 <Icon class="iconify" name="ph:download-simple-bold" />
