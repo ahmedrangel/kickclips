@@ -97,7 +97,7 @@ const processClip = async (playlist: string, id: string) => {
     console.info("ffmpeg loaded");
     await ffmpeg.writeFile(`${id}.ts`, new Uint8Array(combinedBlob));
     console.info("blob writted");
-    await ffmpeg.exec(["-i", `${id}.ts`, "-preset", "ultrafast", "-threads", "5", `${id}.mp4`]);
+    await ffmpeg.exec(["-i", `${id}.ts`, "-preset", "ultrafast", "-threads", "4", `${id}.mp4`]);
     console.info("mp4 executed");
     const data = await ffmpeg.readFile(`${id}.mp4`) as Uint8Array;
     console.info("data readed");
