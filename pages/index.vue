@@ -95,7 +95,7 @@ const processClip = async (playlist: string, id: string) => {
     console.info("ffmpeg loaded");
     await ffmpeg.writeFile(`${id}.ts`, new Uint8Array(combinedBlob));
     console.info("blob writted");
-    await ffmpeg.exec(["-i", `${id}.ts`, "-preset", "ultrafast", "-threads", "1", `${id}.mp4`]);
+    await ffmpeg.exec(["-i", `${id}.ts`, "-preset", "ultrafast", "-threads", "5", `${id}.mp4`]);
     console.info("mp4 executed");
     const data = await ffmpeg.readFile(`${id}.mp4`) as Uint8Array;
     console.info("data readed");
@@ -136,10 +136,11 @@ const getClip = async () => {
     else {
       const processed = data.clip.clip_url.includes("/playlist.m3u8") ? await processClip(data.clip.clip_url, id) : null;
       if (processed) blob.value = processed;
+      /*
       else {
         const fromApi = await $fetch(`/api/clip/${id}`, { method: "POST" }).catch(() => null) as { url: string };
         blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
-      }
+      }*/
     }
   }
   else blob.value = tmpVideo;

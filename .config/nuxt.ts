@@ -61,11 +61,17 @@ export default defineNuxtConfig({
     ]
   },
   routeRules: {
-    "/": { sitemap: { priority: 1 } },
-    "/*/**": {
-      sitemap: { priority: 0.8, lastmod: new Date().toISOString() },
+    "/": {
+      sitemap: { priority: 1 },
+      headers: {
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cross-Origin-Opener-Policy": "same-origin"
+      }
     },
-    "/_nuxt/node_modules/.pnpm/@ffmpeg+ffmpeg@0.12.10/node_modules/@ffmpeg/ffmpeg/dist/esm/worker.js?worker_file&type=module": {
+    "/*/**": {
+      sitemap: { priority: 0.8, lastmod: new Date().toISOString() }
+    },
+    "/_nuxt/**": {
       headers: {
         "Cross-Origin-Embedder-Policy": "require-corp",
         "Cross-Origin-Opener-Policy": "same-origin"
@@ -81,6 +87,12 @@ export default defineNuxtConfig({
   vite: {
     optimizeDeps: {
       exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"]
+    },
+    server: {
+      headers: {
+        "Cross-Origin-Embedder-Policy": "require-corp",
+        "Cross-Origin-Opener-Policy": "same-origin"
+      }
     }
   }
 });
