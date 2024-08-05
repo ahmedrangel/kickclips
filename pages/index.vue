@@ -182,7 +182,7 @@ const getClip = async () => {
         <img class="logo mb-4" src="/images/kickclips-logo.svg">
         <h3 class="mb-4">Kick Clips Downloader</h3>
         <h5 class="mb-4 fw-light mb-4">This is a free online tool for downloading MP4 clips from kick.com.</h5>
-        <div class="row downloader-body justify-content-center mx-1 mb-5">
+        <div class="downloader-body justify-content-center mb-5 p-3 p-sm-4">
           <form @submit.prevent="getClip()">
             <h2 class="col-12 fw-normal title mb-4">Enter clip URL</h2>
             <div class="col-12 row input-body p-2 mb-4 mx-0">
@@ -198,7 +198,7 @@ const getClip = async () => {
             <h5 v-else-if="error" class="error">{{ error.message }}</h5>
             <div v-else-if="clip.channel" id="clip" class="p-0">
               <div class="row">
-                <div class="col-12 col-sm-4 info text-start mb-4">
+                <div class="col-12 col-lg-4 info text-start mb-4">
                   <div class="channel_profile">
                     <img class="mb-1 img-fluid" :src="clip.channelPicture">
                     <a :href="`https://kick.com/${clip.slug}`" class="text-decoration-underline" target="_blank">
@@ -214,7 +214,7 @@ const getClip = async () => {
                     <p><b>Date:</b>&nbsp;<span class="fw-light">{{ getDate(clip.date) }}</span></p>
                   </div>
                 </div>
-                <div class="col-12 col-sm-8 video mb-4">
+                <div class="col-12 col-lg-8 video mb-4">
                   <video class="img-fluid" width="1280" height="720" controls autoplay muted>
                     <source :src="clip.blob" type="video/mp4">
                   </video>

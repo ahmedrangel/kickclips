@@ -34,8 +34,6 @@ body {
 .downloader-body {
   background-color: var(--secondary-bg-color);
   border-radius: 16px;
-  margin: 10px 60px;
-  padding: 2rem 3rem;
 }
 
 .input-body, .input-vod {
@@ -77,9 +75,6 @@ body {
 }
 
 @media (max-width: 767px) {
-  .downloader-body {
-    padding: 2rem 0.5rem;
-  }
   .download-txt {
     display: none!important;
   }
