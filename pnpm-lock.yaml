@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@ffmpeg/core':
+      '@ffmpeg/core-mt':
         specifier: ^0.12.6
         version: 0.12.6
       '@ffmpeg/ffmpeg':
@@ -669,8 +669,8 @@ packages:
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
 
-  '@ffmpeg/core@0.12.6':
-    resolution: {integrity: sha512-PrjWBTfGn2WVn9T7wGnzfFwChbqWeZc7tM9vvJZVRadYFUDakfzy7W0LpYC0cvvK0xT82qlBsk38lQhJ/Hps5A==}
+  '@ffmpeg/core-mt@0.12.6':
+    resolution: {integrity: sha512-f7wrOeUk24VFRi2Gfsp/mwwkK1hbDV0ajgm2fOU/oRi+IDullyzAYdHOagAWfpSZXcTPAGZ1Ild7HmBwr3k2tg==}
     engines: {node: '>=16.x'}
 
   '@ffmpeg/ffmpeg@0.12.10':
@@ -4477,7 +4477,7 @@ snapshots:
 
   '@fastify/busboy@2.1.1': {}
 
-  '@ffmpeg/core@0.12.6': {}
+  '@ffmpeg/core-mt@0.12.6': {}
 
   '@ffmpeg/ffmpeg@0.12.10':
     dependencies:

@@ -31,6 +31,7 @@ const loading = ref<boolean>(false);
 const error = ref<{ message: string } | null>(null);
 const blob = ref<Blob | null>(null);
 const blobUrl = ref<string | null>(null);
+const blobPictureUrl = ref<string | null>(null);
 
 const processClip = async (playlist: string, id: string) => {
   const baseUrl = playlist.replace("/playlist.m3u8", "");
@@ -40,8 +41,8 @@ const processClip = async (playlist: string, id: string) => {
 
   const segments = Array.from(m3u8Data.matchAll(rangeRegex)).map(match => ({
     file: "",
-    start: parseInt(match[2], 10),
-    end: parseInt(match[2], 10) + parseInt(match[1], 10)
+    start: Number(match[2]),
+    end: Number(match[2]) + Number(match[1])
   }));
 
   segments.forEach((segment, index) => {
@@ -56,7 +57,7 @@ const processClip = async (playlist: string, id: string) => {
   });
 
   const streams = await Promise.all(segments.map(async (seg) => {
-    const response = await $fetch(`${baseUrl}/${seg.file}`, {
+    const response = await fetch(`${baseUrl}/${seg.file}`, {
       headers: { Range: `bytes=${seg.start}-${seg.end}` }
     }).catch(() => null);
     return response?.body;
@@ -81,9 +82,13 @@ const processClip = async (playlist: string, id: string) => {
   });
 
   const combinedBlob = await new Response(combinedStream).arrayBuffer();
+
   const ffmpeg = new FFmpeg();
   const unpkg = "https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm";
   try {
+    ffmpeg.on("log", ({ type, message }) => {
+      console.log(message);
+    })
     await ffmpeg.load({
       coreURL: await toBlobURL(`${unpkg}/ffmpeg-core.js`, "text/javascript"),
       wasmURL: await toBlobURL(`${unpkg}/ffmpeg-core.wasm`, "application/wasm"),
@@ -92,13 +97,13 @@ const processClip = async (playlist: string, id: string) => {
     console.info("ffmpeg loaded");
     await ffmpeg.writeFile(`${id}.ts`, new Uint8Array(combinedBlob));
     console.info("blob writted");
-    await ffmpeg.exec(["-i", `${id}.ts`, "-preset", "fast", "-threads", "4", `${id}.mp4`]);
+    await ffmpeg.exec(["-i", `${id}.ts`, "-preset", "ultrafast", "-threads", "5", `${id}.mp4`]);
     console.info("mp4 executed");
-    const data = await ffmpeg.readFile("video.mp4") as Uint8Array;
+    const data = await ffmpeg.readFile(`${id}.mp4`) as Uint8Array;
     console.info("data readed");
     return new Blob([(data).buffer], { type: "video/mp4" });
   }
-  catch {
+  catch (e) {
     return null;
   }
 };
@@ -111,6 +116,7 @@ const getClip = async () => {
   }
 
   if (blobUrl.value) {
+    URL.revokeObjectURL(blobUrl.value);
     URL.revokeObjectURL(blobUrl.value);
   }
 
@@ -139,9 +145,7 @@ const getClip = async () => {
       }
     }
   }
-  else {
-    blob.value = tmpVideo;
-  }
+  else blob.value = tmpVideo;
 
   if (!blob.value) {
     loading.value = false;
@@ -150,13 +154,14 @@ const getClip = async () => {
   }
 
   blobUrl.value = URL.createObjectURL(blob.value);
-
+  const picture = data.clip.channel?.profile_picture ? blobPictureUrl.value = URL.createObjectURL(await $fetch(`/api/picture?url=${data.clip.channel.profile_picture}`).catch(() => null) as Blob) : "/images/user-default-pic.png";
   loading.value = false;
+
   clip.value = {
     filename: data.clip.title + ".mp4",
     channel: data.clip.channel.username,
     slug: data.clip.channel.slug,
-    channelPicture: data.clip.channel.profile_picture ?? "/images/user-default-pic.png",
+    channelPicture: picture,
     title: data.clip.title,
     views: data.clip.view_count,
     likes: data.clip.likes_count,
