@@ -70,7 +70,7 @@ export default defineNuxtConfig({
     "/*/**": {
       sitemap: { priority: 0.8, lastmod: new Date().toISOString() }
     },
-    "/_nuxt/worker**": { headers }
+    "/_nuxt/**": { headers }
   },
   eslint: {
     config: {
