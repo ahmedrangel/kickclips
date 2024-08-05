@@ -1,5 +1,5 @@
 import { FFmpeg } from "@ffmpeg/ffmpeg";
-import ffmpegUtils from "@ffmpeg/util";
+import * as ffmpegUtils from "@ffmpeg/util";
 
 const provider = new FFmpeg();
 
