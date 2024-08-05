@@ -31,7 +31,6 @@ const loading = ref<boolean>(false);
 const error = ref<{ message: string } | null>(null);
 const blob = ref<Blob | null>(null);
 const blobUrl = ref<string | null>(null);
-const blobPictureUrl = ref<string | null>(null);
 
 const processClip = async (playlist: string, id: string) => {
   const baseUrl = playlist.replace("/playlist.m3u8", "");
@@ -82,7 +81,6 @@ const processClip = async (playlist: string, id: string) => {
   });
 
   const combinedBlob = await new Response(combinedStream).arrayBuffer();
-
   const ffmpeg = new FFmpeg();
   const unpkg = "https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm";
   try {
@@ -116,7 +114,6 @@ const getClip = async () => {
   }
 
   if (blobUrl.value) {
-    URL.revokeObjectURL(blobUrl.value);
     URL.revokeObjectURL(blobUrl.value);
   }
 
@@ -154,14 +151,13 @@ const getClip = async () => {
   }
 
   blobUrl.value = URL.createObjectURL(blob.value);
-  const picture = data.clip.channel?.profile_picture ? blobPictureUrl.value = URL.createObjectURL(await $fetch(`/api/picture?url=${data.clip.channel.profile_picture}`).catch(() => null) as Blob) : "/images/user-default-pic.png";
   loading.value = false;
 
   clip.value = {
     filename: data.clip.title + ".mp4",
     channel: data.clip.channel.username,
     slug: data.clip.channel.slug,
-    channelPicture: picture,
+    channelPicture:  data.clip.channel.profile_picture ?? "/images/user-default-pic.png",
     title: data.clip.title,
     views: data.clip.view_count,
     likes: data.clip.likes_count,
