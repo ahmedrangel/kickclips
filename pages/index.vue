@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { toBlobURL } from "@ffmpeg/util";
+
 useSeoMeta({
   title: SITE.name,
   description: SITE.description,
@@ -29,6 +32,77 @@ const error = ref<{ message: string } | null>(null);
 const blob = ref<Blob | null>(null);
 const blobUrl = ref<string | null>(null);
 
+const processClip = async (playlist: string, id: string) => {
+  const baseUrl = playlist.replace("/playlist.m3u8", "");
+  const m3u8Data = await $fetch(playlist, { responseType: "text" }).catch(() => null) as string;
+  const rangeRegex = /#EXT-X-BYTERANGE:(\d+)@(\d+)/g;
+  const fileRegex = /(\w+\.ts)/g;
+
+  const segments = Array.from(m3u8Data.matchAll(rangeRegex)).map(match => ({
+    file: "",
+    start: parseInt(match[2], 10),
+    end: parseInt(match[2], 10) + parseInt(match[1], 10)
+  }));
+
+  segments.forEach((segment, index) => {
+    const match = m3u8Data.match(fileRegex);
+    if (match) {
+      const fileMatch = match[index];
+      if (fileMatch) {
+        const file = fileMatch.trim();
+        segment.file = file;
+      }
+    }
+  });
+
+  const streams = await Promise.all(segments.map(async (seg) => {
+    const response = await $fetch(`${baseUrl}/${seg.file}`, {
+      headers: { Range: `bytes=${seg.start}-${seg.end}` }
+    }).catch(() => null);
+    return response?.body;
+  }));
+
+  const combinedStream = new ReadableStream({
+    start (controller) {
+      (async function push () {
+        for (const stream of streams) {
+          if (stream) {
+            const reader = stream.getReader();
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              controller.enqueue(value);
+            }
+          }
+        }
+        controller.close();
+      })();
+    }
+  });
+
+  const combinedBlob = await new Response(combinedStream).arrayBuffer();
+  const ffmpeg = new FFmpeg();
+  const unpkg = "https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm";
+  try {
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${unpkg}/ffmpeg-core.js`, "text/javascript"),
+      wasmURL: await toBlobURL(`${unpkg}/ffmpeg-core.wasm`, "application/wasm"),
+      workerURL: await toBlobURL(`${unpkg}/ffmpeg-core.worker.js`, "text/javascript")
+    });
+    console.info("ffmpeg loaded");
+    await ffmpeg.writeFile(`${id}.ts`, new Uint8Array(combinedBlob));
+    console.info("blob writted");
+    await ffmpeg.exec(["-i", `${id}.ts`, "-preset", "fast", "-threads", "4", `${id}.mp4`]);
+    console.info("mp4 executed");
+    const data = await ffmpeg.readFile("video.mp4") as Uint8Array;
+    console.info("data readed");
+    return new Blob([(data).buffer], { type: "video/mp4" });
+  }
+  catch {
+    return null;
+  }
+};
+
 const getClip = async () => {
   error.value = null;
   if (!(url.value.includes("kick.com/") && url.value.includes("?clip="))) {
@@ -41,7 +115,7 @@ const getClip = async () => {
   }
 
   const urlQ = new URL(url.value);
-  const id = urlQ.searchParams.get("clip");
+  const id = urlQ.searchParams.get("clip") as string;
   loading.value = true;
   const data = await $fetch(`${RESOURCES.kickApiBase}/clips/${id}`, { parseResponse: JSON.parse }).catch(() => {
     loading.value = false;
@@ -57,8 +131,12 @@ const getClip = async () => {
       blob.value = await $fetch(data.clip.clip_url).catch(() => null) as Blob;
     }
     else {
-      const fromApi = await $fetch(`/api/clip/${id}`, { method: "POST" }).catch(() => null) as { url: string };
-      blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
+      const processed = data.clip.clip_url.includes("/playlist.m3u8") ? await processClip(data.clip.clip_url, id) : null;
+      if (processed) blob.value = processed;
+      else {
+        const fromApi = await $fetch(`/api/clip/${id}`, { method: "POST" }).catch(() => null) as { url: string };
+        blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
+      }
     }
   }
   else {
