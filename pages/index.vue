@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { FFmpeg } from "@ffmpeg/ffmpeg";
-import { toBlobURL } from "@ffmpeg/util";
-
 useSeoMeta({
   title: SITE.name,
   description: SITE.description,
@@ -82,23 +79,23 @@ const processClip = async (playlist: string, id: string) => {
   });
 
   const combinedBlob = await new Response(combinedStream).arrayBuffer();
-  const ffmpeg = new FFmpeg();
+  const { $ffmpeg } = useNuxtApp();
   const unpkg = "https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm";
   try {
-    ffmpeg.on("log", ({ type, message }) => {
+    $ffmpeg.on("log", ({ type, message }) => {
       console.log(message);
     })
-    await ffmpeg.load({
-      coreURL: await toBlobURL(`${unpkg}/ffmpeg-core.js`, "text/javascript"),
-      wasmURL: await toBlobURL(`${unpkg}/ffmpeg-core.wasm`, "application/wasm"),
-      workerURL: await toBlobURL(`${unpkg}/ffmpeg-core.worker.js`, "text/javascript")
+    await $ffmpeg.load({
+      coreURL: await $ffmpeg.toBlobURL(`${unpkg}/ffmpeg-core.js`, "text/javascript"),
+      wasmURL: await $ffmpeg.toBlobURL(`${unpkg}/ffmpeg-core.wasm`, "application/wasm"),
+      workerURL: await $ffmpeg.toBlobURL(`${unpkg}/ffmpeg-core.worker.js`, "text/javascript")
     });
     console.info("ffmpeg loaded");
-    await ffmpeg.writeFile(`${id}.ts`, new Uint8Array(combinedBlob));
+    await $ffmpeg.writeFile(`${id}.ts`, new Uint8Array(combinedBlob));
     console.info("blob writted");
-    await ffmpeg.exec(["-i", `${id}.ts`, "-preset", "ultrafast", "-threads", "5", `${id}.mp4`]);
+    await $ffmpeg.exec(["-i", `${id}.ts`, "-preset", "ultrafast", "-threads", "5", `${id}.mp4`]);
     console.info("mp4 executed");
-    const data = await ffmpeg.readFile(`${id}.mp4`) as Uint8Array;
+    const data = await $ffmpeg.readFile(`${id}.mp4`) as Uint8Array;
     console.info("data readed");
     return new Blob([(data).buffer], { type: "video/mp4" });
   }
