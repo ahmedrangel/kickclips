@@ -24,7 +24,7 @@ useHead({
 
 const url = ref<string>("");
 const clip = ref<Record<string, string>>({});
-const loading = ref<boolean>(true);
+const loading = ref<boolean>(false);
 const error = ref<{ message: string } | null>(null);
 const blob = ref<Blob | null>(null);
 const blobUrl = ref<string | null>(null);
