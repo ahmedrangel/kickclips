@@ -31,6 +31,7 @@ const loading = ref<boolean>(false);
 const error = ref<{ message: string } | null>(null);
 const blob = ref<Blob | null>(null);
 const blobUrl = ref<string | null>(null);
+const blobPictureUrl = ref<string | null>(null);
 
 const processClip = async (playlist: string, id: string) => {
   const baseUrl = playlist.replace("/playlist.m3u8", "");
@@ -115,6 +116,7 @@ const getClip = async () => {
 
   if (blobUrl.value) {
     URL.revokeObjectURL(blobUrl.value);
+    if (blobPictureUrl.value) URL.revokeObjectURL(blobPictureUrl.value);
   }
 
   const urlQ = new URL(url.value);
@@ -152,13 +154,15 @@ const getClip = async () => {
   }
 
   blobUrl.value = URL.createObjectURL(blob.value);
+  const picture = data.clip.channel?.profile_picture ? blobPictureUrl.value = URL.createObjectURL(await $fetch(`/api/picture?url=${data.clip.channel.profile_picture}`).catch(() => null) as Blob) : "/images/user-default-pic.png";
+
   loading.value = false;
 
   clip.value = {
     filename: data.clip.title + ".mp4",
     channel: data.clip.channel.username,
     slug: data.clip.channel.slug,
-    channelPicture:  data.clip.channel.profile_picture ?? "/images/user-default-pic.png",
+    channelPicture: picture,
     title: data.clip.title,
     views: data.clip.view_count,
     likes: data.clip.likes_count,
@@ -203,11 +207,11 @@ const getClip = async () => {
                       </h3>
                     </a>
                     <h5 class="mb-3">{{ clip.title }}</h5>
-                    <p>Likes:&nbsp;&nbsp;<span class="fw-light">{{ clip.likes }}</span></p>
-                    <p>Views:&nbsp;&nbsp;<span class="fw-light">{{ clip.views }}</span></p>
-                    <p>Duration:&nbsp;&nbsp;<span class="fw-light">{{ formatTime(clip.duration) }}</span></p>
-                    <p>Clipped by: <a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline user" target="_blank">{{ clip.creator }}</a></p>
-                    <p>Date:&nbsp;&nbsp;<span class="fw-light">{{ getDate(clip.date) }}</span></p>
+                    <p><b>Likes:</b>&nbsp;<span class="fw-light">{{ clip.likes }}</span></p>
+                    <p><b>Views:</b>&nbsp;<span class="fw-light">{{ clip.views }}</span></p>
+                    <p><b>Duration:</b>&nbsp;<span class="fw-light">{{ formatTime(clip.duration) }}</span></p>
+                    <p><b>Clipped by:</b>&nbsp;<a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline user" target="_blank">{{ clip.creator }}</a></p>
+                    <p><b>Date:</b>&nbsp;<span class="fw-light">{{ getDate(clip.date) }}</span></p>
                   </div>
                 </div>
                 <div class="col-12 col-sm-8 video mb-4">

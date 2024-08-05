@@ -1,5 +1,10 @@
 import { SITE } from "../utils/INFO";
 
+const headers = {
+  "Cross-Origin-Embedder-Policy": "require-corp",
+  "Cross-Origin-Opener-Policy": "same-origin"
+};
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-07-22",
   css: [
@@ -61,21 +66,9 @@ export default defineNuxtConfig({
     ]
   },
   routeRules: {
-    "/": {
-      sitemap: { priority: 1 },
-      headers: {
-        "Cross-Origin-Embedder-Policy": "require-corp",
-        "Cross-Origin-Opener-Policy": "same-origin"
-      }
-    },
+    "/": { sitemap: { priority: 1 }, headers },
     "/*/**": {
       sitemap: { priority: 0.8, lastmod: new Date().toISOString() }
-    },
-    "/_nuxt/**": {
-      headers: {
-        "Cross-Origin-Embedder-Policy": "require-corp",
-        "Cross-Origin-Opener-Policy": "same-origin"
-      }
     }
   },
   eslint: {
@@ -89,10 +82,7 @@ export default defineNuxtConfig({
       exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"]
     },
     server: {
-      headers: {
-        "Cross-Origin-Embedder-Policy": "require-corp",
-        "Cross-Origin-Opener-Policy": "same-origin"
-      }
+      headers
     }
   }
 });
