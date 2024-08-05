@@ -7,11 +7,11 @@ export const SEO = {
     title: SITE.title,
     description: SITE.description,
     url: SITE.host,
-    image: `${SITE.host}/images/og-card.png`,
+    image: `${SITE.host}/images/og-card.png`
   },
   twitter: {
     card: "summary",
     title: SITE.title,
-    description: SITE.description,
+    description: SITE.description
   }
 };

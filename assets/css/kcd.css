@@ -172,3 +172,7 @@ select {
   background-color: var(--white);
   max-width: 100%;
 }
+
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+}

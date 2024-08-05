@@ -7,17 +7,15 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix --config .config/eslint.mjs"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.3.13",
-    "@nuxtjs/google-adsense": "^3.0.0",
-    "@nuxtjs/sitemap": "^5.1.5",
-    "@types/node": "^20.12.12",
-    "eslint": "^9.3.0",
-    "nuxt": "^3.11.2",
-    "nuxt-icon": "^0.6.10",
-    "typescript": "latest"
+    "@nuxt/eslint": "^0.5.0",
+    "@nuxtjs/sitemap": "^5.3.5",
+    "@types/node": "^22.1.0",
+    "eslint": "^9.8.0",
+    "nuxt": "^3.12.4",
+    "nuxt-icon": "^0.6.10"
   },
   "dependencies": {
     "bootstrap": "^5.3.3"
