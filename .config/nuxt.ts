@@ -63,11 +63,7 @@ export default defineNuxtConfig({
   routeRules: {
     "/": { sitemap: { priority: 1 } },
     "/*/**": {
-      sitemap: { priority: 0.8, lastmod: new Date().toISOString() },
-      headers: {
-        "Cross-Origin-Embedder-Policy": "require-corp",
-        "Cross-Origin-Opener-Policy": "same-origin"
-      }
+      sitemap: { priority: 0.8, lastmod: new Date().toISOString() }
     }
   },
   eslint: {
