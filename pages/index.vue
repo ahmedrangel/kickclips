@@ -132,13 +132,9 @@ const getClip = async () => {
       blob.value = await $fetch(data.clip.clip_url).catch(() => null) as Blob;
     }
     else {
-      const processed = data.clip.clip_url.includes("/playlist.m3u8") ? await processClip(data.clip.clip_url, id) : null;
-      if (processed) blob.value = processed;
-      /*
-      else {
-        const fromApi = await $fetch(`/api/clip/${id}`, { method: "POST" }).catch(() => null) as { url: string };
-        blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
-      } */
+      const fromApi = await $fetch(`/api/clip/${id}`, { method: "POST" }).catch(() => null) as { url: string };
+      if (fromApi) blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
+      else blob.value = data.clip.clip_url.includes("/playlist.m3u8") ? await processClip(data.clip.clip_url, id) : null;
     }
   }
   else blob.value = tmpVideo;
