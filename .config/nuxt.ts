@@ -1,5 +1,10 @@
 import { SITE } from "../utils/INFO";
 
+const headers = {
+  "Cross-Origin-Embedder-Policy": "require-corp",
+  "Cross-Origin-Opener-Policy": "same-origin"
+};
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-07-22",
   css: [
@@ -61,13 +66,24 @@ export default defineNuxtConfig({
     ]
   },
   routeRules: {
-    "/": { sitemap: { priority: 1 } },
-    "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } }
+    "/": { sitemap: { priority: 1 }, headers },
+    "/*/**": {
+      sitemap: { priority: 0.8, lastmod: new Date().toISOString() }
+    },
+    "/_nuxt/**": { headers }
   },
   eslint: {
     config: {
       autoInit: false,
       stylistic: true
+    }
+  },
+  vite: {
+    optimizeDeps: {
+      exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"]
+    },
+    server: {
+      headers
     }
   }
 });
