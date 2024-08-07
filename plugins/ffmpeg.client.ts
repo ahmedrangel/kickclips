@@ -5,8 +5,8 @@ const provider = new FFmpeg();
 
 const ffmpeg = {
   ...provider,
-  on: provider.on,
-  off: provider.off,
+  on: provider.on.bind(provider),
+  off: provider.off.bind(provider),
   toBlobURL
 };
 
