@@ -58,10 +58,9 @@ export const processClip = async (playlist: string, id: string) => {
   });
 
   const streams = await Promise.all(segments.map(async (seg) => {
-    const response = await fetch(`${baseUrl}/${seg.file}`, {
-      headers: { Range: `bytes=${seg.start}-${seg.end}` }
-    }).catch(() => null);
-    return response?.body;
+    const rangeBytes = `bytes=${seg.start}-${seg.end}`;
+    const response = await $fetch(`${baseUrl}/${seg.file}`, { responseType: "stream", headers: { Range: rangeBytes } }).catch(() => null);
+    return response as ReadableStream;
   }));
 
   const combinedStream = new ReadableStream({
