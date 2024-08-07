@@ -23,85 +23,12 @@ useHead({
 });
 
 const url = ref<string>("");
-const clip = ref<Record<string, string>>({});
+const clip = ref<KickClipTypes | null>(null);
 const loading = ref<boolean>(false);
 const error = ref<{ message: string } | null>(null);
 const blob = ref<Blob | null>(null);
 const blobUrl = ref<string | null>(null);
 const blobPictureUrl = ref<string | null>(null);
-
-const processClip = async (playlist: string, id: string) => {
-  const baseUrl = playlist.replace("/playlist.m3u8", "");
-  const m3u8Data = await $fetch(playlist, { responseType: "text" }).catch(() => null) as string;
-  const rangeRegex = /#EXT-X-BYTERANGE:(\d+)@(\d+)/g;
-  const fileRegex = /(\w+\.ts)/g;
-
-  const segments = Array.from(m3u8Data.matchAll(rangeRegex)).map(match => ({
-    file: "",
-    start: Number(match[2]),
-    end: Number(match[2]) + Number(match[1])
-  }));
-
-  segments.forEach((segment, index) => {
-    const match = m3u8Data.match(fileRegex);
-    if (match) {
-      const fileMatch = match[index];
-      if (fileMatch) {
-        const file = fileMatch.trim();
-        segment.file = file;
-      }
-    }
-  });
-
-  const streams = await Promise.all(segments.map(async (seg) => {
-    const response = await fetch(`${baseUrl}/${seg.file}`, {
-      headers: { Range: `bytes=${seg.start}-${seg.end}` }
-    }).catch(() => null);
-    return response?.body;
-  }));
-
-  const combinedStream = new ReadableStream({
-    async start (controller) {
-      for (const stream of streams) {
-        if (stream) {
-          const reader = stream.getReader();
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            controller.enqueue(value);
-          }
-        }
-      }
-      controller.close();
-    }
-  });
-
-  const combinedBlob = await new Response(combinedStream).arrayBuffer();
-  const { $ffmpeg } = useNuxtApp();
-  const unpkg = "https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm";
-  try {
-    $ffmpeg.on("log", ({ message }) => {
-      console.info(message);
-    });
-    await $ffmpeg.load({
-      coreURL: await $ffmpeg.toBlobURL(`${unpkg}/ffmpeg-core.js`, "text/javascript"),
-      wasmURL: await $ffmpeg.toBlobURL(`${unpkg}/ffmpeg-core.wasm`, "application/wasm"),
-      workerURL: await $ffmpeg.toBlobURL(`${unpkg}/ffmpeg-core.worker.js`, "text/javascript")
-    });
-    console.info("ffmpeg loaded");
-    await $ffmpeg.writeFile(`${id}.ts`, new Uint8Array(combinedBlob));
-    console.info("blob writted");
-    const timeout = await $ffmpeg.exec(["-i", `${id}.ts`, "-preset", "ultrafast", "-threads", "5", `${id}.mp4`], 120000);
-    if (timeout) return null;
-    console.info("mp4 executed");
-    const data = await $ffmpeg.readFile(`${id}.mp4`) as Uint8Array;
-    console.info("data readed");
-    return new Blob([(data).buffer], { type: "video/mp4" });
-  }
-  catch {
-    return null;
-  }
-};
 
 const getClip = async () => {
   error.value = null;
@@ -122,7 +49,7 @@ const getClip = async () => {
     loading.value = false;
     error.value = { message: "Error: Clip not found - Make sure you entered the correct URL" };
     return;
-  }) as Record<string, any>;
+  }) as GetClipResponse;
 
   const possibleTmp = `${RESOURCES.kickClipsTmp}/${id}.mp4`;
   const tmpVideo = await $fetch(possibleTmp).catch(() => null) as Blob;
@@ -188,7 +115,7 @@ const getClip = async () => {
           <Transition name="tab" mode="out-in">
             <LoadingSpinner v-if="loading" />
             <h5 v-else-if="error" class="error">{{ error.message }}</h5>
-            <div v-else-if="clip.channel" id="clip" class="p-0">
+            <div v-else-if="clip?.channel" id="clip" class="p-0">
               <div class="row">
                 <div class="col-12 col-lg-4 info text-start mb-4">
                   <div class="channel_profile">
