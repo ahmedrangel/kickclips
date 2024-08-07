@@ -103,7 +103,8 @@ export const processClip = async (playlist: string, id: string) => {
     console.info("File has been read");
     return new Blob([(data).buffer], { type: "video/mp4" });
   }
-  catch {
+  catch (e) {
+    console.info(e);
     return null;
   }
 };
