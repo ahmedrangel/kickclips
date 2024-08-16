@@ -64,6 +64,7 @@ export default defineNuxtConfig({
     "/*/**": {
       sitemap: { priority: 0.8, lastmod: new Date().toISOString() }
     },
+    "/_nuxt/**": { headers },
     "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
   },
   eslint: {
