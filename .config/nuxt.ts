@@ -1,4 +1,4 @@
-import { SITE } from "../utils/INFO";
+import { SITE } from "../app/utils/INFO";
 
 const headers = {
   "Cross-Origin-Embedder-Policy": "require-corp",
@@ -6,6 +6,7 @@ const headers = {
 };
 
 export default defineNuxtConfig({
+  future: { compatibilityVersion: 4 },
   compatibilityDate: "2024-08-17",
   css: [
     "bootstrap/dist/css/bootstrap.min.css",

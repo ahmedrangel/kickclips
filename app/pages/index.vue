@@ -28,7 +28,6 @@ const loading = ref<boolean>(false);
 const error = ref<{ message: string } | null>(null);
 const blob = ref<Blob | null>(null);
 const blobUrl = ref<string | null>(null);
-const blobPictureUrl = ref<string | null>(null);
 
 const getClip = async () => {
   error.value = null;
@@ -39,7 +38,6 @@ const getClip = async () => {
 
   if (blobUrl.value) {
     URL.revokeObjectURL(blobUrl.value);
-    if (blobPictureUrl.value) URL.revokeObjectURL(blobPictureUrl.value);
   }
 
   const urlQ = new URL(url.value);
@@ -73,7 +71,7 @@ const getClip = async () => {
   }
 
   blobUrl.value = URL.createObjectURL(blob.value);
-  const picture = data.clip.channel?.profile_picture ? blobPictureUrl.value = URL.createObjectURL(await $fetch(`/api/picture?url=${data.clip.channel.profile_picture}`).catch(() => null) as Blob) : "/images/user-default-pic.png";
+  const picture = data.clip.channel?.profile_picture ? `/api/picture?url=${data.clip.channel.profile_picture}` : "/images/user-default-pic.png";
 
   loading.value = false;
 
