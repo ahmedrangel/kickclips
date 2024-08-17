@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
     headers: {
       "Content-Type": contentType || "image/webp",
       "Access-Control-Allow-Origin": "*",
-      "Cache-Control": "max-age=172800" // 12h cache
+      "Cache-Control": "max-age=172800" // 2d cache
     }
   });
 
