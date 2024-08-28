@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@whatwg-node/server':
-        specifier: ^0.9.46
-        version: 0.9.46
+        specifier: ^0.9.49
+        version: 0.9.49
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -21,8 +21,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       itty-router:
-        specifier: ^5.0.17
-        version: 5.0.17
+        specifier: ^5.0.18
+        version: 5.0.18
       kient:
         specifier: 1.0.1-16
         version: 1.0.1-16(@deepkit/core@1.0.1-alpha.145)
@@ -52,16 +52,16 @@ packages:
   '@types/uuid@8.3.4':
     resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
 
-  '@whatwg-node/fetch@0.9.19':
-    resolution: {integrity: sha512-J+zopRcUVOhkiQYlHpxOEZuOgZtqW9xMaNQFDjESm9vRcyATms+E2/p2mZiVQGllPqWflkA3SzoJC1MxV4Pf9g==}
-    engines: {node: '>=16.0.0'}
-
-  '@whatwg-node/node-fetch@0.5.19':
-    resolution: {integrity: sha512-HSR/d2jGFuI2pcoQr7M92AjB9V7C8k8bFQ4NjJK9fwHyl1DyDnQYe+t1ygD84rCGNV8CIl1+OO5OamnvFzbqDw==}
+  '@whatwg-node/fetch@0.9.21':
+    resolution: {integrity: sha512-Wt0jPb+04JjobK0pAAN7mEHxVHcGA9HoP3OyCsZtyAecNQeADXCZ1MihFwVwjsgaRYuGVmNlsCmLxlG6mor8Gw==}
     engines: {node: '>=18.0.0'}
 
-  '@whatwg-node/server@0.9.46':
-    resolution: {integrity: sha512-vUKCMPP6f2BLtOxnK2c98QmK0rb24RlmXb2enbEg8nXttQLvlKfMOfaY7uNAtaMXejjR2ku/ww9EEeiWXV3Q9A==}
+  '@whatwg-node/node-fetch@0.5.25':
+    resolution: {integrity: sha512-m6TrxcJlS8ptYLTQL+Ex931RFJsoCQtBQWBNHi5b0xHS0C7FJGUJl1asYZ7MdOhZqdiMVcs1lNJeHsfzyUNjOg==}
+    engines: {node: '>=18.0.0'}
+
+  '@whatwg-node/server@0.9.49':
+    resolution: {integrity: sha512-3KzLXw80gWnTsQ746G/LFdCThTPfDodjQs4PnmoNuPa6XUOl4HWq8TlJpxtmnEEB+y+UYLal+3VQ68dtYlbUDQ==}
     engines: {node: '>=18.0.0'}
 
   asynckit@0.4.0:
@@ -129,8 +129,8 @@ packages:
     resolution: {integrity: sha512-drqDG3cbczxxEJRoOXcOjtdp1J/lyp1mNn0xaznRs8+muBhgQcrnbspox5X5fOw0HnMnbfDzvnEMEtqDEJEo8w==}
     engines: {node: '>=8'}
 
-  itty-router@5.0.17:
-    resolution: {integrity: sha512-ZHnPI0OOyTTLuNp2FdciejYaK4Wl3ZV3O0yEm8njOGggh/k/ek3BL7X2I5YsCOfc5vLhIJgj3Z4pUtLs6k9Ucg==}
+  itty-router@5.0.18:
+    resolution: {integrity: sha512-mK3ReOt4ARAGy0V0J7uHmArG2USN2x0zprZ+u+YgmeRjXTDbaowDy3kPcsmQY6tH+uHhDgpWit9Vqmv/4rTXwA==}
 
   kient@1.0.1-16:
     resolution: {integrity: sha512-4MKoErJ1exNZYqVyPqgy41OKx+QTh0ORgek3JZAYR0N0JFm/ICN6ajUjeNn5O7SAipHEkPW9yIQow4Ti2/u1FA==}
@@ -247,21 +247,21 @@ snapshots:
 
   '@types/uuid@8.3.4': {}
 
-  '@whatwg-node/fetch@0.9.19':
+  '@whatwg-node/fetch@0.9.21':
     dependencies:
-      '@whatwg-node/node-fetch': 0.5.19
+      '@whatwg-node/node-fetch': 0.5.25
       urlpattern-polyfill: 10.0.0
 
-  '@whatwg-node/node-fetch@0.5.19':
+  '@whatwg-node/node-fetch@0.5.25':
     dependencies:
       '@kamilkisiela/fast-url-parser': 1.1.4
       busboy: 1.6.0
       fast-querystring: 1.1.2
       tslib: 2.6.3
 
-  '@whatwg-node/server@0.9.46':
+  '@whatwg-node/server@0.9.49':
     dependencies:
-      '@whatwg-node/fetch': 0.9.19
+      '@whatwg-node/fetch': 0.9.21
       tslib: 2.6.3
 
   asynckit@0.4.0: {}
@@ -323,7 +323,7 @@ snapshots:
 
   is-obj@2.0.0: {}
 
-  itty-router@5.0.17: {}
+  itty-router@5.0.18: {}
 
   kient@1.0.1-16(@deepkit/core@1.0.1-alpha.145):
     dependencies:
