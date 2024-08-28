@@ -49,8 +49,7 @@ const getClip = async () => {
     return;
   }) as GetClipResponse;
 
-  const possibleTmp = `${RESOURCES.kickClipsTmp}/${id}.mp4`;
-  const tmpVideo = await $fetch(possibleTmp).catch(() => null) as Blob;
+  const tmpVideo = await $fetch(`${RESOURCES.kickClipsTmp}/${id}.mp4`).catch(() => null) as Blob || await $fetch(`${RESOURCES.cdn}/${id}.mp4?t=${Date.now()}`).catch(() => null) as Blob;
 
   if (!tmpVideo) {
     if (data.clip.clip_url.includes(".mp4")) {
@@ -59,7 +58,14 @@ const getClip = async () => {
     else {
       const fromApi = await $fetch(`/api/clip/${id}`, { method: "POST" }).catch(() => null) as { url: string };
       if (fromApi) blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
-      else blob.value = data.clip.clip_url.includes("/playlist.m3u8") ? await processClip(data.clip.clip_url, id) : null;
+      else {
+        blob.value = data.clip.clip_url.includes("/playlist.m3u8") ? await processClip(data.clip.clip_url, id) : null as Blob | null;
+        if (blob.value) {
+          const fd = new FormData();
+          fd.append("file", blob.value, `${id}.mp4`);
+          await $fetch("/api/cdn", { method: "PUT", body: fd }).catch(() => null);
+        }
+      }
     }
   }
   else blob.value = tmpVideo;

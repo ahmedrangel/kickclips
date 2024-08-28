@@ -44,7 +44,9 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxtjs/sitemap"
   ],
-  runtimeConfig: {},
+  runtimeConfig: {
+    cdnToken: ""
+  },
   site: {
     url: SITE.host
   },
