@@ -3,7 +3,7 @@ export const RESOURCES = {
   kickClipsTmp: "https://clips.kick.com/tmp",
   worker: "https://dev.ahmedrangel.com",
   trigger: "https://kick-trigger.ahmedrangel.com",
-  cdn: "https://cdn.ahmedrangel.com/videos/kick"
+  cdn: "https://cdn.ahmedrangel.com/tmp/videos/kick"
 };
 
 export const SITE = {
