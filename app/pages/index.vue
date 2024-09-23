@@ -110,7 +110,7 @@ const getClip = async () => {
           <form @submit.prevent="getClip()">
             <h2 class="col-12 fw-normal title mb-3 mb-sm-4">Enter clip URL</h2>
             <div class="col-12 row input-body p-2 mb-3 mb-sm-4 mx-0">
-              <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/user?clip=clip_01A2BCD3EF4GHI5JKMNLOP67QR" required>
+              <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/user/clips/clip_01A2BCD3EF4GHI5JKMNLOP67QR" required>
               <button id="download" type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center" :disabled="loading ? true : false">
                 <Icon class="iconify" name="ph:download-simple-bold" />
                 <span class="ms-1 download-txt">Download</span>
