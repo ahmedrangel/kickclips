@@ -42,7 +42,7 @@ const getClip = async () => {
     URL.revokeObjectURL(blobUrl.value);
   }
 
-  const id = match[1] || match[2];
+  const id = match[1] || match[2] as string;
   loading.value = true;
   const data = await $fetch(`${RESOURCES.kickApiBase}/clips/${id}`, { parseResponse: JSON.parse }).catch(() => {
     loading.value = false;
