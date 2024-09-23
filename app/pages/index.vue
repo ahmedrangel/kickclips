@@ -31,7 +31,9 @@ const blobUrl = ref<string | null>(null);
 
 const getClip = async () => {
   error.value = null;
-  if (!(url.value.includes("kick.com/") && url.value.includes("?clip="))) {
+  const idRegex = /^https?:\/\/kick\.com\/[^\\/]+(?:\/clips\/(clip_\w+)|\?clip=(clip_\w+))$/;
+  const match = idRegex.exec(url.value);
+  if (!match) {
     error.value = { message: "Error: The URL you entered is invalid" };
     return;
   }
@@ -40,8 +42,7 @@ const getClip = async () => {
     URL.revokeObjectURL(blobUrl.value);
   }
 
-  const urlQ = new URL(url.value);
-  const id = urlQ.searchParams.get("clip") as string;
+  const id = match[1] || match[2];
   loading.value = true;
   const data = await $fetch(`${RESOURCES.kickApiBase}/clips/${id}`, { parseResponse: JSON.parse }).catch(() => {
     loading.value = false;
