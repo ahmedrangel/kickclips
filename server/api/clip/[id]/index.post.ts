@@ -2,6 +2,7 @@ import { RESOURCES } from "~/utils/INFO";
 
 export default defineEventHandler(async (event): Promise<{ url: string } | null> => {
   const { id } = getRouterParams(event);
+  console.info(id);
   const triggerTmp = await $fetch(`${RESOURCES.trigger}/api/kick/clip/${id}/download`).catch(() => null) as { url: string };
   if (triggerTmp?.url) return { url: triggerTmp.url };
 
