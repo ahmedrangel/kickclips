@@ -12,8 +12,8 @@ importers:
         specifier: ^0.9.49
         version: 0.9.49
       date-fns:
-        specifier: ^3.6.0
-        version: 3.6.0
+        specifier: ^4.1.0
+        version: 4.1.0
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -90,8 +90,8 @@ packages:
   cycletls@1.0.26:
     resolution: {integrity: sha512-QE+vwRjq0nCNnmr3MaVWLHMvUXgD6Kv2cuo8EjDxBu9J+I185BMnsrO5tKrojY78+dtftK2ZzfhGHzG7MOSekQ==}
 
-  date-fns@3.6.0:
-    resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
@@ -293,7 +293,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  date-fns@3.6.0: {}
+  date-fns@4.1.0: {}
 
   delayed-stream@1.0.0: {}
 
