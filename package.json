@@ -11,10 +11,10 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.5.7",
-    "@nuxt/icon": "^1.5.1",
-    "@nuxtjs/sitemap": "^6.1.0",
-    "@types/node": "^22.5.5",
-    "eslint": "^9.11.0",
+    "@nuxt/icon": "^1.5.2",
+    "@nuxtjs/sitemap": "^6.1.1",
+    "@types/node": "^22.7.4",
+    "eslint": "^9.11.1",
     "nuxt": "^3.13.2"
   },
   "dependencies": {
