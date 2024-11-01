@@ -24,8 +24,8 @@ importers:
         specifier: ^5.0.18
         version: 5.0.18
       kient:
-        specifier: 1.0.1-17
-        version: 1.0.1-17(@deepkit/core@1.0.1-alpha.154)
+        specifier: 1.0.1-20
+        version: 1.0.1-20(@deepkit/core@1.0.1-alpha.154)
       otp:
         specifier: ^1.1.2
         version: 1.1.2
@@ -132,8 +132,8 @@ packages:
   itty-router@5.0.18:
     resolution: {integrity: sha512-mK3ReOt4ARAGy0V0J7uHmArG2USN2x0zprZ+u+YgmeRjXTDbaowDy3kPcsmQY6tH+uHhDgpWit9Vqmv/4rTXwA==}
 
-  kient@1.0.1-17:
-    resolution: {integrity: sha512-KquhDhB2YPf8SfcwkSCrn0j7xiHGDn66Bdpm05SBJVwtHzpg6SUbsxhFehkX0AEh0WbOtx7MNCa9Gvd5tD3Dww==}
+  kient@1.0.1-20:
+    resolution: {integrity: sha512-Nf3lrQ++71mJR151ZWnpSw+gxrOb9hinR0wNS3/uSU7oYD7S/cnjnRi/27daCD74CS1FJVAM3kjF71vOZ5GVPQ==}
 
   mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
@@ -325,7 +325,7 @@ snapshots:
 
   itty-router@5.0.18: {}
 
-  kient@1.0.1-17(@deepkit/core@1.0.1-alpha.154):
+  kient@1.0.1-20(@deepkit/core@1.0.1-alpha.154):
     dependencies:
       '@deepkit/type': 1.0.1-alpha.105(@deepkit/core@1.0.1-alpha.154)
       cycletls: 1.0.26
