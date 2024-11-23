@@ -10,12 +10,12 @@
     "lint": "eslint --fix --config .config/eslint.mjs"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^0.6.0",
-    "@nuxt/icon": "^1.5.6",
-    "@nuxtjs/sitemap": "^6.1.2",
-    "@types/node": "^22.7.9",
-    "eslint": "^9.13.0",
-    "nuxt": "^3.13.2"
+    "@nuxt/eslint": "^0.7.1",
+    "@nuxt/icon": "^1.8.2",
+    "@nuxtjs/sitemap": "^6.1.5",
+    "@types/node": "^22.9.1",
+    "eslint": "^9.14.0",
+    "nuxt": "^3.14.1592"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.10",
