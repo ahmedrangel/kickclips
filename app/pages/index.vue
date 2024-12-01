@@ -57,7 +57,7 @@ const getClip = async () => {
       blob.value = await $fetch(data.clip.clip_url).catch(() => null) as Blob;
     }
     else {
-      const fromApi = await $fetch(`/api/clip/${id}`, { method: "POST" }).catch(() => null) as { url: string };
+      const fromApi = await $fetch("/api/clip", { method: "POST", body: { url: url.value } }).catch(() => null) as { url: string };
       if (fromApi) blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
       else {
         blob.value = data.clip.clip_url.includes("/playlist.m3u8") ? await processClip(data.clip.clip_url, id) : null as Blob | null;
