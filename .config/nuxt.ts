@@ -1,4 +1,5 @@
 import { SITE } from "../app/utils/INFO";
+import { SEO } from "../app/utils/seo";
 
 const headers = {
   "Cross-Origin-Embedder-Policy": "require-corp",
@@ -14,7 +15,6 @@ export default defineNuxtConfig({
     "~/assets/css/transitions.css",
     "~/assets/css/range-slider.css"
   ],
-
   app: {
     head: {
       charset: "utf-8",
@@ -23,7 +23,8 @@ export default defineNuxtConfig({
         lang: "en"
       },
       meta: [
-        { name: "robots", content: "index, follow" }
+        { name: "robots", content: "index, follow" },
+        { property: "og:site:name", content: SEO.og.site_name }, 
       ],
       link: [
         { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
@@ -42,7 +43,8 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/eslint",
     "@nuxt/icon",
-    "@nuxtjs/sitemap"
+    "@nuxtjs/sitemap",
+    "nuxt-ripple"
   ],
   runtimeConfig: {
     cdnToken: ""
@@ -83,5 +85,9 @@ export default defineNuxtConfig({
     server: {
       headers
     }
-  }
+  },
+  icon: {
+    mode: "svg",
+    clientBundle: { scan: true, sizeLimitKb: 2048 }
+  },
 });
