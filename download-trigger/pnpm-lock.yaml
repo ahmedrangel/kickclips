@@ -9,14 +9,14 @@ importers:
   .:
     devDependencies:
       '@whatwg-node/server':
-        specifier: ^0.9.50
-        version: 0.9.50
+        specifier: ^0.9.60
+        version: 0.9.60
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
       dotenv:
-        specifier: ^16.4.5
-        version: 16.4.5
+        specifier: ^16.4.7
+        version: 16.4.7
       form-data:
         specifier: ^4.0.1
         version: 4.0.1
@@ -24,7 +24,7 @@ importers:
         specifier: ^5.0.18
         version: 5.0.18
       kient:
-        specifier: 1.0.1-20
+        specifier: ^v1.0.1-20
         version: 1.0.1-20(@deepkit/core@1.0.1-alpha.154)
       otp:
         specifier: ^1.1.2
@@ -52,16 +52,20 @@ packages:
   '@types/uuid@8.3.4':
     resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
 
-  '@whatwg-node/fetch@0.9.22':
-    resolution: {integrity: sha512-+RIBffgoaRlWV9cKV6wAX71sbeoU2APOI3G13ZRMkabYHwkvDMeZDTyxJcsMXA5CpieJ7NFXF9Xyu72jwvdzqA==}
+  '@whatwg-node/disposablestack@0.0.5':
+    resolution: {integrity: sha512-9lXugdknoIequO4OYvIjhygvfSEgnO8oASLqLelnDhkRjgBZhc39shC3QSlZuyDO9bgYSIVa2cHAiN+St3ty4w==}
     engines: {node: '>=18.0.0'}
 
-  '@whatwg-node/node-fetch@0.5.27':
-    resolution: {integrity: sha512-0OaMj5W4fzWimRSFq07qFiWfquaUMNB+695GwE76LYKVuah+jwCdzSgsIOtwPkiyJ35w0XGhXmJPiIJCdLwopg==}
+  '@whatwg-node/fetch@0.10.1':
+    resolution: {integrity: sha512-gmPOLrsjSZWEZlr9Oe5+wWFBq3CG6fN13rGlM91Jsj/vZ95G9CCvrORGBAxMXy0AJGiC83aYiHXn3JzTzXQmbA==}
     engines: {node: '>=18.0.0'}
 
-  '@whatwg-node/server@0.9.50':
-    resolution: {integrity: sha512-7Vd8k6iu+ps8bkZT+Y/wPm42EDh8KojAL+APKa79mntgkyPtdq0r1//CO+0eYqQBz6HGrDxHRT4KChSOy4jGIw==}
+  '@whatwg-node/node-fetch@0.7.4':
+    resolution: {integrity: sha512-rvUtU/xKKl/av5EIwyqfw7w0R+hx+tQrlhpIyFr27MwJRlUb+xcYv97kOmp7FE/WmQ8s+Tb6bcD6W8o/s2pGWw==}
+    engines: {node: '>=18.0.0'}
+
+  '@whatwg-node/server@0.9.60':
+    resolution: {integrity: sha512-JH3eK3aGnBwTT2qQwFrmx6RPXxsjrk99kDWOM98H1aayFMV70nsHIltmyuKRnPmf/avuVRe53bkiu2wsc5Eykw==}
     engines: {node: '>=18.0.0'}
 
   asynckit@0.4.0:
@@ -104,8 +108,8 @@ packages:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
 
-  dotenv@16.4.5:
-    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
     engines: {node: '>=12'}
 
   exit-hook@4.0.0:
@@ -247,21 +251,27 @@ snapshots:
 
   '@types/uuid@8.3.4': {}
 
-  '@whatwg-node/fetch@0.9.22':
+  '@whatwg-node/disposablestack@0.0.5':
     dependencies:
-      '@whatwg-node/node-fetch': 0.5.27
+      tslib: 2.6.3
+
+  '@whatwg-node/fetch@0.10.1':
+    dependencies:
+      '@whatwg-node/node-fetch': 0.7.4
       urlpattern-polyfill: 10.0.0
 
-  '@whatwg-node/node-fetch@0.5.27':
+  '@whatwg-node/node-fetch@0.7.4':
     dependencies:
       '@kamilkisiela/fast-url-parser': 1.1.4
+      '@whatwg-node/disposablestack': 0.0.5
       busboy: 1.6.0
       fast-querystring: 1.1.2
       tslib: 2.6.3
 
-  '@whatwg-node/server@0.9.50':
+  '@whatwg-node/server@0.9.60':
     dependencies:
-      '@whatwg-node/fetch': 0.9.22
+      '@whatwg-node/disposablestack': 0.0.5
+      '@whatwg-node/fetch': 0.10.1
       tslib: 2.6.3
 
   asynckit@0.4.0: {}
@@ -303,7 +313,7 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
-  dotenv@16.4.5: {}
+  dotenv@16.4.7: {}
 
   exit-hook@4.0.0: {}
 

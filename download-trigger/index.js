@@ -15,11 +15,7 @@ const router = AutoRouter({
 
 // Create a new client instance
 const client = await Kient.create();
-
-const token = new OTP({
-  secret: process.env["2FA"]
-}).totp(Date.now());
-
+const token = new OTP({ secret: process.env["2FA"] }).totp(Date.now());
 console.info(token);
 
 // Authentication
@@ -41,17 +37,22 @@ router.get("/api/kick/clip/:id/download", async (req) => {
     return clip;
   }
   catch (e) {
+    console.log(e)
     return { error: e.message, status: 404 };
   }
 });
 
 router.get("/api/kick/clip/:id", async (req) => {
   const id = req.params.id;
+  const now = new Date();
+  const date = format(now, "yyyy-MM-dd hh:mm:ss");
+  console.info(`[details] ${date}: ${id}`);
   try {
     const clip = await client.api.clip.getClip(id);
     return clip;
   }
   catch (e) {
+    console.log(e)
     return { error: e.message, status: 404 };
   }
 });
