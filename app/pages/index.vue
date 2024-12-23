@@ -130,11 +130,29 @@ const getClip = async () => {
                       </h3>
                     </a>
                     <h5 class="mb-3">{{ clip.title }}</h5>
-                    <p><b>Likes:</b>&nbsp;<span class="fw-light">{{ clip.likes }}</span></p>
-                    <p><b>Views:</b>&nbsp;<span class="fw-light">{{ clip.views }}</span></p>
-                    <p><b>Duration:</b>&nbsp;<span class="fw-light">{{ formatTime(clip.duration) }}</span></p>
-                    <p><b>Clipped by:</b>&nbsp;<a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline user" target="_blank">{{ clip.creator }}</a></p>
-                    <p><b>Date:</b>&nbsp;<span class="fw-light">{{ getDate(clip.date) }}</span></p>
+                    <div class="clip_info d-flex gap-2 align-items-center">
+                      <Icon class="iconify" name="ph:heart-fill" />
+                      <p><span class="fw-bold">{{ clip.likes }}</span></p>
+                      <p>likes</p>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                      <Icon class="iconify" name="ph:eye-bold" />
+                      <p><span class="fw-bold">{{ clip.views }}</span></p>
+                      <p>views</p>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                      <Icon class="iconify" name="ph:clock-bold" />
+                      <p><span class="fw-bold">{{ formatTime(clip.duration) }}</span></p>
+                      <p>duration</p>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                      <Icon class="iconify" name="ph:user-bold" />
+                      <p><a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline user" target="_blank">{{ clip.creator }}</a></p>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center">
+                      <Icon class="iconify" name="ph:calendar-bold" />
+                      <p><span>{{ getDate(clip.date) }}</span></p>
+                    </div>
                   </div>
                 </div>
                 <div class="col-12 col-lg-8 video mb-4">
