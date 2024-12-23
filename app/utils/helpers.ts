@@ -98,9 +98,9 @@ export const processClip = async (playlist: string, id: string) => {
     const timeout = await $ffmpeg.exec(["-i", `${id}.ts`, "-preset", "ultrafast", "-threads", "5", `${id}.mp4`], 120000);
     if (timeout) return null;
     console.info("Successful transformation");
-    const data = await $ffmpeg.readFile(`${id}.mp4`) as Uint8Array;
+    const data = await $ffmpeg.readFile(`${id}.mp4`);
     console.info("File has been read");
-    return new Blob([(data).buffer], { type: "video/mp4" });
+    return new Blob([data], { type: "video/mp4" });
   }
   catch (e) {
     console.info(e);
