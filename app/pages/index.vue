@@ -30,7 +30,7 @@ const blobUrl = ref<string | null>(null);
 
 const getClip = async () => {
   error.value = null;
-  const idRegex = /^https?:\/\/kick\.com\/[^\\/]+(?:\/clips\/(clip_\w+)|\?clip=(clip_\w+))$/;
+  const idRegex = /^https?:\/\/kick\.com\/[^\\/]+(?:\/clips\/(clip_\w+)|\?clip=(clip_\w+))(?:\&.*|\?.*)?$/;
   const match = idRegex.exec(url.value);
   if (!match) {
     error.value = { message: "Error: The URL you entered is invalid" };
