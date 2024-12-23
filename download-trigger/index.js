@@ -25,7 +25,7 @@ await client.api.authentication.login({
   otc: token // one-time code provided via TOTP or Email
 });
 
-console.info("Logged in");
+client.authenticated ? console.info("Authenticated") :  console.info("Not Authenticated"); 
 
 router.get("/api/kick/clip/:id/download", async (req) => {
   const id = req.params.id;
