@@ -25,7 +25,7 @@ await client.api.authentication.login({
   otc: token // one-time code provided via TOTP or Email
 });
 
-client.authenticated ? console.info("Authenticated") :  console.info("Not Authenticated"); 
+client.authenticated ? console.info("Authenticated") : console.info("Not Authenticated");
 
 router.get("/api/kick/clip/:id/download", async (req) => {
   const id = req.params.id;
@@ -37,7 +37,7 @@ router.get("/api/kick/clip/:id/download", async (req) => {
     return clip;
   }
   catch (e) {
-    console.log(e)
+    console.info(e);
     return { error: e.message, status: 404 };
   }
 });
@@ -52,7 +52,7 @@ router.get("/api/kick/clip/:id", async (req) => {
     return clip;
   }
   catch (e) {
-    console.log(e)
+    console.info(e);
     return { error: e.message, status: 404 };
   }
 });
