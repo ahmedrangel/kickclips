@@ -14,14 +14,14 @@
     "@iconify-json/uiw": "^1.2.1",
     "@nuxt/eslint": "^0.7.4",
     "@nuxt/icon": "^1.10.3",
-    "@nuxtjs/sitemap": "^7.0.0",
+    "@nuxtjs/sitemap": "^7.0.1",
     "@types/node": "^22.10.2",
     "eslint": "^9.17.0",
-    "nuxt": "^3.14.1592",
+    "nuxt": "^3.15.0",
     "nuxt-ripple": "^0.0.8"
   },
   "dependencies": {
-    "@ffmpeg/ffmpeg": "^0.12.10",
+    "@ffmpeg/ffmpeg": "^0.12.13",
     "@ffmpeg/util": "^0.12.1",
     "bootstrap": "^5.3.3"
   }
