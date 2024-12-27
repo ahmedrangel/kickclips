@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@whatwg-node/server':
-        specifier: ^0.9.64
-        version: 0.9.64
+        specifier: ^0.9.65
+        version: 0.9.65
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -24,8 +24,8 @@ importers:
         specifier: ^5.0.18
         version: 5.0.18
       kient:
-        specifier: ^1.0.1-20
-        version: 1.0.1-20(@deepkit/core@1.0.1-alpha.154)
+        specifier: ^1.0.1-21
+        version: 1.0.1-21(@deepkit/core@1.0.1-alpha.154)
       otp:
         specifier: ^1.1.2
         version: 1.1.2
@@ -64,8 +64,8 @@ packages:
     resolution: {integrity: sha512-rvUtU/xKKl/av5EIwyqfw7w0R+hx+tQrlhpIyFr27MwJRlUb+xcYv97kOmp7FE/WmQ8s+Tb6bcD6W8o/s2pGWw==}
     engines: {node: '>=18.0.0'}
 
-  '@whatwg-node/server@0.9.64':
-    resolution: {integrity: sha512-4HSOWOjFvPLY7F6zqs/kbSBHInHIxd50xnwtp3NXUrI+d92iOBLHKm9aIULwAn2ABPcnfXb55VQwb4bEV3g6KA==}
+  '@whatwg-node/server@0.9.65':
+    resolution: {integrity: sha512-CnYTFEUJkbbAcuBXnXirVIgKBfs2YA6sSGjxeq07AUiyXuoQ0fbvTIQoteMglmn09QeGzcH/l0B7nIml83xvVw==}
     engines: {node: '>=18.0.0'}
 
   asynckit@0.4.0:
@@ -136,8 +136,8 @@ packages:
   itty-router@5.0.18:
     resolution: {integrity: sha512-mK3ReOt4ARAGy0V0J7uHmArG2USN2x0zprZ+u+YgmeRjXTDbaowDy3kPcsmQY6tH+uHhDgpWit9Vqmv/4rTXwA==}
 
-  kient@1.0.1-20:
-    resolution: {integrity: sha512-Nf3lrQ++71mJR151ZWnpSw+gxrOb9hinR0wNS3/uSU7oYD7S/cnjnRi/27daCD74CS1FJVAM3kjF71vOZ5GVPQ==}
+  kient@1.0.1-21:
+    resolution: {integrity: sha512-jYnxVngvu8MFCkOqR42cWJHnAbAxhyCBJ3LV9ft9LpCF7aXFp+xc53f9OvVLGolhZudGnF1qdHQ9X8pvfkXNuQ==}
 
   mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
@@ -268,7 +268,7 @@ snapshots:
       fast-querystring: 1.1.2
       tslib: 2.6.3
 
-  '@whatwg-node/server@0.9.64':
+  '@whatwg-node/server@0.9.65':
     dependencies:
       '@whatwg-node/disposablestack': 0.0.5
       '@whatwg-node/fetch': 0.10.1
@@ -335,7 +335,7 @@ snapshots:
 
   itty-router@5.0.18: {}
 
-  kient@1.0.1-20(@deepkit/core@1.0.1-alpha.154):
+  kient@1.0.1-21(@deepkit/core@1.0.1-alpha.154):
     dependencies:
       '@deepkit/type': 1.0.1-alpha.105(@deepkit/core@1.0.1-alpha.154)
       cycletls: 1.0.26
