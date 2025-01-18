@@ -82,7 +82,7 @@ export const processClip = async (playlist: string, id: string) => {
   const combinedBlob = await new Response(combinedStream).arrayBuffer();
 
   const { $ffmpeg } = useNuxtApp();
-  const unpkg = "https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.6/dist/esm";
+  const unpkg = "https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.9/dist/esm";
   try {
     $ffmpeg.on("log", ({ message }) => {
       console.info(message);
