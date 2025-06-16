@@ -1,4 +1,4 @@
-import { SEO } from "../shared/utils/helpers";
+import { SITE, SEO } from "../shared/utils/helpers";
 
 const headers = {
   "Cross-Origin-Embedder-Policy": "require-corp",
