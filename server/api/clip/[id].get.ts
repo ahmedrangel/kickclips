@@ -1,5 +1,3 @@
-import { RESOURCES } from "~/utils/INFO";
-
 export default defineEventHandler(async (event) => {
   const { id } = getRouterParams(event);
   console.info(id);

@@ -1,5 +1,3 @@
-import { RESOURCES } from "~/utils/INFO";
-
 export default defineEventHandler(async (event) => {
   const { cloudflare } = event.context;
   const config = useRuntimeConfig(event);

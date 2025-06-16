@@ -1,8 +1,6 @@
-import { RESOURCES } from "~/utils/INFO";
-
 export default defineEventHandler(async (event): Promise<{ url: string } | null> => {
   const { url } = await readBody(event);
-  const idRegex = /^https?:\/\/kick\.com\/[^\\/]+(?:\/clips\/(clip_\w+)|\?clip=(clip_\w+))(?:\&.*|\?.*)?$/;
+  const idRegex = /^https?:\/\/kick\.com\/[^\\/]+(?:\/clips\/(clip_\w+)|\?clip=(clip_\w+))(?:&.*|\?.*)?$/;
   const match = idRegex.exec(url);
   if (!match) return null;
   const id = match[1] || match[2];

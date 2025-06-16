@@ -13,3 +13,19 @@ export const SITE = {
   title: "KickClips | Downloader | to MP4",
   keywords: "kick, kick.com, kick clip, downloader, to mp4, mp4, download, clips, clipper, video"
 };
+
+export const SEO = {
+  og: {
+    type: "website",
+    site_name: SITE.name,
+    title: SITE.title,
+    description: SITE.description,
+    url: SITE.host,
+    image: `${SITE.host}/images/og-card.png`
+  },
+  twitter: {
+    card: "summary",
+    title: SITE.title,
+    description: SITE.description
+  }
+};

@@ -1,5 +1,4 @@
-import { SITE } from "../app/utils/INFO";
-import { SEO } from "../app/utils/seo";
+import { SEO } from "../shared/utils/helpers";
 
 const headers = {
   "Cross-Origin-Embedder-Policy": "require-corp",
@@ -24,7 +23,7 @@ export default defineNuxtConfig({
       },
       meta: [
         { name: "robots", content: "index, follow" },
-        { property: "og:site:name", content: SEO.og.site_name }, 
+        { property: "og:site:name", content: SEO.og.site_name }
       ],
       link: [
         { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
@@ -89,5 +88,5 @@ export default defineNuxtConfig({
   icon: {
     mode: "svg",
     clientBundle: { scan: true, sizeLimitKb: 2048 }
-  },
+  }
 });
