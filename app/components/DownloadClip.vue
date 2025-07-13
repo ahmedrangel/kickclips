@@ -89,7 +89,7 @@ if (props.channel && props.clipId) getClip();
       <div class="col-12 row input-body p-2 mb-3 mb-sm-4 mx-0">
         <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/user/clips/clip_01A2BCD3EF4GHI5JKMNLOP67QR" required>
         <button id="download" v-ripple type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center" :disabled="loading ? true : false">
-          <Icon class="iconify" name="ph:download-simple-bold" />
+          <Icon name="ph:download-simple-bold" />
           <span class="ms-1 download-txt">Download</span>
         </button>
       </div>
@@ -109,26 +109,26 @@ if (props.channel && props.clipId) getClip();
               </a>
               <h5 class="mb-3">{{ clip.title }}</h5>
               <div class="clip_info d-flex gap-2 align-items-center">
-                <Icon class="iconify" name="ph:heart-fill" />
+                <Icon name="ph:heart-fill" />
                 <p><span class="fw-bold">{{ clip.likes }}</span></p>
                 <p>likes</p>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <Icon class="iconify" name="ph:eye-bold" />
+                <Icon name="ph:eye-bold" />
                 <p><span class="fw-bold">{{ clip.views }}</span></p>
                 <p>views</p>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <Icon class="iconify" name="ph:clock-bold" />
+                <Icon name="ph:clock-bold" />
                 <p><span class="fw-bold">{{ formatTime(clip.duration) }}</span></p>
                 <p>duration</p>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <Icon class="iconify" name="ph:user-bold" />
+                <Icon name="ph:user-bold" />
                 <p><a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline user" target="_blank">{{ clip.creator }}</a></p>
               </div>
               <div class="d-flex gap-2 align-items-center">
-                <Icon class="iconify" name="ph:calendar-bold" />
+                <Icon name="ph:calendar-bold" />
                 <p><span>{{ getDate(clip.date) }}</span></p>
               </div>
             </div>

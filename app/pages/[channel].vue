@@ -58,14 +58,10 @@ watch([sortBy, timeBy], async () => {
   window.history.replaceState({}, "", `/${channel}?sort=${sortBy.value}&time=${timeBy.value}`);
 });
 
-useInfiniteScroll(
-  window,
-  async () => {
-    if (!nextCursor.value) return;
-    await fetchClips();
-  },
-  { distance: 100 }
-);
+useInfiniteScroll(window, async () => {
+  if (!nextCursor.value) return;
+  await fetchClips();
+}, { distance: 100 });
 </script>
 
 <template>
