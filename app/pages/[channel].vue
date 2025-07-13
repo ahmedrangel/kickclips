@@ -16,9 +16,11 @@ const sortBy = ref<SortOptions>(sort || "view");
 const timeBy = ref<TimeOptions>(time || "week");
 const nextCursor = ref<string | null>();
 const loading = ref<boolean>(true);
+const firstLoad = ref<boolean>(true);
 
 onMounted(async () => {
   await fetchClips();
+  firstLoad.value = false;
 });
 
 const fetchClips = async () => {
@@ -94,11 +96,10 @@ useInfiniteScroll(
         </template>
         <template v-if="!clips.length && !loading">
           <h3 class="mb-4">The channel you are looking for does not exist or has no clips.</h3>
-          <p class="text-muted mb-4">Please check the channel name or try again later.</p>
+          <p class="text-muted">Please check the channel name or try again later.</p>
           <SearchChannelInput />
         </template>
-
-        <template v-else-if="!loading">
+        <template v-else-if="!firstLoad">
           <div ref="element" class="row g-4">
             <div v-for="clip in clips" :key="clip.id" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
               <NuxtLink :to="`/?channel=${clip.channel.slug}&id=${clip.id}`" class="text-decoration-none text-white" target="_blank">
@@ -120,9 +121,8 @@ useInfiniteScroll(
             </div>
           </div>
         </template>
-
-        <template v-else>
-          <LoadingSpinner text="Loading..." />
+        <template v-if="loading">
+          <LoadingSpinner class="mt-4" text="Loading..." />
         </template>
       </div>
     </div>
