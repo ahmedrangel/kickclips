@@ -3,6 +3,7 @@
   --secondary-bg-color: #24272c;
   --tertiary-bg-color: #394761;
   --app-bg-color: #53fc18;
+  --bs-primary-rgb:83, 252, 24;
   --white: #f8f8f8;
   scrollbar-color: var(--app-bg-color) var(--tertiary-bg-color);
   scrollbar-width: thin;
