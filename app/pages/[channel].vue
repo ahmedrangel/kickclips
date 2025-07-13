@@ -6,6 +6,7 @@ const { query } = useRoute();
 const { channel } = params;
 const clips = ref<GetClipResponse["clip"][]>([]);
 const username = ref<string>("");
+const userimage = ref<string>("");
 const { sort, time } = query as { sort?: SortOptions, time?: TimeOptions };
 const element = useTemplateRef<HTMLElement>("element");
 
@@ -45,6 +46,7 @@ const fetchClips = async () => {
     clips.value = [...new Map([...clips.value, ...response.clips].map(clip => [clip.id, clip])).values()];
   }
   username.value = username.value || (response?.clips[0]?.channel?.username || "");
+  userimage.value = userimage.value || (response?.clips[0]?.channel?.profile_picture || "");
   nextCursor.value = response?.nextCursor || null;
   loading.value = false;
 };
@@ -74,6 +76,9 @@ useInfiniteScroll(
           <img class="logo" src="/images/kickclips-logo.svg">
         </NuxtLink>
         <template v-if="username">
+          <div class="d-flex justify-content-center align-items-center mb-2">
+            <img :src="userimage || '/images/user-default-pic.png'" class="rounded-circle" width="60" height="60">
+          </div>
           <h3 class="mb-4">{{ username || channel }} Clips</h3>
           <div class="d-flex justify-content-center gap-1 mb-4">
             <div class="d-flex flex-column align-items-center justify-content-center">
