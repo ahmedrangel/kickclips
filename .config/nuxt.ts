@@ -46,7 +46,8 @@ export default defineNuxtConfig({
     "nuxt-ripple"
   ],
   runtimeConfig: {
-    cdnToken: ""
+    cdnToken: "",
+    kickToken: ""
   },
   site: {
     url: SITE.host
@@ -65,9 +66,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/": { sitemap: { priority: 1 }, headers },
-    "/*/**": {
-      sitemap: { priority: 0.8, lastmod: new Date().toISOString() }
-    },
+    "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } },
     "/_nuxt/**": { headers },
     "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
   },

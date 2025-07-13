@@ -43,13 +43,13 @@ const getClip = async () => {
 
   const id = match[1] || match[2] as string;
   loading.value = true;
-  const data = await $fetch(`${RESOURCES.kickApiBase}/clips/${id}`, { parseResponse: JSON.parse }).catch(() => {
+  const data = await $fetch(`${RESOURCES.apiV2}/clips/${id}`, { parseResponse: JSON.parse }).catch(() => {
     loading.value = false;
     error.value = { message: "Error: Clip not found - Make sure you entered the correct URL" };
     return;
   }) as GetClipResponse;
 
-  const tmpVideo = await $fetch(`${RESOURCES.kickClipsTmp}/${id}.mp4`).catch(() => null) as Blob || await $fetch(`${RESOURCES.cdn}/${id}.mp4?t=${Date.now()}`).catch(() => null) as Blob;
+  const tmpVideo = await $fetch(`${RESOURCES.clipsTmp}/${id}.mp4`).catch(() => null) as Blob || await $fetch(`${RESOURCES.cdn}/${id}.mp4?t=${Date.now()}`).catch(() => null) as Blob;
 
   if (!tmpVideo) {
     if (data.clip.clip_url.includes(".mp4")) {
