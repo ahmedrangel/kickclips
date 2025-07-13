@@ -69,8 +69,7 @@ body {
   padding: 12px 14px;
 }
 
-.input-body input, .input-body button {
-  font-size: 18px;
+.input-body input, .input-body button, .input-group input, .input-group button {
   border: 1px solid var(--main-bg-color);
 }
 
@@ -170,4 +169,8 @@ select {
 
 ins.adsbygoogle[data-ad-status="unfilled"] {
   display: none !important;
+}
+
+.text-muted {
+  color:rgb(179, 179, 179)!important;
 }

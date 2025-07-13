@@ -87,5 +87,8 @@ export default defineNuxtConfig({
   icon: {
     mode: "svg",
     clientBundle: { scan: true, sizeLimitKb: 2048 }
+  },
+  experimental: {
+    typedPages: true
   }
 });

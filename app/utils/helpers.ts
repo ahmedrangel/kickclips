@@ -5,6 +5,18 @@ export const formatTime = (durationSeconds: number) => {
   return formattedTime;
 };
 
+export const formatViews = (views: number) => {
+  if (views >= 1000000) {
+    return (views / 1000000).toFixed(1) + "M";
+  }
+  else if (views >= 1000) {
+    return (views / 1000).toFixed(1) + "K";
+  }
+  else {
+    return views.toString();
+  }
+};
+
 export const getDate = (datetime: string) => {
   const date = new Date(datetime);
   const isoDate = date.toISOString().split("T")[0];

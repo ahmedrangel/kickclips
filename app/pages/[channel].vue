@@ -1,0 +1,130 @@
+<script setup lang="ts">
+import { useTimeAgo, useInfiniteScroll } from "@vueuse/core";
+
+const { params } = useRoute("channel");
+const { query } = useRoute();
+const { channel } = params;
+const clips = ref<GetClipResponse["clip"][]>([]);
+const username = ref<string>("");
+const { sort, time } = query as { sort?: SortOptions, time?: TimeOptions };
+const element = useTemplateRef<HTMLElement>("element");
+
+type SortOptions = "view" | "date";
+type TimeOptions = "all" | "month" | "week" | "day";
+
+const sortBy = ref<SortOptions>(sort || "view");
+const timeBy = ref<TimeOptions>(time || "week");
+const nextCursor = ref<string | null>();
+const loading = ref<boolean>(true);
+
+onMounted(async () => {
+  await fetchClips();
+});
+
+const fetchClips = async () => {
+  loading.value = true;
+  const response = await $fetch<{ clips: GetClipResponse["clip"][], nextCursor: string }>(`${RESOURCES.apiV2}/channels/${channel}/clips`, {
+    query: {
+      sort: sortBy.value,
+      time: timeBy.value,
+      ...nextCursor.value && { cursor: nextCursor.value }
+    },
+    headers: { "Cache-Control": "no-cache" },
+    parseResponse: JSON.parse
+  }).catch(() => {
+    loading.value = false;
+    return null;
+  });
+  if (response?.clips && !nextCursor.value) {
+    clips.value = response.clips;
+  }
+  else if (response?.clips) {
+    // Append new clips to the existing list and filter duplicates por id
+    clips.value = [...new Map([...clips.value, ...response.clips].map(clip => [clip.id, clip])).values()];
+  }
+  username.value = username.value || (response?.clips[0]?.channel?.username || "");
+  nextCursor.value = response?.nextCursor || null;
+  loading.value = false;
+};
+
+watch([sortBy, timeBy], async () => {
+  nextCursor.value = null;
+  clips.value = [];
+  await fetchClips();
+  window.history.replaceState({}, "", `/${channel}?sort=${sortBy.value}&time=${timeBy.value}`);
+});
+
+useInfiniteScroll(
+  window,
+  async () => {
+    if (!nextCursor.value) return;
+    await fetchClips();
+  },
+  { distance: 100 }
+);
+</script>
+
+<template>
+  <main class="text-white">
+    <div class="text-center container overflow-hidden">
+      <div class="my-5">
+        <NuxtLink to="/" class="mb-4 d-block">
+          <img class="logo" src="/images/kickclips-logo.svg">
+        </NuxtLink>
+        <template v-if="username">
+          <h3 class="mb-4">{{ username || channel }} Clips</h3>
+          <div class="d-flex justify-content-center gap-1 mb-4">
+            <div class="d-flex flex-column align-items-center justify-content-center">
+              <label>Sort by:</label>
+              <select v-model="sortBy" class="form-select me-2" style="max-width: 150px;">
+                <option value="view">Most Viewed</option>
+                <option value="date">Latest</option>
+              </select>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-center">
+              <label>Filter by:</label>
+              <select v-model="timeBy" class="form-select" style="max-width: 150px;">
+                <option value="all">All Time</option>
+                <option value="month">Last Month</option>
+                <option value="week">Last Week</option>
+                <option value="day">Last Day</option>
+              </select>
+            </div>
+          </div>
+        </template>
+        <template v-if="!clips.length && !loading">
+          <h3 class="mb-4">The channel you are looking for does not exist or has no clips.</h3>
+          <p class="text-muted mb-4">Please check the channel name or try again later.</p>
+          <SearchChannelInput />
+        </template>
+
+        <template v-else-if="!loading">
+          <div ref="element" class="row g-4">
+            <div v-for="clip in clips" :key="clip.id" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+              <NuxtLink :to="`/?channel=${clip.channel.slug}&id=${clip.id}`" class="text-decoration-none text-white" target="_blank">
+                <div class="card bg-dark text-white rounded-1 overflow-hidden">
+                  <div class="position-relative">
+                    <img :src="clip.thumbnail_url" class="w-100" :title="clip?.title?.trim() || ''">
+                    <span class="badge bg-black position-absolute top-0 start-0 m-2 opacity-75">{{ formatTime(clip.duration) }}</span>
+                    <span class="badge bg-black position-absolute bottom-0 start-0 m-2 opacity-75">
+                      {{ formatViews(clip.view_count) }} views
+                    </span>
+                  </div>
+                  <div class="card-body text-start d-flex flex-column gap-1">
+                    <h6 class="card-title m-0 fw-bold text-truncate">{{ clip?.title?.trim() || "" }}</h6>
+                    <small class="d-block card-text text-muted text-truncate">{{ clip?.category?.name?.trim() || "" }}</small>
+                    <small class="d-block card-text text-muted text-truncate">{{ useTimeAgo(clip.created_at) }}</small>
+                  </div>
+                </div>
+              </NuxtLink>
+            </div>
+          </div>
+        </template>
+
+        <template v-else>
+          <LoadingSpinner text="Loading..." />
+        </template>
+      </div>
+    </div>
+  </main>
+</template>
