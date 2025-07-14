@@ -102,11 +102,11 @@ useInfiniteScroll(window, async () => {
         </template>
         <template v-else-if="!firstLoad">
           <div ref="element" class="row g-4">
-            <div v-for="clip in clips" :key="clip.id" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+            <div v-for="clip in clips" :key="clip.id" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" :title="clip?.title?.trim() || ''">
               <NuxtLink :to="`/?channel=${clip.channel.slug}&id=${clip.id}`" class="text-decoration-none text-white" target="_blank">
                 <div class="card bg-dark text-white rounded-1 overflow-hidden">
                   <div class="position-relative">
-                    <img :src="clip.thumbnail_url" class="w-100" :title="clip?.title?.trim() || ''">
+                    <img :src="clip.thumbnail_url" class="w-100">
                     <span class="badge bg-black position-absolute top-0 start-0 m-2 opacity-75">{{ formatTime(clip.duration) }}</span>
                     <span class="badge bg-black position-absolute bottom-0 start-0 m-2 opacity-75">
                       {{ formatViews(clip.view_count) }} views
@@ -115,7 +115,7 @@ useInfiniteScroll(window, async () => {
                   <div class="card-body text-start d-flex flex-column gap-1 p-2">
                     <h6 class="card-title m-0 fw-bold text-truncate">{{ clip?.title?.trim() || "" }}</h6>
                     <small class="d-block card-text text-muted text-truncate">{{ clip?.category?.name?.trim() || "" }}</small>
-                    <small class="d-block card-text text-muted text-truncate">{{ useTimeAgo(clip.created_at) }}</small>
+                    <small class="d-block card-text text-muted text-truncate" :title="new Date(clip.created_at).toLocaleString()">{{ useTimeAgo(clip.created_at) }}</small>
                   </div>
                 </div>
               </NuxtLink>
