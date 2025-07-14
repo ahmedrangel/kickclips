@@ -17,12 +17,25 @@ const sortBy = ref<SortOptions>(sort || "view");
 const timeBy = ref<TimeOptions>(time || "week");
 const nextCursor = ref<string | null>();
 const loading = ref<boolean>(true);
-const firstLoad = ref<boolean>(true);
 
-onMounted(async () => {
-  await fetchClips();
-  firstLoad.value = false;
+const { data: response } = await useFetch(`/api/channel/${channel}/clips`, {
+  query: {
+    sort: sortBy.value,
+    time: timeBy.value
+  }
 });
+
+if (!response.value?.clips?.length) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "The channel you are looking for does not exist or has no clips."
+  });
+}
+
+clips.value = response.value.clips;
+nextCursor.value = response.value.nextCursor || null;
+username.value = response.value.clips[0]?.channel?.username || "";
+userimage.value = response.value.clips[0]?.channel?.profile_picture || "";
 
 const fetchClips = async () => {
   loading.value = true;
@@ -68,60 +81,51 @@ useInfiniteScroll(window, async () => {
   <main class="text-white">
     <div class="text-center container overflow-hidden">
       <div class="my-5">
-        <NuxtLink to="/" class="mb-4 d-block">
+        <NuxtLink to="/" class="mb-4 d-block" external>
           <img class="logo" src="/images/kickclips-logo.svg">
         </NuxtLink>
-        <template v-if="username">
-          <div class="d-flex justify-content-center align-items-center mb-2">
-            <img :src="userimage || '/images/user-default-pic.png'" class="rounded-circle" width="60" height="60">
+        <div class="d-flex justify-content-center align-items-center mb-2">
+          <img :src="userimage || '/images/user-default-pic.png'" class="rounded-circle" width="60" height="60">
+        </div>
+        <h3 class="mb-4">{{ username || channel }} Clips</h3>
+        <div class="d-flex justify-content-center gap-1 mb-4">
+          <div class="d-flex flex-column align-items-center justify-content-center">
+            <label>Sort by:</label>
+            <select v-model="sortBy" class="form-select me-2" style="max-width: 150px;">
+              <option value="view">Most Viewed</option>
+              <option value="date">Latest</option>
+            </select>
           </div>
-          <h3 class="mb-4">{{ username || channel }} Clips</h3>
-          <div class="d-flex justify-content-center gap-1 mb-4">
-            <div class="d-flex flex-column align-items-center justify-content-center">
-              <label>Sort by:</label>
-              <select v-model="sortBy" class="form-select me-2" style="max-width: 150px;">
-                <option value="view">Most Viewed</option>
-                <option value="date">Latest</option>
-              </select>
-            </div>
-            <div class="d-flex flex-column align-items-center justify-content-center">
-              <label>Filter by:</label>
-              <select v-model="timeBy" class="form-select" style="max-width: 150px;">
-                <option value="all">All Time</option>
-                <option value="month">Last Month</option>
-                <option value="week">Last Week</option>
-                <option value="day">Last Day</option>
-              </select>
-            </div>
+          <div class="d-flex flex-column align-items-center justify-content-center">
+            <label>Filter by:</label>
+            <select v-model="timeBy" class="form-select" style="max-width: 150px;">
+              <option value="all">All Time</option>
+              <option value="month">Last Month</option>
+              <option value="week">Last Week</option>
+              <option value="day">Last Day</option>
+            </select>
           </div>
-        </template>
-        <template v-if="!clips.length && !loading">
-          <h3 class="mb-4">The channel you are looking for does not exist or has no clips.</h3>
-          <p class="text-muted">Please check the channel name or try again later.</p>
-          <SearchChannelInput />
-        </template>
-        <template v-else-if="!firstLoad">
-          <div ref="element" class="row g-4">
-            <div v-for="clip in clips" :key="clip.id" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" :title="clip?.title?.trim() || ''">
-              <NuxtLink :to="`/?channel=${clip.channel.slug}&id=${clip.id}`" class="text-decoration-none text-white" target="_blank">
-                <div class="card bg-dark text-white rounded-1 overflow-hidden">
-                  <div class="position-relative">
-                    <img :src="clip.thumbnail_url" class="w-100">
-                    <span class="badge bg-black position-absolute top-0 start-0 m-2 opacity-75">{{ formatTime(clip.duration) }}</span>
-                    <span class="badge bg-black position-absolute bottom-0 start-0 m-2 opacity-75">
-                      {{ formatViews(clip.view_count) }} views
-                    </span>
-                  </div>
-                  <div class="card-body text-start d-flex flex-column gap-1 p-2">
-                    <h6 class="card-title m-0 fw-bold text-truncate">{{ clip?.title?.trim() || "" }}</h6>
-                    <small class="d-block card-text text-muted text-truncate">{{ clip?.category?.name?.trim() || "" }}</small>
-                    <small class="d-block card-text text-muted text-truncate" :title="new Date(clip.created_at).toLocaleString()">{{ useTimeAgo(clip.created_at) }}</small>
-                  </div>
+        </div>
+        <div ref="element" class="row g-4">
+          <div v-for="clip in clips" :key="clip.id" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" :title="clip?.title?.trim() || ''">
+            <NuxtLink :to="`/?channel=${clip.channel.slug}&id=${clip.id}`" class="text-decoration-none text-white" target="_blank">
+              <div class="card bg-dark text-white rounded-1 overflow-hidden">
+                <div class="position-relative">
+                  <img :src="clip.thumbnail_url" class="w-100">
+                  <span class="badge bg-black position-absolute top-0 start-0 m-2 opacity-75">{{ formatTime(clip.duration) }}</span>
+                  <span class="badge bg-black position-absolute bottom-0 start-0 m-2 opacity-75">
+                    {{ formatViews(clip.view_count) }} views
+                  </span>
                 </div>
-              </NuxtLink>
-            </div>
+                <div class="card-body text-start d-flex flex-column gap-1 p-2">
+                  <h6 class="card-title m-0 fw-bold text-truncate">{{ clip?.title?.trim() || "" }}</h6>
+                  <small class="d-block card-text text-muted text-truncate">{{ clip?.category?.name?.trim() || "" }}</small>
+                  <small class="d-block card-text text-muted text-truncate" :title="new Date(clip.created_at).toLocaleString()">{{ useTimeAgo(clip.created_at) }}</small>
+                </div>
+              </div>
+            </NuxtLink>
           </div>
-        </template>
+        </div>
         <template v-if="loading">
           <LoadingSpinner class="mt-4" text="Loading..." />
         </template>
