@@ -75,6 +75,30 @@ useInfiniteScroll(window, async () => {
   if (!nextCursor.value) return;
   await fetchClips();
 }, { distance: 100 });
+
+const seoTitle = `${username.value} Clips`;
+const seoUrl = `${SITE.url}/${channel.toLowerCase()}`;
+
+useSeoMeta({
+  title: `${seoTitle} | ${SITE.name}`,
+  description: seoTitle,
+  // Open Graph
+  ogType: SEO.og.type as MaybeRef,
+  ogTitle: seoTitle,
+  ogDescription: seoTitle,
+  ogUrl: seoUrl,
+  ogImage: SEO.og.image,
+  // Twitter
+  twitterCard: SEO.twitter.card as MaybeRef,
+  twitterTitle: seoTitle,
+  twitterDescription: seoTitle
+});
+
+useHead({
+  link: [
+    { rel: "canonical", href: seoUrl }
+  ]
+});
 </script>
 
 <template>
