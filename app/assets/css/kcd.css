@@ -37,52 +37,38 @@ body {
   border-radius: 16px;
 }
 
-.input-body, .input-vod {
+.input-body {
   background-color: var(--main-bg-color);
   border-radius: 20px;
 }
 
-.input-vod .save {
-  border-radius: 10px;
-}
-
-.input-vod button, .input-vod .save {
-  background-color: var(--app-bg-color);
-  color: var(--main-bg-color);
-}
-
-.input-vod button:hover, .input-vod .save:hover {
-  background-color: var(--main-bg-color);
-  color: var(--white);
-}
-
-.input-body button {
-  background-color: var(--app-bg-color);
-  color: var(--main-bg-color);
+button, button {
+  background-color: var(--app-bg-color)!important;
+  color: var(--main-bg-color)!important;
   text-decoration: none;
-  border-radius: 0 16px 16px 0;
+  border-radius: 0 16px 16px 0!important;
+}
+
+input {
+  background-color: var(--white);
+  color: var(--main-bg-color);
+  border-radius: 16px 0 0 16px!important;
 }
 
 .input-body input {
-  background-color: var(--white);
-  border-radius: 16px 0 0 16px;
-  color: var(--main-bg-color);
   padding: 12px 14px;
 }
 
-.input-body input, .input-body button, .input-group input, .input-group button {
-  border: 1px solid var(--main-bg-color);
+input, button {
+  border: 1px solid var(--main-bg-color)!important;
 }
 
 @media (max-width: 767px) {
   .download-txt {
     display: none!important;
   }
-  .iconify {
-    font-size: 24px!important;
-  }
 
-  .input-body input, .input-body button {
+  input, button {
     font-size: 14px; 
   }
 
@@ -106,10 +92,6 @@ p {
   margin: 0;
 }
 
-.user {
-  color: var(--app-bg-color);
-}
-
 .video video {
   position: relative;
   border: 4px solid var(--main-bg-color);
@@ -129,10 +111,6 @@ p {
   color: rgb(255, 74, 74);
 }
 
-#download .iconify {
-  font-size: 30px;
-}
-
 .guide {
   background-color: var(--secondary-bg-color);
   border-radius: 16px;
@@ -150,28 +128,10 @@ p {
   max-width: 40px;
 }
 
-.bg-time {
-  background-color: var(--white);
-  color: var(--main-bg-color);
-  padding: 5px;
-  width:90px;
-  max-width: 90px;
-  border-radius: 2px 4px;
-}
-
-select {
-  padding: 10px 20px;
-  font-size: 1.3rem;
-  border: 4px solid var(--main-bg-color);
-  border-radius: 8px;
-  background-color: var(--white);
-  max-width: 100%;
-}
-
-ins.adsbygoogle[data-ad-status="unfilled"] {
-  display: none !important;
-}
-
 .text-muted {
   color:rgb(179, 179, 179)!important;
+}
+
+.iconify {
+  flex-shrink: 0 !important;
 }

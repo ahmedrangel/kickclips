@@ -86,10 +86,10 @@ if (props.channel && props.clipId) getClip();
   <div class="downloader-body justify-content-center mb-5 p-3 p-sm-4">
     <form @submit.prevent="getClip()">
       <h2 class="col-12 fw-normal title mb-3 mb-sm-4">Enter clip URL</h2>
-      <div class="col-12 row input-body p-2 mb-3 mb-sm-4 mx-0">
+      <div class="col-12 row input-body p-2 mb-3 mb-sm-4 mx-0 flex-nowrap">
         <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/user/clips/clip_01A2BCD3EF4GHI5JKMNLOP67QR" required>
         <button id="download" v-ripple type="submit" class="col-3 col-lg-2 col-sm-4 btn fw-bold d-flex align-items-center justify-content-center" :disabled="loading ? true : false">
-          <Icon name="ph:download-simple-bold" />
+          <Icon name="ph:download-simple-bold" size="1.8em" />
           <span class="ms-1 download-txt">Download</span>
         </button>
       </div>
@@ -103,7 +103,7 @@ if (props.channel && props.clipId) getClip();
             <div class="channel_profile">
               <img class="mb-1 img-fluid" :src="clip.channelPicture">
               <a :href="`https://kick.com/${clip.slug}`" class="text-decoration-underline" target="_blank">
-                <h3 class="mb-3 user">
+                <h3 class="mb-3">
                   {{ clip.channel }}
                 </h3>
               </a>
@@ -125,7 +125,7 @@ if (props.channel && props.clipId) getClip();
               </div>
               <div class="d-flex gap-2 align-items-center">
                 <Icon name="ph:user-bold" />
-                <p><a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline user" target="_blank">{{ clip.creator }}</a></p>
+                <p><a :href="`https://kick.com/${clip.creatorSlug}`" class="text-decoration-underline" target="_blank">{{ clip.creator }}</a></p>
               </div>
               <div class="d-flex gap-2 align-items-center">
                 <Icon name="ph:calendar-bold" />
