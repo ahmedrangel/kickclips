@@ -16,7 +16,7 @@ type TimeOptions = "all" | "month" | "week" | "day";
 const sortBy = ref<SortOptions>(sort || "view");
 const timeBy = ref<TimeOptions>(time || "week");
 const nextCursor = ref<string | null>();
-const loading = ref<boolean>(true);
+const loading = ref<boolean>(false);
 
 const { data: response } = await useFetch(`/api/channel/${channel}/clips`, {
   query: {
