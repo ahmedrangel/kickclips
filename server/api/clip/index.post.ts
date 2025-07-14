@@ -7,7 +7,7 @@ export default defineEventHandler(async (event): Promise<{ url: string } | null>
   if (!match) return null;
   const id = match[1] || match[2];
 
-  console.info(`Downloading clip with ID: ${id}`);
+  console.info(`Downloading clip URL: ${url}`);
 
   const triggerTmp = await $fetch(`${RESOURCES.apiV2}/clips/${id}/download`, {
     headers: {
