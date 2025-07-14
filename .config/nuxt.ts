@@ -50,7 +50,7 @@ export default defineNuxtConfig({
     kickToken: ""
   },
   site: {
-    url: SITE.host
+    url: SITE.url
   },
   nitro: {
     prerender: {

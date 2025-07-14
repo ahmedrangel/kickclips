@@ -2,7 +2,6 @@
 useSeoMeta({
   title: SITE.name,
   description: SITE.description,
-  keywords: SITE.keywords,
   // Open Graph
   ogType: SEO.og.type as MaybeRef,
   ogTitle: SEO.og.title,
@@ -17,8 +16,17 @@ useSeoMeta({
 
 useHead({
   link: [
-    { rel: "canonical", href: SITE.host }
-  ]
+    { rel: "canonical", href: SITE.url }
+  ],
+  script: [{
+    type: "application/ld+json",
+    innerHTML: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": SITE.name,
+      "url": SITE.url
+    })
+  }]
 });
 
 const { query } = useRoute();
