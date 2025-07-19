@@ -6,8 +6,7 @@ const headers = {
 };
 
 export default defineNuxtConfig({
-  future: { compatibilityVersion: 4 },
-  compatibilityDate: "2024-08-17",
+  compatibilityDate: "2025-07-18",
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
     "~/assets/css/kcd.css",
@@ -58,6 +57,10 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
+    urls: [
+      { loc: "/", priority: 1, lastmod: new Date().toISOString() }
+    ],
+    defaults: { priority: 0.8, lastmod: new Date().toISOString() },
     xslColumns: [
       { label: "URL", width: "65%" },
       { label: "Priority", select: "sitemap:priority", width: "12.5%" },
@@ -65,8 +68,7 @@ export default defineNuxtConfig({
     ]
   },
   routeRules: {
-    "/": { sitemap: { priority: 1 }, headers },
-    "/*/**": { sitemap: { priority: 0.8, lastmod: new Date().toISOString() } },
+    "/": { headers },
     "/_nuxt/**": { headers },
     "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
   },
