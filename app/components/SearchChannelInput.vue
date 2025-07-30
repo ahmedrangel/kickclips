@@ -2,7 +2,7 @@
 const channel = ref<string>("");
 
 const goToChannel = () => {
-  if (channel.value) navigateTo(`/${channel.value}`, { external: true });
+  if (channel.value) navigateTo(`/${channel.value}`);
 };
 
 defineProps<{

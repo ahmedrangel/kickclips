@@ -105,7 +105,7 @@ useHead({
   <main class="text-white">
     <div class="text-center container overflow-hidden">
       <div class="my-5">
-        <NuxtLink to="/" class="mb-4 d-block" external>
+        <NuxtLink to="/" class="mb-4 d-block">
           <img class="logo" src="/images/kickclips-logo.svg">
         </NuxtLink>
         <div class="d-flex justify-content-center align-items-center mb-2">
@@ -132,7 +132,7 @@ useHead({
         </div>
         <div ref="element" class="row g-4">
           <div v-for="clip in clips" :key="clip.id" class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" :title="clip?.title?.trim() || ''">
-            <NuxtLink :to="`/?channel=${clip.channel.slug}&id=${clip.id}`" class="text-decoration-none text-white" target="_blank">
+            <NuxtLink :to="`/?channel=${clip.channel.slug}&id=${clip.id}`" class="text-decoration-none text-white">
               <div class="card bg-dark text-white rounded-1 overflow-hidden">
                 <div class="position-relative">
                   <img :src="clip.thumbnail_url" class="w-100">

@@ -68,7 +68,7 @@ export default defineNuxtConfig({
     ]
   },
   routeRules: {
-    "/": { headers },
+    "/**": { headers },
     "/_nuxt/**": { headers },
     "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
   },
