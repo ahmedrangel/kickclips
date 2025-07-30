@@ -1,7 +1,7 @@
 import { SITE, SEO } from "../shared/utils/helpers";
 
 const headers = {
-  "Cross-Origin-Embedder-Policy": "require-corp",
+  "Cross-Origin-Embedder-Policy": "credentialless",
   "Cross-Origin-Opener-Policy": "same-origin"
 };
 

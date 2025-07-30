@@ -59,7 +59,7 @@ const getClip = async () => {
   }
 
   blobUrl.value = URL.createObjectURL(blob.value);
-  const picture = data.clip.channel?.profile_picture ? `/api/picture?url=${data.clip.channel.profile_picture}` : "/images/user-default-pic.png";
+  const picture = data.clip.channel?.profile_picture ? data.clip.channel.profile_picture : "/images/user-default-pic.png";
 
   loading.value = false;
 
