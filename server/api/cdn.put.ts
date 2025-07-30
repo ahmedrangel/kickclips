@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
   };
 
   if (import.meta.dev) {
-    return cdn();
+    return null;
   }
 
   cloudflare.context.waitUntil(cdn());
