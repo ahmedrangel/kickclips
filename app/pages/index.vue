@@ -35,7 +35,7 @@ const queryParams = query as { channel?: string, id: string };
 
 <template>
   <main class="text-white">
-    <div class="text-center container overflow-hidden">
+    <div id="home" class="text-center container overflow-hidden">
       <div class="my-5">
         <SearchChannelInput :align="'end'" class="mb-4" />
         <img class="logo mb-4" src="/images/kickclips-logo.svg">

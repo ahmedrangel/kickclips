@@ -49,7 +49,7 @@ button, button {
   border-radius: 0 16px 16px 0!important;
 }
 
-input {
+#home input {
   background-color: var(--white);
   color: var(--main-bg-color);
   border-radius: 16px 0 0 16px!important;
