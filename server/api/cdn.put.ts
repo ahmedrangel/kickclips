@@ -9,6 +9,10 @@ export default defineEventHandler(async (event) => {
     "Cache-Control": "public, max-age=86400"
   }));
 
+  if (!config.cdnToken || import.meta.dev) {
+    return null;
+  }
+
   const cdn = async () => {
     return await $fetch(`${RESOURCES.worker}/cdn`, {
       method: "PUT",
@@ -16,10 +20,6 @@ export default defineEventHandler(async (event) => {
       body: fd
     }).catch(() => null);
   };
-
-  if (import.meta.dev) {
-    return null;
-  }
 
   cloudflare.context.waitUntil(cdn());
   return null;
