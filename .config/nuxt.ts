@@ -42,6 +42,7 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@nuxt/icon",
     "@nuxtjs/sitemap",
+    "@nuxthub/core",
     "nuxt-ripple"
   ],
   runtimeConfig: {
@@ -92,5 +93,8 @@ export default defineNuxtConfig({
   },
   experimental: {
     typedPages: true
+  },
+  hub: {
+    workers: true
   }
 });
