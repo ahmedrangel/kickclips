@@ -25,3 +25,4 @@ logs
 .vscode
 
 *.bat
+.data
