@@ -3,7 +3,7 @@
   --secondary-bg-color: #24272c;
   --tertiary-bg-color: #394761;
   --app-bg-color: #53fc18;
-  --bs-primary-rgb:83, 252, 24;
+  --bs-primary-rgb: 83, 252, 24;
   --white: #f8f8f8;
   scrollbar-color: var(--app-bg-color) var(--tertiary-bg-color);
   scrollbar-width: thin;
@@ -49,7 +49,7 @@ button, button {
   border-radius: 0 16px 16px 0!important;
 }
 
-#home input {
+#home input, .search-input {
   background-color: var(--white);
   color: var(--main-bg-color);
   border-radius: 16px 0 0 16px!important;
@@ -134,4 +134,12 @@ p {
 
 .iconify {
   flex-shrink: 0 !important;
+}
+
+.list-group-item-dark {
+  --bs-list-group-bg: var(--secondary-bg-color);
+  --bs-list-group-action-color: var(--white);
+  --bs-list-group-action-hover-color: var(--white);
+  --bs-list-group-action-hover-bg: var(--tertiary-bg-color);
+  border: none;
 }

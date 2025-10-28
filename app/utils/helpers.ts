@@ -110,7 +110,7 @@ export const processClip = async (playlist: string, id: string) => {
     const timeout = await $ffmpeg.exec(["-i", `${id}.ts`, "-preset", "ultrafast", "-threads", "5", `${id}.mp4`], 120000);
     if (timeout) return null;
     console.info("Successful transformation");
-    const data = await $ffmpeg.readFile(`${id}.mp4`);
+    const data = await $ffmpeg.readFile(`${id}.mp4`) as BlobPart;
     console.info("File has been read");
     return new Blob([data], { type: "video/mp4" });
   }
@@ -118,4 +118,21 @@ export const processClip = async (playlist: string, id: string) => {
     console.info(e);
     return null;
   }
+};
+
+export const searchChannel = async (text: string) => {
+  const data: any = await $fetch("https://search.kick.com/multi_search", {
+    method: "POST",
+    headers: {
+      "X-Typesense-Api-Key": "nXIMW0iEN6sMujFYjFuhdrSwVow3pDQu"
+    },
+    body: {
+      searches: [
+        { preset: "channel_search", q: text }
+      ]
+    }
+  }).catch(() => null);
+  return data?.results?.[0]?.hits.map((hit: any) => ({
+    ...hit?.document
+  })) || [];
 };

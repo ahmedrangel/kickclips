@@ -26,17 +26,18 @@ const { data: response } = await useFetch(`/api/channel/${channel}/clips`, {
   }
 });
 
-if (!response.value?.clips?.length) {
+if (!response.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: "The channel you are looking for does not exist or has no clips."
+    statusMessage: "This channel does not exist.",
+    fatal: true
   });
 }
 
-clips.value = response.value.clips;
-nextCursor.value = response.value.nextCursor || null;
-username.value = response.value.clips[0]?.channel?.username || "";
-userimage.value = response.value.clips[0]?.channel?.profile_picture || "";
+clips.value = response.value?.clips || [];
+nextCursor.value = response.value?.nextCursor || null;
+username.value = response.value?.clips?.[0]?.channel?.username || "";
+userimage.value = response.value?.clips?.[0]?.channel?.profile_picture || "";
 
 const fetchClips = async () => {
   loading.value = true;
@@ -121,9 +122,12 @@ watchDebounced([sortBy, timeBy, searchQuery], async () => {
   <main class="text-white">
     <div class="text-center container overflow-hidden">
       <div class="my-5">
-        <NuxtLink to="/" class="mb-4 d-block">
-          <img class="logo" src="/images/kickclips-logo.svg">
-        </NuxtLink>
+        <SearchChannelInput :align="'end'" class="mb-4" />
+        <div class="mb-4">
+          <NuxtLink to="/">
+            <img class="logo" src="/images/kickclips-logo.svg">
+          </NuxtLink>
+        </div>
         <div class="d-flex justify-content-center align-items-center mb-2">
           <img :src="userimage || '/images/user-default-pic.png'" class="rounded-circle" width="60" height="60">
         </div>
