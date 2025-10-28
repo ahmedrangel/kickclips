@@ -1,2 +1,5 @@
 shamefullyHoist: true
 strictPeerDependencies: false
+
+overrides:
+  picomatch: ^4.0.3
