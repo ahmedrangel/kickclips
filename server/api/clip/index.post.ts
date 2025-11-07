@@ -13,8 +13,13 @@ export default defineEventHandler(async (event): Promise<{ url: string } | null>
     headers: {
       "User-Agent": SITE.userAgent,
       "Authorization": `Bearer ${kickToken}`
-    }
+    },
+    retry: 5,
+    retryDelay: 500
   }).catch(() => null);
+
+  console.info(triggerTmp);
+
   if (triggerTmp?.url) {
     console.info("Downloaded using API v2");
     return { url: triggerTmp.url };
