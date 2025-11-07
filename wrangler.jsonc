@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "kickclips",
-  "compatibility_date": "2025-10-28",
+  "compatibility_date": "2025-11-07",
   "main": "dist/server/index.mjs",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {

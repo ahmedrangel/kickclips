@@ -6,7 +6,7 @@ const headers = {
 };
 
 export default defineNuxtConfig({
-  compatibilityDate: "2025-07-18",
+  compatibilityDate: "2025-11-07",
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
     "~/assets/css/kcd.css",
