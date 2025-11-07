@@ -9,14 +9,23 @@ export default defineEventHandler(async (event): Promise<{ url: string } | null>
 
   console.info(`Downloading clip URL: ${url}`);
 
-  const triggerTmp = await $fetch<{ url: string }>(`${RESOURCES.apiV2}/clips/${id}/download`, {
-    headers: {
-      "User-Agent": SITE.userAgent,
-      "Authorization": `Bearer ${kickToken}`
-    },
-    retry: 5,
-    retryDelay: 500
-  }).catch(() => null);
+  let triggerTmp;
+  let retryCount = 0;
+  const maxRetries = 5;
+  const retryDelay = 500;
+  while (!triggerTmp && retryCount < maxRetries) {
+    triggerTmp = await $fetch<{ url: string }>(`${RESOURCES.apiV2}/clips/${id}/download`, {
+      headers: {
+        "User-Agent": SITE.userAgent,
+        "Authorization": `Bearer ${kickToken}`
+      }
+    }).catch(() => null);
+    if (!triggerTmp) {
+      retryCount++;
+      console.info(`Retrying download... Attempt ${retryCount}`);
+      await new Promise(resolve => setTimeout(resolve, retryDelay));
+    }
+  }
 
   console.info(triggerTmp);
 
