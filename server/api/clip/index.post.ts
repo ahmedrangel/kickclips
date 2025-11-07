@@ -27,8 +27,6 @@ export default defineEventHandler(async (event): Promise<{ url: string } | null>
     }
   }
 
-  console.info(triggerTmp);
-
   if (triggerTmp?.url) {
     console.info("Downloaded using API v2");
     return { url: triggerTmp.url };
