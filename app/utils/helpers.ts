@@ -121,7 +121,7 @@ export const processClip = async (playlist: string, id: string) => {
 };
 
 export const searchChannel = async (text: string) => {
-  const data: any = await $fetch("https://search.kick.com/multi_search", {
+  const data = await $fetch<{ results: KickChannelSearchResult[] }>("https://search.kick.com/multi_search", {
     method: "POST",
     headers: {
       "X-Typesense-Api-Key": "nXIMW0iEN6sMujFYjFuhdrSwVow3pDQu"
@@ -132,7 +132,7 @@ export const searchChannel = async (text: string) => {
       ]
     }
   }).catch(() => null);
-  return data?.results?.[0]?.hits.map((hit: any) => ({
+  return data?.results?.[0]?.hits.map(hit => ({
     ...hit?.document
   })) || [];
 };

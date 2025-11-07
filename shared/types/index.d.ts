@@ -59,4 +59,18 @@ declare global {
     date: string;
     duration: number;
   }
+
+  interface KickChannelSearchResult {
+    hits: {
+      document: {
+        follower_count: number;
+        id: number;
+        is_banned: boolean;
+        is_live: boolean;
+        slug: string;
+        username: string;
+        verified: boolean;
+      };
+    }[];
+  }
 }

@@ -2,7 +2,7 @@
 import { watchDebounced } from "@vueuse/core";
 
 const channel = ref<string>("");
-const channelResults = ref<any[]>([]);
+const channelResults = ref<KickChannelSearchResult["hits"][number]["document"][]>([]);
 const searching = ref<boolean>(false);
 const loading = ref<boolean>(false);
 
