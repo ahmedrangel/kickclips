@@ -7,7 +7,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint --fix --config .config/eslint.mjs"
+    "lint": "eslint --config .config/eslint.mjs"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.2.2",
