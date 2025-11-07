@@ -25,23 +25,25 @@ const getClip = async () => {
 
   const id = match[1] || match[2] as string;
   loading.value = true;
-  const data = await $fetch(`${RESOURCES.apiV2}/clips/${id}`, { parseResponse: JSON.parse }).catch(() => {
+  const data = await $fetch<GetClipResponse>(`${RESOURCES.apiV2}/clips/${id}`).catch(() => null);
+
+  if (!data?.clip) {
     loading.value = false;
     error.value = { message: "Error: Clip not found - Make sure you entered the correct URL" };
     return;
-  }) as GetClipResponse;
+  }
 
-  const tmpVideo = await $fetch(`${RESOURCES.clipsTmp}/${id}.mp4`).catch(() => null) as Blob || await $fetch(`${RESOURCES.cdn}/${id}.mp4?t=${Date.now()}`).catch(() => null) as Blob;
+  const tmpVideo = await $fetch<Blob>(`${RESOURCES.clipsTmp}/${id}.mp4`).catch(() => null) || await $fetch<Blob>(`${RESOURCES.cdn}/${id}.mp4?t=${Date.now()}`).catch(() => null);
 
   if (!tmpVideo) {
-    if (data.clip.clip_url.includes(".mp4")) {
-      blob.value = await $fetch(data.clip.clip_url).catch(() => null) as Blob;
+    if (data?.clip.clip_url.includes(".mp4")) {
+      blob.value = await $fetch<Blob>(data.clip.clip_url).catch(() => null);
     }
     else {
-      const fromApi = await $fetch("/api/clip", { method: "POST", body: { url: url.value } }).catch(() => null) as { url: string };
-      if (fromApi) blob.value = await $fetch(fromApi?.url).catch(() => null) as Blob;
+      const fromApi = await $fetch<{ url: string }>("/api/clip", { method: "POST", body: { url: url.value } }).catch(() => null);
+      if (fromApi) blob.value = await $fetch<Blob>(fromApi?.url).catch(() => null);
       else {
-        blob.value = data.clip.clip_url.includes("/playlist.m3u8") ? await processClip(data.clip.clip_url, id) : null as Blob | null;
+        blob.value = data?.clip.clip_url.includes("/playlist.m3u8") ? await processClip(data.clip.clip_url, id) : null;
         if (blob.value) {
           const fd = new FormData();
           fd.append("file", blob.value, `${id}.mp4`);
@@ -59,7 +61,7 @@ const getClip = async () => {
   }
 
   blobUrl.value = URL.createObjectURL(blob.value);
-  const picture = data.clip.channel?.profile_picture ? data.clip.channel.profile_picture : "/images/user-default-pic.png";
+  const picture = data?.clip.channel?.profile_picture ? data.clip.channel.profile_picture : "/images/user-default-pic.png";
 
   loading.value = false;
 
