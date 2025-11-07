@@ -9,21 +9,20 @@ export default defineEventHandler(async (event): Promise<{ url: string } | null>
 
   console.info(`Downloading clip URL: ${url}`);
 
-  const triggerTmp = await $fetch(`${RESOURCES.apiV2}/clips/${id}/download`, {
+  const triggerTmp = await $fetch<{ url: string }>(`${RESOURCES.apiV2}/clips/${id}/download`, {
     headers: {
       "User-Agent": SITE.userAgent,
       "Authorization": `Bearer ${kickToken}`
-    },
-    parseResponse: JSON.parse
-  }).catch(() => null) as { url: string };
+    }
+  }).catch(() => null);
   if (triggerTmp?.url) {
     console.info("Downloaded using API v2");
     return { url: triggerTmp.url };
   }
 
-  const worker = await $fetch(`${RESOURCES.worker}/kick/clip`, {
+  const worker = await $fetch<{ url: string }>(`${RESOURCES.worker}/kick/clip`, {
     query: { url }
-  }).catch(() => null) as { url: string };
+  }).catch(() => null);
 
   if (worker?.url) {
     console.info("Downloaded using worker");

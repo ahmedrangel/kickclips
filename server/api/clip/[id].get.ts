@@ -6,8 +6,7 @@ export default defineEventHandler(async (event) => {
     headers: {
       "User-Agent": SITE.userAgent,
       "Authorization": `Bearer ${kickToken}`
-    },
-    parseResponse: JSON.parse
+    }
   }).catch(() => null);
   return data;
 });
