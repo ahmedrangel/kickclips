@@ -6,10 +6,9 @@ export default defineEventHandler(async (event) => {
   const data = await $fetch<{ clips: GetClipResponse["clip"][], nextCursor: string }>(`${RESOURCES.apiV2}/channels/${slug}/clips`, {
     query: { sort, time },
     headers: {
-      "User-Agent": "Cloudflare Workers/KickClips",
+      "User-Agent": SITE.userAgent,
       "Authorization": `Bearer ${kickToken}`
-    },
-    parseResponse: JSON.parse
+    }
   }).catch(() => null);
   return data;
 });

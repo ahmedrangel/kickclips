@@ -9,7 +9,8 @@ export const SITE = {
   name: "KickClips",
   url: "https://kickclips.ahmedrangel.com",
   description: "KickClips is a free online tool for downloading MP4 clips from kick.com.",
-  title: "KickClips | Downloader | to MP4"
+  title: "KickClips | Downloader | to MP4",
+  userAgent: "KickClips (Cloudflare Workers)"
 };
 
 export const SEO = {

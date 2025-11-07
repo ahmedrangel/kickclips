@@ -4,7 +4,7 @@ export default defineEventHandler(async (event) => {
   const kickToken = config.kickToken;
   const data = await $fetch(`${RESOURCES.apiV2}/clips/${id}`, {
     headers: {
-      "User-Agent": "Cloudflare Workers/KickClips",
+      "User-Agent": SITE.userAgent,
       "Authorization": `Bearer ${kickToken}`
     },
     parseResponse: JSON.parse

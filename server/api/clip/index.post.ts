@@ -11,7 +11,7 @@ export default defineEventHandler(async (event): Promise<{ url: string } | null>
 
   const triggerTmp = await $fetch(`${RESOURCES.apiV2}/clips/${id}/download`, {
     headers: {
-      "User-Agent": "Cloudflare Workers/KickClips",
+      "User-Agent": SITE.userAgent,
       "Authorization": `Bearer ${kickToken}`
     },
     parseResponse: JSON.parse
