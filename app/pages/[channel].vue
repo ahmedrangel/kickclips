@@ -134,7 +134,6 @@ watchDebounced([sortBy, timeBy, searchQuery], async () => {
           </NuxtLink>
         </div>
         <h3 class="mb-4">{{ username || channel }} Clips</h3>
-        <div id="ad-container" class="text-center my-4" />
         <div class="d-flex flex-wrap justify-content-center gap-1 mb-4">
           <div class="d-flex flex-column align-items-center justify-content-center">
             <label>Sort by:</label>

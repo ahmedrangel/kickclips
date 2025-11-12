@@ -85,7 +85,7 @@ if (props.channel && props.clipId) getClip();
 </script>
 
 <template>
-  <div class="downloader-body justify-content-center p-3 p-sm-4">
+  <div class="downloader-body justify-content-center mb-5 p-3 p-sm-4">
     <form @submit.prevent="getClip()">
       <h2 class="col-12 fw-normal title mb-3 mb-sm-4">Enter clip URL</h2>
       <div class="col-12 row input-body p-2 mb-3 mb-sm-4 mx-0 flex-nowrap">
