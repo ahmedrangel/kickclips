@@ -16,17 +16,17 @@
     "@nuxt/icon": "^2.1.0",
     "@nuxthub/core": "^0.9.0",
     "@nuxtjs/sitemap": "^7.4.7",
-    "@types/node": "^24.10.0",
+    "@types/node": "^24.10.1",
     "@vueuse/core": "^14.0.0",
     "eslint": "^9.39.1",
     "nuxt": "^4.2.1",
     "nuxt-ripple": "^0.0.8",
-    "wrangler": "^4.46.0"
+    "wrangler": "^4.50.0"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
     "bootstrap": "^5.3.8"
   },
-  "packageManager": "pnpm@10.20.0"
+  "packageManager": "pnpm@10.23.0"
 }

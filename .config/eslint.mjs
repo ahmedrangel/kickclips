@@ -35,6 +35,7 @@ export default withNuxt([{
     "@typescript-eslint/ban-ts-comment": ["off"],
     "vue/html-indent": ["error", 2],
     "vue/multiline-html-element-content-newline": ["error", { ignores: [] }],
-    "@stylistic/no-extra-semi": "error"
+    "@stylistic/no-extra-semi": "error",
+    "vue/no-duplicate-class-names": "error"
   }
 }]);
