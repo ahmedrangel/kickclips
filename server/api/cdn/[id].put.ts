@@ -1,14 +1,17 @@
 export default defineEventHandler(async (event) => {
-  const { cloudflare } = event.context;
   const config = useRuntimeConfig(event);
+  const { id } = getRouterParams(event);
   const fd = await readFormData(event);
-  fd.append("prefix", "tmp/videos/kick");
-  fd.append("httpMetadata", JSON.stringify({
+  fd.set("prefix", "tmp/videos/kick");
+  fd.set("httpMetadata", JSON.stringify({
     "Content-Type": "video/mp4",
     "Content-Disposition": "inline",
     "Cache-Control": "public, max-age=86400"
   }));
-
+  const file = fd.get("file");
+  if (file instanceof File) {
+    fd.set("file", new File([file], `${id}.mp4`, { type: "video/mp4" }));
+  }
   if (!config.cdnToken || import.meta.dev) {
     return null;
   }
@@ -21,6 +24,6 @@ export default defineEventHandler(async (event) => {
     }).catch(() => null);
   };
 
-  cloudflare.context.waitUntil(cdn());
+  event.waitUntil(cdn());
   return null;
 });

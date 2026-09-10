@@ -12,7 +12,7 @@ export const getClip = async (url: string): Promise<KickClipTypes> => {
     throw { message: "Error: Clip not found - Make sure you entered the correct URL" };
   }
 
-  const tmpVideo = await $fetch<Blob>(`${RESOURCES.clipsTmp}/${id}.mp4`).catch(() => null) || await $fetch<Blob>(`${RESOURCES.cdn}/${id}.mp4?t=${Date.now()}`).catch(() => null);
+  const tmpVideo = await $fetch<Blob>(`${RESOURCES.clipsTmp}/${id}.mp4`).catch(() => null) || await $fetch<Blob>(`${RESOURCES.cdn}/${id}.mp4`).catch(() => null);
 
   if (!tmpVideo) {
     if (data?.clip.clip_url.includes(".mp4")) {
@@ -27,7 +27,7 @@ export const getClip = async (url: string): Promise<KickClipTypes> => {
         if (blob) {
           const fd = new FormData();
           fd.append("file", blob, `${id}.mp4`);
-          await $fetch("/api/cdn", { method: "PUT", body: fd }).catch(() => null);
+          await $fetch(`/api/cdn/${id}`, { method: "PUT", body: fd }).catch(() => null);
         }
       }
     }
