@@ -1,4 +1,4 @@
-import { SITE, SEO } from "../shared/utils/helpers";
+import { SEO, SITE } from "../shared/utils/helpers";
 
 const headers = {
   "Cross-Origin-Embedder-Policy": "credentialless",
@@ -6,12 +6,11 @@ const headers = {
 };
 
 export default defineNuxtConfig({
-  compatibilityDate: "2026-09-10",
-  css: [
-    "bootstrap/dist/css/bootstrap.min.css",
-    "~/assets/css/kcd.css",
-    "~/assets/css/transitions.css",
-    "~/assets/css/range-slider.css"
+  modules: [
+    "@nuxt/eslint",
+    "@nuxt/icon",
+    "@nuxtjs/sitemap",
+    "nuxt-ripple"
   ],
   app: {
     head: {
@@ -35,26 +34,53 @@ export default defineNuxtConfig({
       ]
     }
   },
-  features: {
-    inlineStyles: false
-  },
-  modules: [
-    "@nuxt/eslint",
-    "@nuxt/icon",
-    "@nuxtjs/sitemap",
-    "nuxt-ripple"
+  css: [
+    "bootstrap/dist/css/bootstrap.min.css",
+    "~/assets/css/kcd.css",
+    "~/assets/css/transitions.css",
+    "~/assets/css/range-slider.css"
   ],
+  site: {
+    url: SITE.url
+  },
   runtimeConfig: {
     cdnToken: "",
     kickToken: ""
   },
-  site: {
-    url: SITE.url
+  routeRules: {
+    "/**": { headers },
+    "/_nuxt/**": { headers },
+    "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
   },
+  features: {
+    inlineStyles: false
+  },
+  experimental: {
+    typedPages: true
+  },
+  compatibilityDate: "2026-09-10",
   nitro: {
     prerender: {
       routes: ["/sitemap.xml"]
     }
+  },
+  vite: {
+    optimizeDeps: {
+      exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"]
+    },
+    server: {
+      headers
+    }
+  },
+  eslint: {
+    config: {
+      autoInit: false,
+      stylistic: true
+    }
+  },
+  icon: {
+    mode: "svg",
+    clientBundle: { scan: true, sizeLimitKb: 2048 }
   },
   sitemap: {
     urls: [
@@ -66,31 +92,5 @@ export default defineNuxtConfig({
       { label: "Priority", select: "sitemap:priority", width: "12.5%" },
       { label: "Last Modified", select: "sitemap:lastmod", width: "35%" }
     ]
-  },
-  routeRules: {
-    "/**": { headers },
-    "/_nuxt/**": { headers },
-    "/api/_nuxt_icon/**": { cache: { maxAge: 1.577e+7 } }
-  },
-  eslint: {
-    config: {
-      autoInit: false,
-      stylistic: true
-    }
-  },
-  vite: {
-    optimizeDeps: {
-      exclude: ["@ffmpeg/ffmpeg", "@ffmpeg/util"]
-    },
-    server: {
-      headers
-    }
-  },
-  icon: {
-    mode: "svg",
-    clientBundle: { scan: true, sizeLimitKb: 2048 }
-  },
-  experimental: {
-    typedPages: true
   }
 });

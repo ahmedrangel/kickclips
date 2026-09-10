@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTimeAgo, useInfiniteScroll, watchDebounced } from "@vueuse/core";
+import { useInfiniteScroll, useTimeAgo, watchDebounced } from "@vueuse/core";
 
 const { params } = useRoute("channel");
 const { query } = useRoute();
