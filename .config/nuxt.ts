@@ -6,7 +6,7 @@ const headers = {
 };
 
 export default defineNuxtConfig({
-  compatibilityDate: "2025-11-07",
+  compatibilityDate: "2026-09-10",
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
     "~/assets/css/kcd.css",
@@ -42,7 +42,6 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@nuxt/icon",
     "@nuxtjs/sitemap",
-    "@nuxthub/core",
     "nuxt-ripple"
   ],
   runtimeConfig: {
@@ -93,8 +92,5 @@ export default defineNuxtConfig({
   },
   experimental: {
     typedPages: true
-  },
-  hub: {
-    workers: true
   }
 });
