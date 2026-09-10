@@ -36,9 +36,8 @@ export default defineNuxtConfig({
   },
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
-    "~/assets/css/kcd.css",
-    "~/assets/css/transitions.css",
-    "~/assets/css/range-slider.css"
+    "~/assets/css/main.css",
+    "~/assets/css/transitions.css"
   ],
   site: {
     url: SITE.url
