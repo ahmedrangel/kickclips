@@ -7,86 +7,28 @@ const url = ref<string>(props.channel && props.clipId ? `https://kick.com/${prop
 const clip = ref<KickClipTypes | null>(null);
 const loading = ref<boolean>(false);
 const error = ref<{ message: string } | null>(null);
-const blob = ref<Blob | null>(null);
-const blobUrl = ref<string | null>(null);
 
-const getClip = async () => {
-  error.value = null;
-  const idRegex = /^https?:\/\/kick\.com\/[^\\/]+(?:\/clips\/(clip_\w+)|\?clip=(clip_\w+))(?:&.*|\?.*)?$/;
-  const match = idRegex.exec(url.value);
-  if (!match) {
-    error.value = { message: "Error: The URL you entered is invalid" };
-    return;
-  }
-
-  if (blobUrl.value) {
-    URL.revokeObjectURL(blobUrl.value);
-  }
-
-  const id = match[1] || match[2] as string;
+const getClipData = async () => {
   loading.value = true;
-  const data = await $fetch<GetClipResponse>(`${RESOURCES.apiV2}/clips/${id}`).catch(() => null);
-
-  if (!data?.clip) {
+  error.value = null;
+  if (clip.value?.blobURL) URL.revokeObjectURL(clip.value.blobURL);
+  clip.value = await getClip(url.value).catch((e) => {
+    error.value = e;
     loading.value = false;
-    error.value = { message: "Error: Clip not found - Make sure you entered the correct URL" };
-    return;
-  }
-
-  const tmpVideo = await $fetch<Blob>(`${RESOURCES.clipsTmp}/${id}.mp4`).catch(() => null) || await $fetch<Blob>(`${RESOURCES.cdn}/${id}.mp4?t=${Date.now()}`).catch(() => null);
-
-  if (!tmpVideo) {
-    if (data?.clip.clip_url.includes(".mp4")) {
-      blob.value = await $fetch<Blob>(data.clip.clip_url).catch(() => null);
-    }
-    else {
-      const fromApi = await $fetch<{ url: string }>("/api/clip", { method: "POST", body: { url: url.value } }).catch(() => null);
-      if (fromApi) blob.value = await $fetch<Blob>(fromApi?.url).catch(() => null);
-      else {
-        blob.value = data?.clip.clip_url.includes("/playlist.m3u8") ? await processClip(data.clip.clip_url, id) : null;
-        if (blob.value) {
-          const fd = new FormData();
-          fd.append("file", blob.value, `${id}.mp4`);
-          await $fetch("/api/cdn", { method: "PUT", body: fd }).catch(() => null);
-        }
-      }
-    }
-  }
-  else blob.value = tmpVideo;
-
-  if (!blob.value) {
-    loading.value = false;
-    error.value = { message: "Error: The clip processing time was extended - Please try again" };
-    return;
-  }
-
-  blobUrl.value = URL.createObjectURL(blob.value);
-  const picture = data?.clip.channel?.profile_picture ? data.clip.channel.profile_picture : "/images/user-default-pic.png";
-
-  loading.value = false;
-
-  clip.value = {
-    filename: data.clip.title + ".mp4",
-    channel: data.clip.channel.username,
-    slug: data.clip.channel.slug,
-    channelPicture: picture,
-    title: data.clip.title,
-    views: data.clip.view_count,
-    likes: data.clip.likes_count,
-    blob: blobUrl.value,
-    creator: data.clip.creator.username,
-    creatorSlug: data.clip.creator.slug,
-    date: data.clip.created_at,
-    duration: data.clip.duration
-  };
+    return null;
+  }).finally(() => loading.value = false);
 };
 
-if (props.channel && props.clipId) getClip();
+onMounted(async () => {
+  if (props.channel && props.clipId) {
+    await getClipData();
+  }
+});
 </script>
 
 <template>
   <div class="downloader-body justify-content-center mb-5 p-3 p-sm-4">
-    <form @submit.prevent="getClip()">
+    <form @submit.prevent="getClipData()">
       <h2 class="col-12 fw-normal title mb-3 mb-sm-4">Enter clip URL</h2>
       <div class="col-12 row input-body p-2 mb-3 mb-sm-4 mx-0 flex-nowrap">
         <input id="input" v-model="url" class="col-9 col-lg-10 col-sm-8" type="url" placeholder="https://kick.com/user/clips/clip_01A2BCD3EF4GHI5JKMNLOP67QR" required>
@@ -137,11 +79,11 @@ if (props.channel && props.clipId) getClip();
           </div>
           <div class="col-12 col-lg-8 video mb-4">
             <video class="img-fluid" width="1280" height="720" controls autoplay muted>
-              <source :src="clip.blob" type="video/mp4">
+              <source :src="clip.blobURL" type="video/mp4">
             </video>
           </div>
           <div class="save">
-            <a class="col-12 btn fw-bold mb-0" :href="clip.blob" target="_blank" :download="clip.filename">Save file</a>
+            <a class="col-12 btn fw-bold mb-0" :href="clip.blobURL" target="_blank" :download="clip.filename">Save file</a>
           </div>
         </div>
       </div>

@@ -53,7 +53,7 @@ declare global {
     title: string;
     views: number;
     likes: number;
-    blob: string;
+    blobURL?: string;
     creator: string;
     creatorSlug: string;
     date: string;

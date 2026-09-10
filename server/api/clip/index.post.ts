@@ -2,8 +2,7 @@ export default defineEventHandler(async (event): Promise<{ url: string } | null>
   const { url } = await readBody(event);
   const config = useRuntimeConfig(event);
   const kickToken = config.kickToken;
-  const idRegex = /^https?:\/\/kick\.com\/[^\\/]+(?:\/clips\/(clip_\w+)|\?clip=(clip_\w+))(?:&.*|\?.*)?$/;
-  const match = idRegex.exec(url);
+  const match = kickRegex.exec(url);
   if (!match) return null;
   const id = match[1] || match[2];
 
