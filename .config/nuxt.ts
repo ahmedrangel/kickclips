@@ -1,4 +1,4 @@
-import { SEO, SITE } from "../shared/utils/helpers";
+import { SEO, SITE } from "../shared/utils/site";
 
 const headers = {
   "Cross-Origin-Embedder-Policy": "credentialless",
