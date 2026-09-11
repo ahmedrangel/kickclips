@@ -1,8 +1,7 @@
 export const RESOURCES = {
   apiV2: "https://kick.com/api/v2",
   clipsTmp: "https://clips.kick.com/tmp",
-  worker: "https://dev.ahmedrangel.com",
-  cdn: "https://cdn.ahmedrangel.com/tmp/videos/kick"
+  worker: "https://dev.ahmedrangel.com"
 };
 
 export const SITE = {

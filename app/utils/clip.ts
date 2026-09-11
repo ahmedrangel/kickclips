@@ -12,7 +12,7 @@ export const getClip = async (url: string): Promise<KickClipTypes> => {
     throw { message: "Error: Clip not found - Make sure you entered the correct URL" };
   }
 
-  const tmpVideo = await $fetch<Blob>(`${RESOURCES.clipsTmp}/${id}.mp4`).catch(() => null) || await $fetch<Blob>(`${RESOURCES.cdn}/${id}.mp4`).catch(() => null);
+  const tmpVideo = await $fetch<Blob>(`${RESOURCES.clipsTmp}/${id}.mp4`).catch(() => null);
 
   if (!tmpVideo) {
     if (data?.clip.clip_url.includes(".mp4")) {
@@ -24,11 +24,6 @@ export const getClip = async (url: string): Promise<KickClipTypes> => {
       else {
         // Use @ffmpeg/mt-core as final fallback
         blob = data?.clip.clip_url.includes("/playlist.m3u8") ? await ffmpegProcess(data.clip.clip_url, id) : null;
-        if (blob) {
-          const fd = new FormData();
-          fd.append("file", blob, `${id}.mp4`);
-          await $fetch(`/api/cdn/${id}`, { method: "PUT", body: fd }).catch(() => null);
-        }
       }
     }
   }
